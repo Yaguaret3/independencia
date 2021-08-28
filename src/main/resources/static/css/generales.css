@@ -1,0 +1,22 @@
+.icono{
+    height: 50px;
+    margin-top: 10px;
+    padding-left: 2px;
+    visibility: visible;
+}
+.barraSuperior{
+    align-items: center;
+    justify-content: space-evenly;
+}
+.valorRecurso{
+    width: 70px;
+    height: 50px;
+    font-weight: bold;
+    font-size: 3em;
+    color: black;
+    text-align: center;
+}
+.divisor{
+    width: 2px;
+    background-color: black;
+}
