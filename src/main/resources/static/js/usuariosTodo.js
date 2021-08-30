@@ -41,8 +41,8 @@ async function eliminarUsuario(id){
             method: 'DELETE',
             headers: {
               'Accept': 'application/json',
-              'Content-Type': 'application/json'
-              //'Authorization': localStorage.token
+              'Content-Type': 'application/json',
+              'Authorization': localStorage.getItem("token")
             },
             //body: JSON.stringify({a: 1, b: 'Textual content'})
           });

@@ -295,6 +295,24 @@
                             </div>
                         </div>
 
+                        <!-- Unidades Militares Totales Enviadas -->
+                        <div class="col-xl-2 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Unidades Militares Totales Enviadas</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">8</div>
+                                        </div>
+                                        <div class="col-auto">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Oficiales Militares Graduados aún no enviados -->
                         <div class="col-xl-2 col-md-6 mb-4">
                             <div class="card border-left-warning shadow h-100 py-2">
@@ -333,7 +351,7 @@
                                                 Aumentar Estatus
                                             </div>
                                             <div>
-                                                <button>Tocame</button>
+                                                <button onclick="cargarRecursos()">Tocame</button>
                                             </div>
                                         </div>
                                     </div>
@@ -351,10 +369,8 @@
                                                 Invertir en Industria
                                             </div>
                                             <div>
-                                                <button>Tocame</button>
+                                                <button onclick="aumentarIndustria()">Tocame</button>
 
-                                                <!-- Desplegable que abre para usar acciones-->
-                                                
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -418,7 +434,7 @@
                                                 Contratar Oficial Militar
                                             </div>
                                             <div>
-                                                <button>Tocame</button>
+                                                <button onclick="contratarOficiales()">Tocame</button>
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -439,7 +455,7 @@
                                                 Enviar Unidades Militares al Capitán
                                             </div>
                                             <div>
-                                                <button>Tocame</button>
+                                                <button onclick="prueba()">Tocame</button>
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -668,6 +684,7 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="js/gobernadores.js"></script>
 
 </body>
 

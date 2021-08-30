@@ -9,31 +9,32 @@ import javax.persistence.*;
 @Table(name = "ciudadesrecursos")
 public class RecursosModel {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter @Setter @Column(name = "id")
     private int id;
+    @Id
     @Getter @Setter @Column(name = "ciudad")
     private String ciudad;
     @Getter @Setter @Column(name = "estatus")
-    private String estatus;
+    private int estatus;
     @Getter @Setter @Column(name = "caballos")
-    private String caballos;
+    private int caballos;
     @Getter @Setter @Column(name = "vacas")
-    private String vacas;
+    private int vacas;
     @Getter @Setter @Column(name = "hierro")
-    private String hierro;
+    private int hierro;
     @Getter @Setter @Column(name = "vino")
-    private String vino;
+    private int vino;
     @Getter @Setter @Column(name = "yerba")
-    private String yerba;
-    @Getter @Setter @Column(name = "nivelIndustria")
-    private String nivelIndustria;
-    @Getter @Setter @Column(name = "nivelMisionComercial")
-    private String nivelMisionComercial;
+    private int yerba;
+    @Getter @Setter @Column(name = "nivel_industria")
+    private int nivel_industria;
+    @Getter @Setter @Column(name = "nivel_mision_comercial")
+    private int nivel_mision_comercial;
     @Getter @Setter @Column(name = "unidades")
-    private String unidades;
+    private int unidades;
     @Getter @Setter @Column(name = "oficiales")
     private String oficiales;
+    @Getter @Setter @Column(name = "unidades_enviadas")
+    private int unidades_enviadas;
 
 }
