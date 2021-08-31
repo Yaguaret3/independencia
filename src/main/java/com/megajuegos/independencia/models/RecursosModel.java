@@ -36,5 +36,9 @@ public class RecursosModel {
     private String oficiales;
     @Getter @Setter @Column(name = "unidades_enviadas")
     private int unidades_enviadas;
+    @Getter @Setter
+    private String nivel_oficial_pedido;
+    @Getter @Setter
+    private String destino_comercial;
 
 }

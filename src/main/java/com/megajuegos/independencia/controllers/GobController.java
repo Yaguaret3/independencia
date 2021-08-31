@@ -1,17 +1,12 @@
 package com.megajuegos.independencia.controllers;
 
 import com.megajuegos.independencia.dao.RecursosDao;
-import com.megajuegos.independencia.dao.UsuariosDao;
-import com.megajuegos.independencia.models.Pagos;
 import com.megajuegos.independencia.models.RecursosModel;
 import com.megajuegos.independencia.utils.JWTUtil;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 public class GobController {
@@ -29,90 +24,125 @@ public class GobController {
 
     }
 
-    @RequestMapping(value = "recursos/{ciudad}", method = RequestMethod.POST)
-    public RecursosModel traerRecursos(/*@RequestHeader(value = "Authorization") String token, */@PathVariable String ciudad){
+    @RequestMapping(value = "recursos", method = RequestMethod.POST)
+    public RecursosModel traerRecursos(@RequestBody RecursosModel traido){
 
-        /*if(!validarToken(token)){
-            return new ArrayList<>();
-        }*/
+        String ciudad = recursoDao.corroborarCiudad(traido);
 
         return recursoDao.listarRecursos(ciudad);
     }
 
-    @RequestMapping(value = "aumentarIndustria/{ciudad}", method = RequestMethod.POST)
-    public RecursosModel aumentarIndustria(@PathVariable String ciudad){
+    @RequestMapping(value = "aumentarIndustria", method = RequestMethod.POST)
+    public RecursosModel aumentarIndustria(@RequestBody RecursosModel traido){
 
         // Primero: corroborar permiso (token)
-        /* if(!validarToken(token)){
-            return new ArrayList<>();
-        }*/
+        String ciudad = recursoDao.corroborarCiudad(traido);
 
-        /* Segundo: aumentar el nivel de industria en la base (previas corroboraciones)
-        Esto anda, nomás hay que devolverle al usuario qué onda si hubo un inconveniente por recursos o ley o nivel ya subido*/
-        recursoDao.aumentarIndustria(ciudad);
+        // Segundo: corroborar condiciones
+        boolean condicionesValidas = true;
 
-        // Tercero: devolver nivel de industria y recursos para que el explorador actualice.
-        return recursoDao.listarRecursos(ciudad);
+        if(condicionesValidas){
 
+            // Tercero: pagar y cobrar.
+            boolean pagado = recursoDao.pagar(traido, ciudad);
+
+            if(pagado){
+
+            /* Cuarto: aumentar el nivel de industria en la base
+             * Esto anda, nomás hay que devolverle al usuario qué onda si hubo un inconveniente por recursos o ley o nivel ya subido*/
+                recursoDao.aumentarIndustria(ciudad);
+
+                // Quinto: devolver nivel de industria y recursos para que el explorador actualice.
+                return recursoDao.listarRecursos(ciudad);
+            }
+
+            // Sexto: Si los recursos no alcanzaron, no devolver nada.
+            return new RecursosModel();
+        }
+        // Séptimo: Si las condiciones no son válidas, no devolver nada.
+        return new RecursosModel();
     }
 
-    @RequestMapping(value = "aumentarMisionComercial/{ciudad}", method = RequestMethod.POST)
-    public RecursosModel aumentarMisionComercial(@PathVariable String ciudad){
+    @RequestMapping(value = "aumentarMisionComercial", method = RequestMethod.POST)
+    public RecursosModel aumentarMisionComercial(@RequestBody RecursosModel traido){
 
-        // Primero: corroborar permiso (token)
-        /* if(!validarToken(token)){
-            return new ArrayList<>();
-        }*/
+        // Primero: corroborar permiso y vincular con ciudad (token)
+        String ciudad = recursoDao.corroborarCiudad(traido);
 
-        // Segundo: aumentar el nivel de misión comercial en la base
-        recursoDao.aumentarMisionComercial(ciudad);
+        // Segundo: corroborar condiciones
+        boolean condicionesValidas = recursoDao.industriaMenosAEstatus(ciudad);
 
-        // Tercero: devolver nivel de industria y recursos para que el explorador actualice.
-        return recursoDao.listarRecursos(ciudad);
+        if(condicionesValidas){
 
+            // Tercero: pagar y cobrar. El Front-End tiene que mandar 1 de cada recurso elegido, si no le va a restar lo que manden. Hay que escribir la reacción si no alcanza.
+            boolean pagado = recursoDao.pagar(traido, ciudad);
+
+            if(pagado){
+
+                // Cuarto: aumentar el nivel de misión comercial en la base. Fijarse antes ley al respecto.
+                recursoDao.aumentarMisionComercial(ciudad);
+
+                // Quinto: devolver nivel de industria y recursos para que el explorador actualice.
+                return recursoDao.listarRecursos(ciudad);
+            }
+            // Sexto: Si los recursos no alcanzaron, no devolver nada.
+            return new RecursosModel();
+        }
+        // Séptimo: Si las condiciones no son válidas, no devolver nada.
+        return new RecursosModel();
     }
 
-    @RequestMapping(value = "reclutarUnidades/{ciudad}", method = RequestMethod.POST)
-    public RecursosModel reclutarUnidades (@PathVariable String ciudad){
+    @RequestMapping(value = "reclutarUnidades", method = RequestMethod.POST)
+    public RecursosModel reclutarUnidades (@RequestBody RecursosModel traido){
 
-        // Primero: corroborar permiso (token)
-        /* if(!validarToken(token)){
-            return new ArrayList<>();
-        }*/
+        // Primero: corroborar permiso y vincular con ciudad (token)
+        String ciudad = recursoDao.corroborarCiudad(traido);
 
-        // Segundo: aumentar el nivel de misión comercial en la base
-        recursoDao.reclutarUnidades(ciudad);
+        // Segundo: pagar y cobrar. El Front-End tiene que mandar 1 de cada recurso elegido, si no le va a restar lo que manden. Hay que escribir la reacción si no alcanza.
+        boolean pagado = recursoDao.pagar(traido, ciudad);
 
-        // Tercero: devolver nivel de industria y recursos para que el explorador actualice.
-        return recursoDao.listarRecursos(ciudad);
+        if(pagado){
 
+            // Tercero: sumar unidades a la base
+            recursoDao.reclutarUnidades(ciudad);
+
+            // Cuarto: devolver unidades y recursos para que el explorador actualice.
+            return recursoDao.listarRecursos(ciudad);
+        }
+
+        // Quinto: Si los recursos no alcanzaron, no devolver nada.
+        return new RecursosModel();
     }
 
-    @RequestMapping(value = "contratarOficiales/{ciudad}", method = RequestMethod.POST)
-    public RecursosModel contratarOficiales (@PathVariable String ciudad){
+    @RequestMapping(value = "contratarOficiales", method = RequestMethod.POST)
+    public RecursosModel contratarOficiales (@RequestBody RecursosModel traido){
 
-        // Primero: corroborar permiso (token)
-        /* if(!validarToken(token)){
-            return new ArrayList<>();
-        }*/
+        // Primero: corroborar permiso y vincular con ciudad (token)
+        String ciudad = recursoDao.corroborarCiudad(traido);
 
-        // Segundo: aumentar el nivel de misión comercial en la base
-        recursoDao.contratarOficiales(ciudad);
+        // Segundo: pagar y cobrar. El Front-End tiene que mandar 1 de cada recurso elegido, si no le va a restar lo que manden. Hay que escribir la reacción si no alcanza.
+        boolean pagado = recursoDao.pagar(traido, ciudad);
 
-        // Tercero: devolver oficiales y recursos para que el explorador actualice.
-        return recursoDao.listarRecursos(ciudad);
+        if(pagado){
 
+            // Tercero: sumar oficiales a la base
+            recursoDao.contratarOficiales(ciudad);
+
+            // Cuarto: devolver oficiales y recursos para que el explorador actualice.
+            return recursoDao.listarRecursos(ciudad);
+        }
+
+        // Quinto: Si los recursos no alcanzaron, no devolver nada.
+        return new RecursosModel();
     }
 
-    @RequestMapping(value = "enviarUnidades/{ciudad}", method = RequestMethod.POST)
-    public RecursosModel enviarUnidades (@PathVariable String ciudad){
+    @RequestMapping(value = "enviarUnidades", method = RequestMethod.POST)
+    public RecursosModel enviarUnidades (@RequestBody RecursosModel traido){
 
-        // Primero: corroborar permiso (token)
-        /* if(!validarToken(token)){
-            return new ArrayList<>();
-        }*/
+        // Primero: corroborar permiso y vincular con ciudad (token)
+        String ciudad = recursoDao.corroborarCiudad(traido);
 
-        // Segundo: enviar unidades al capitán y limpiarlas
+        // Segundo: enviar unidades al capitán y limpiarlas. Hecho. Falta la parte de la tabla del capitán.
         recursoDao.enviarUnidades(ciudad);
 
         // Tercero: devolver unidades para que el explorador actualice.
@@ -120,14 +150,26 @@ public class GobController {
 
     }
 
-    @RequestMapping(value = "prueba", method = RequestMethod.POST)
-    public Pagos prueba (@RequestBody Pagos traido){
+    @RequestMapping(value = "enviarOficiales", method = RequestMethod.POST)
+    public String enviarOficiales (@RequestBody RecursosModel traido){
 
-        Pagos pagos = new Pagos();
-        pagos = traido;
+        // Primero: corroborar permiso y vincular con ciudad (token)
+        String ciudad = recursoDao.corroborarCiudad(traido);
 
-        return pagos;
+        // Segundo: enviar unidades al capitán y limpiarlas. Hecho. Falta la parte de la tabla del capitán.
+        recursoDao.enviarOficiales(ciudad);
+
+        // Tercero: devolver unidades para que el explorador actualice.
+        return "Corroborá con el Capitán que se haya enviado";
 
     }
 
+    @RequestMapping(value = "pruebaDameHashDeCiudad", method = RequestMethod.POST)
+    public String devolucion (){
+
+        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+        String hash = argon2.hash(1, 1024, 1, "Asunción");
+        return hash;
+
+    }
 }

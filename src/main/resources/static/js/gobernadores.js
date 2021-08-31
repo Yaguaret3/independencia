@@ -33,7 +33,25 @@ async function aumentarIndustria(){
         },
         body: JSON.stringify(datos)
       });
-    const recursos = await request.json();
+    const industria = await request.json();
+}
+
+async function aumentarMisionComercial(){
+
+    let datos = {};
+    datos.ciudad = localStorage.getItem("ciudad");
+    datos.caballos = 1;
+    datos.yerba = 1;
+
+    const request = await fetch('aumentarMisionComercial', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(datos)
+      });
+    const misionComercial = await request.json();
 }
 
 async function contratarOficiales(){
@@ -52,17 +70,28 @@ async function contratarOficiales(){
     const oficiales = await request.json();
 }
 
-async function prueba(){
+async function pruebaDameHashDeCiudad(){
+
+    const request = await fetch('pruebaDameHashDeCiudad', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+    });
+    //Los otros reciben jsons. Acá para guardar en token recibimos texts
+    const respuesta = await request.text();
+
+    localStorage.setItem("ciudad", respuesta);
+
+}
+
+async function pruebaUsandoHashDeCiudad(){
 
     let datos = {};
-    datos.ciudad = "Buenos Aires";
-    datos.caballos = 1;
-    datos.vacas = 2;
-    datos.hierro = 3;
-    datos.vino = 4;
-    datos.yerba = 5;
+    datos.ciudad = localStorage.getItem("ciudad");
 
-    const request = await fetch('prueba', {
+    const request = await fetch('pruebaUsandoHashDeCiudad', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -70,5 +99,6 @@ async function prueba(){
         },
     body: JSON.stringify(datos)
     });
-    const oficiales = await request.json();
+    const respuesta = await request.text();
+    alert(respuesta);
 }

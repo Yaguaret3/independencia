@@ -16,4 +16,12 @@ public interface RecursosDao {
     void contratarOficiales(String ciudad);
 
     void enviarUnidades(String ciudad);
+
+    boolean pagar(RecursosModel traido, String ciudad);
+
+    String corroborarCiudad(RecursosModel traido);
+
+    void enviarOficiales(String ciudad);
+
+    boolean industriaMenosAEstatus(String ciudad);
 }
