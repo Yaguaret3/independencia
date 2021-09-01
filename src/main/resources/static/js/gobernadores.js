@@ -9,7 +9,7 @@ async function cargarRecursos(){
     let datos = {};
     datos.ciudad = "Montevideo";
 
-    const request = await fetch('recursos/' + datos.ciudad, {
+    const request = await fetch('api/recursos', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -25,7 +25,7 @@ async function aumentarIndustria(){
     let datos = {};
     datos.ciudad = "Mendoza";
 
-    const request = await fetch('aumentarIndustria/' + datos.ciudad, {
+    const request = await fetch('api/aumentarIndustria', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -43,7 +43,7 @@ async function aumentarMisionComercial(){
     datos.caballos = 1;
     datos.yerba = 1;
 
-    const request = await fetch('aumentarMisionComercial', {
+    const request = await fetch('api/aumentarMisionComercial', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -59,7 +59,7 @@ async function contratarOficiales(){
     let datos = {};
     datos.ciudad = "Salta";
 
-    const request = await fetch('contratarOficiales/'+datos.ciudad, {
+    const request = await fetch('api/contratarOficiales/'+datos.ciudad, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -70,19 +70,26 @@ async function contratarOficiales(){
     const oficiales = await request.json();
 }
 
-async function pruebaDameHashDeCiudad(){
+$("#tokenBsa").click(function elegirCiudad);
 
-    const request = await fetch('pruebaDameHashDeCiudad', {
+async function elegirCiudad(){
+
+    let datos = {};
+    alert(this.value);
+    /*datos.ciudad = this.value;
+
+    const request = await fetch('elegirCiudad', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify(datos)
     });
     //Los otros reciben jsons. Acá para guardar en token recibimos texts
     const respuesta = await request.text();
 
-    localStorage.setItem("ciudad", respuesta);
+    localStorage.setItem("ciudad", respuesta);*/
 
 }
 

@@ -34,11 +34,19 @@ public class RecursosModel {
     private int unidades;
     @Getter @Setter @Column(name = "oficiales")
     private String oficiales;
+    @Getter @Setter @Column(name = "actor_politico_1")
+    private String actor_politico_1;
+    @Getter @Setter @Column(name = "actor_politico_2")
+    private String actor_politico_2;
     @Getter @Setter @Column(name = "unidades_enviadas")
     private int unidades_enviadas;
     @Getter @Setter
     private String nivel_oficial_pedido;
     @Getter @Setter
     private String destino_comercial;
+    @Getter @Setter @Column(name = "historial_comercio")
+    private String historial_comercial;
+    @Getter @Setter
+    private int actor_politico_pedido;
 
 }

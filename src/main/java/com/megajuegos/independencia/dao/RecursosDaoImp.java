@@ -1,5 +1,6 @@
 package com.megajuegos.independencia.dao;
 
+import com.megajuegos.independencia.models.ActoresPoliticosModel;
 import com.megajuegos.independencia.models.RecursosModel;
 import com.megajuegos.independencia.models.UsuarioModel;
 import com.sun.jna.StringArray;
@@ -125,70 +126,49 @@ public class RecursosDaoImp implements RecursosDao{
     }
 
     @Override
-    public boolean pagar(RecursosModel traido, String ciudad) {
+    public boolean pagar(RecursosModel traido, String ciudad, int recursosAPagar) {
 
         RecursosModel ciudadTotal = entityManager.find(RecursosModel.class, ciudad);
 
-        boolean banderaRecurso1 = false;
-        boolean banderaRecurso2 = false;
+        int recursosPagados = 0;
 
         if(ciudadTotal.getCaballos() >= traido.getCaballos() && traido.getCaballos() > 0){
             ciudadTotal.setCaballos(ciudadTotal.getCaballos() - traido.getCaballos());
-            if(banderaRecurso1){
-                banderaRecurso2 = true;
-            } else{
-                banderaRecurso1 = true;
-            }
+            recursosPagados++;
         }
-        if(banderaRecurso2){
+        if(recursosPagados == recursosAPagar){
             entityManager.merge(ciudadTotal);
             return true;
         }
         if(ciudadTotal.getVacas() >= traido.getVacas() && traido.getVacas() > 0){
             ciudadTotal.setVacas(ciudadTotal.getVacas() - traido.getVacas());
-            if(banderaRecurso1){
-                banderaRecurso2 = true;
-            } else{
-                banderaRecurso1 = true;
-            }
+            recursosPagados++;
         }
-        if(banderaRecurso2){
+        if(recursosPagados == recursosAPagar){
             entityManager.merge(ciudadTotal);
             return true;
         }
         if(ciudadTotal.getHierro() >= traido.getHierro() && traido.getHierro() > 0){
             ciudadTotal.setHierro(ciudadTotal.getHierro() - traido.getHierro());
-            if(banderaRecurso1){
-                banderaRecurso2 = true;
-            } else{
-                banderaRecurso1 = true;
-            }
+            recursosPagados++;
         }
-        if(banderaRecurso2){
+        if(recursosPagados == recursosAPagar){
             entityManager.merge(ciudadTotal);
             return true;
         }
         if(ciudadTotal.getVino() >= traido.getVino() && traido.getVino() > 0){
             ciudadTotal.setVino(ciudadTotal.getVino() - traido.getVino());
-            if(banderaRecurso1){
-                banderaRecurso2 = true;
-            } else{
-                banderaRecurso1 = true;
-            }
+            recursosPagados++;
         }
-        if(banderaRecurso2){
+        if(recursosPagados == recursosAPagar){
             entityManager.merge(ciudadTotal);
             return true;
         }
         if(ciudadTotal.getYerba() >= traido.getYerba() && traido.getYerba() > 0){
             ciudadTotal.setYerba(ciudadTotal.getYerba() - traido.getYerba());
-            if(banderaRecurso1){
-                banderaRecurso2 = true;
-            } else{
-                banderaRecurso1 = true;
-            }
+            recursosPagados++;
         }
-        if(banderaRecurso2){
+        if(recursosPagados == recursosAPagar){
             entityManager.merge(ciudadTotal);
             return true;
         }
@@ -221,6 +201,7 @@ public class RecursosDaoImp implements RecursosDao{
 
     @Override
     public boolean industriaMenosAEstatus(String ciudad) {
+
         // Primero: Identificar ciudad
         RecursosModel recursos = entityManager.find(RecursosModel.class, ciudad);
         int industria = recursos.getNivel_industria();
@@ -230,5 +211,123 @@ public class RecursosDaoImp implements RecursosDao{
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void comerciar(RecursosModel traido, String ciudad) {
+
+        boolean caballos = false;
+        boolean vacas = false;
+        boolean hierro = false;
+        boolean vino = false;
+        boolean yerba = false;
+
+        // Primero: Identificar ciudad y destino
+        RecursosModel emisora = entityManager.find(RecursosModel.class, ciudad);
+        RecursosModel destino = entityManager.find(RecursosModel.class, traido.getDestino_comercial());
+
+        // Segundo: Corroborar que alcancen los recursos
+        if(emisora.getCaballos() >= traido.getCaballos() && traido.getCaballos() > 0){
+            caballos = true;
+        }
+        if(emisora.getVacas() >= traido.getVacas() && traido.getVacas() > 0){
+            vacas = true;
+        }
+        if(emisora.getHierro() >= traido.getHierro() && traido.getHierro() > 0){
+            hierro = true;
+        }
+        if(emisora.getVino() >= traido.getVino() && traido.getVino() > 0){
+            vino = true;
+        }
+        if(emisora.getYerba() >= traido.getYerba() && traido.getYerba() > 0){
+            yerba = true;
+        }
+
+        // Tercero: Sumar a uno, restar al otro y sumarlo al historial de cada.
+        if (caballos) {
+            destino.setCaballos(destino.getCaballos() + traido.getCaballos());
+            emisora.setCaballos(emisora.getCaballos() - traido.getCaballos());
+            destino.setHistorial_comercial(destino.getHistorial_comercial() + "<p>Has recibido "+ traido.getCaballos() +" caballos de "+ ciudad +".</p></br>");
+            emisora.setHistorial_comercial(emisora.getHistorial_comercial() + "<p>Has enviado "+ traido.getCaballos() +" caballos a "+ destino.getCiudad() +".</p></br>");
+        }
+        if (vacas) {
+            destino.setVacas(destino.getVacas() + traido.getVacas());
+            emisora.setVacas(emisora.getVacas() - traido.getVacas());
+            destino.setHistorial_comercial(destino.getHistorial_comercial() + "<p>Has recibido "+ traido.getVacas() +" vaca(s) de "+ ciudad +".</p></br>");
+            emisora.setHistorial_comercial(emisora.getHistorial_comercial() + "<p>Has enviado "+ traido.getVacas() +" vaca(s) a "+ destino.getCiudad() +".</p></br>");
+        }
+        if (hierro) {
+            destino.setHierro(destino.getHierro() + traido.getHierro());
+            emisora.setHierro(emisora.getHierro() - traido.getHierro());
+            destino.setHistorial_comercial(destino.getHistorial_comercial() + "<p>Has recibido "+ traido.getHierro() +" unidades de hierro de "+ ciudad +".</p></br>");
+            emisora.setHistorial_comercial(emisora.getHistorial_comercial() + "<p>Has enviado "+ traido.getHierro() +" unidades de hierro a "+ destino.getCiudad() +".</p></br>");
+        }
+        if (vino) {
+            destino.setVino(destino.getVino() + traido.getVino());
+            emisora.setVino(emisora.getVino() - traido.getVino());
+            destino.setHistorial_comercial(destino.getHistorial_comercial() + "<p>Has recibido "+ traido.getVino() +" unidades de vino de "+ ciudad +".</p></br>");
+            emisora.setHistorial_comercial(emisora.getHistorial_comercial() + "<p>Has enviado "+ traido.getVino() +" unidades de vino a "+ destino.getCiudad() +".</p></br>");
+        }
+        if (yerba) {
+            destino.setYerba(destino.getYerba() + traido.getYerba());
+            emisora.setYerba(emisora.getYerba() - traido.getYerba());
+            destino.setHistorial_comercial(destino.getHistorial_comercial() + "<p>Has recibido "+ traido.getYerba() +" unidades de yerba de "+ ciudad +".</p></br>");
+            emisora.setHistorial_comercial(emisora.getHistorial_comercial() + "<p>Has enviado "+ traido.getYerba() +" unidades de yerba a "+ destino.getCiudad() +".</p></br>");
+        }
+
+        // Cuarto: actualizar base.
+        entityManager.merge(emisora);
+        entityManager.merge(destino);
+
+    }
+
+    @Override
+    public int valorOficial(RecursosModel traido) {
+
+        int recursosAPagar = 10;
+        if (traido.getNivel_oficial_pedido() == "B") {
+            recursosAPagar = 2;
+        } else if (traido.getNivel_oficial_pedido() == "C") {
+            recursosAPagar = 3;
+        }
+        return recursosAPagar;
+    }
+
+    @Override
+    public int valorAumentarEstatus(RecursosModel traido) {
+        return traido.getActor_politico_pedido();
+    }
+
+    @Override
+    public void aumentarEstatus(String ciudad) {
+
+        RecursosModel nuevoEstatus = entityManager.find(RecursosModel.class, ciudad);
+        nuevoEstatus.setEstatus(nuevoEstatus.getEstatus() +1);
+    }
+
+    @Override
+    public void crecerActorPolitico(String ciudad, int recursosAPagar) {
+
+        // Primero: determinar actor político usado
+        RecursosModel recursosModel = entityManager.find(RecursosModel.class, ciudad);
+
+        String actorBuscado = "";
+
+        if (recursosAPagar == 1){
+            actorBuscado = recursosModel.getActor_politico_1();
+        } else if (recursosAPagar == 2){
+            actorBuscado = recursosModel.getActor_politico_2();
+        } else if (recursosAPagar == 3){
+            actorBuscado = "Gobierno Nacional";
+        }
+
+        // Segundo: buscar actor político usado.
+        ActoresPoliticosModel actorPolitico = entityManager.find(ActoresPoliticosModel.class, actorBuscado);
+
+        // Tercero: aumentar valor de actor político
+        actorPolitico.setValor(actorPolitico.getValor() + 1);
+
+        // Cuarto: actualizar tabla de actores políticos
+        entityManager.merge(actorPolitico);
     }
 }

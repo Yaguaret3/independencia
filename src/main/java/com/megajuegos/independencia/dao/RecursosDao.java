@@ -17,11 +17,21 @@ public interface RecursosDao {
 
     void enviarUnidades(String ciudad);
 
-    boolean pagar(RecursosModel traido, String ciudad);
+    boolean pagar(RecursosModel traido, String ciudad, int recursosAPagar);
 
     String corroborarCiudad(RecursosModel traido);
 
     void enviarOficiales(String ciudad);
 
     boolean industriaMenosAEstatus(String ciudad);
+
+    void comerciar(RecursosModel traido, String ciudad);
+
+    int valorOficial(RecursosModel traido);
+
+    int valorAumentarEstatus(RecursosModel traido);
+
+    void aumentarEstatus(String ciudad);
+
+    void crecerActorPolitico(String ciudad, int recursosAPagar);
 }
