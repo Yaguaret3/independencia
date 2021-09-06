@@ -40,13 +40,13 @@ public class RecursosModel {
     private String actor_politico_2;
     @Getter @Setter @Column(name = "unidades_enviadas")
     private int unidades_enviadas;
-    @Getter @Setter
+    @Getter @Setter @Column(name = "nivel_oficial_pedido")
     private String nivel_oficial_pedido;
-    @Getter @Setter
+    @Getter @Setter @Column(name = "destino_comercial")
     private String destino_comercial;
     @Getter @Setter @Column(name = "historial_comercio")
     private String historial_comercial;
-    @Getter @Setter
+    @Getter @Setter @Column(name = "actor_politico_pedido")
     private int actor_politico_pedido;
 
 }

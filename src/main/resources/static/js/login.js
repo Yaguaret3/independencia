@@ -23,7 +23,6 @@ async function iniciarSesion(){
 
       if(respuesta != "FAIL"){
         localStorage.setItem("token", respuesta);
-        localStorage.setItem("email", datos.email);
         window.location.href = 'tbUsuarios.html'
       }
 

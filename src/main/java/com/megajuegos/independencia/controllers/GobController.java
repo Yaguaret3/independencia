@@ -17,26 +17,20 @@ public class GobController {
     @Autowired
     private RecursosDao recursoDao;
 
-    private boolean validarToken(String token){
-
-        String usuarioID = jwtUtil.getKey(token);
-        return usuarioID != null;
-
-    }
 
     @RequestMapping(value = "api/recursos", method = RequestMethod.POST)
-    public RecursosModel listarRecursos(@RequestBody RecursosModel traido){
+    public RecursosModel listarRecursos(@RequestHeader(value = "Authorization") String token){
 
-        String ciudad = recursoDao.corroborarCiudad(traido);
+        String ciudad = recursoDao.corroborarCiudad(token);
 
         return recursoDao.listarRecursos(ciudad);
     }
 
     @RequestMapping(value = "api/aumentarIndustria", method = RequestMethod.POST)
-    public RecursosModel aumentarIndustria(@RequestBody RecursosModel traido){
+    public RecursosModel aumentarIndustria(@RequestHeader(value = "Authorization") String token, @RequestBody RecursosModel traido){
 
         // Primero: corroborar permiso (token)
-        String ciudad = recursoDao.corroborarCiudad(traido);
+        String ciudad = recursoDao.corroborarCiudad(token);
 
         // Segundo: corroborar condiciones
         boolean condicionesValidas = true;
@@ -65,13 +59,13 @@ public class GobController {
     }
 
     @RequestMapping(value = "api/aumentarMisionComercial", method = RequestMethod.POST)
-    public RecursosModel aumentarMisionComercial(@RequestBody RecursosModel traido){
+    public RecursosModel aumentarMisionComercial(@RequestHeader(value = "Authorization") String token, @RequestBody RecursosModel traido){
 
         // Primero: corroborar permiso y vincular con ciudad (token)
-        String ciudad = recursoDao.corroborarCiudad(traido);
+        String ciudad = recursoDao.corroborarCiudad(token);
 
         // Segundo: corroborar condiciones
-        boolean condicionesValidas = recursoDao.industriaMenosAEstatus(ciudad);
+        boolean condicionesValidas = recursoDao.misionMenosAEstatus(ciudad);
 
         if(condicionesValidas){
 
@@ -95,10 +89,10 @@ public class GobController {
     }
 
     @RequestMapping(value = "api/reclutarUnidades", method = RequestMethod.POST)
-    public RecursosModel reclutarUnidades (@RequestBody RecursosModel traido){
+    public RecursosModel reclutarUnidades (@RequestHeader(value = "Authorization") String token, @RequestBody RecursosModel traido){
 
         // Primero: corroborar permiso y vincular con ciudad (token)
-        String ciudad = recursoDao.corroborarCiudad(traido);
+        String ciudad = recursoDao.corroborarCiudad(token);
 
         // Segundo: pagar y cobrar. El Front-End tiene que mandar 1 de cada recurso elegido, si no le va a restar lo que manden. Hay que escribir la reacción si no alcanza.
         int recursosAPagar = 1;
@@ -118,10 +112,10 @@ public class GobController {
     }
 
     @RequestMapping(value = "api/contratarOficiales", method = RequestMethod.POST)
-    public RecursosModel contratarOficiales (@RequestBody RecursosModel traido){
+    public RecursosModel contratarOficiales (@RequestHeader(value = "Authorization") String token, @RequestBody RecursosModel traido){
 
         // Primero: corroborar permiso y vincular con ciudad (token)
-        String ciudad = recursoDao.corroborarCiudad(traido);
+        String ciudad = recursoDao.corroborarCiudad(token);
 
         // Segundo: determinar si paga un nivel B o un nivel C.
         int recursosAPagar = recursoDao.valorOficial(traido);
@@ -143,10 +137,10 @@ public class GobController {
     }
 
     @RequestMapping(value = "api/enviarUnidades", method = RequestMethod.POST)
-    public RecursosModel enviarUnidades (@RequestBody RecursosModel traido){
+    public RecursosModel enviarUnidades (@RequestHeader(value = "Authorization") String token, @RequestBody RecursosModel traido){
 
         // Primero: corroborar permiso y vincular con ciudad (token)
-        String ciudad = recursoDao.corroborarCiudad(traido);
+        String ciudad = recursoDao.corroborarCiudad(token);
 
         // Segundo: enviar unidades al capitán y limpiarlas. Hecho. Falta la parte de la tabla del capitán.
         recursoDao.enviarUnidades(ciudad);
@@ -157,10 +151,10 @@ public class GobController {
     }
 
     @RequestMapping(value = "api/enviarOficiales", method = RequestMethod.POST)
-    public String enviarOficiales (@RequestBody RecursosModel traido){
+    public String enviarOficiales (@RequestHeader(value = "Authorization") String token, @RequestBody RecursosModel traido){
 
         // Primero: corroborar permiso y vincular con ciudad (token)
-        String ciudad = recursoDao.corroborarCiudad(traido);
+        String ciudad = recursoDao.corroborarCiudad(token);
 
         // Segundo: enviar unidades al capitán y limpiarlas. Hecho. Falta la parte de la tabla del capitán.
         recursoDao.enviarOficiales(ciudad);
@@ -170,20 +164,11 @@ public class GobController {
 
     }
 
-    @RequestMapping(value = "api/elegirCiudad", method = RequestMethod.POST)
-    public String devolucion (@RequestBody String ciudad){
-
-        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
-        String hash = argon2.hash(1, 1024, 1, ciudad);
-        return hash;
-
-    }
-
     @RequestMapping(value = "api/comerciar", method = RequestMethod.POST)
-    public RecursosModel comerciar (@RequestBody RecursosModel traido){
+    public RecursosModel comerciar (@RequestHeader(value = "Authorization") String token, @RequestBody RecursosModel traido){
 
         // Primero: corroborar permiso y vincular con ciudad (token)
-        String ciudad = recursoDao.corroborarCiudad(traido);
+        String ciudad = recursoDao.corroborarCiudad(token);
 
         // Segundo: comerciar (restarle a uno y sumarle al otro)
         recursoDao.comerciar(traido, ciudad);
@@ -194,10 +179,10 @@ public class GobController {
     }
 
     @RequestMapping(value = "api/aumentarEstatus", method = RequestMethod.POST)
-    public RecursosModel aumentarEstatus (@RequestBody RecursosModel traido){
+    public RecursosModel aumentarEstatus (@RequestHeader(value = "Authorization") String token, @RequestBody RecursosModel traido){
 
         // Primero: corroborar permiso y vincular con ciudad (token)
-        String ciudad = recursoDao.corroborarCiudad(traido);
+        String ciudad = recursoDao.corroborarCiudad(token);
 
         /* Segundo: determinar el actor político pedido. El Front End tiene que mandarme un int.
          * 1: para actor político 1, 2 para actor político 2, y 3 para actor político 3 (gobierno nacional)*/

@@ -3,9 +3,11 @@ package com.megajuegos.independencia.dao;
 import com.megajuegos.independencia.models.ActoresPoliticosModel;
 import com.megajuegos.independencia.models.RecursosModel;
 import com.megajuegos.independencia.models.UsuarioModel;
+import com.megajuegos.independencia.utils.JWTUtil;
 import com.sun.jna.StringArray;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +23,9 @@ import java.util.Random;
 @Repository
 @Transactional
 public class RecursosDaoImp implements RecursosDao{
+
+    @Autowired
+    JWTUtil jwtUtil;
 
     @PersistenceContext
     //Sirve para hacer la conexión con la base de datos.
@@ -178,15 +183,15 @@ public class RecursosDaoImp implements RecursosDao{
     }
 
     @Override
-    public String corroborarCiudad(RecursosModel traido) {
+    public String corroborarCiudad(String token) {
 
-        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+        String ciudadTraida = jwtUtil.getValue(token);
 
-        String[] ciudad = {"Buenos Aires", "Montevideo", "Asunción", "Santa Fe", "Córdoba", "Mendoza", "Tucumán", "Salta", "Potosí", "La Paz"};
+        String[] ciudadReal = {"Buenos Aires", "Montevideo", "Asunción", "Santa Fe", "Córdoba", "Mendoza", "Tucumán", "Salta", "Potosí", "La Paz"};
 
-        for(int i=0; i < ciudad.length; i++){
-           if (argon2.verify(traido.getCiudad(), ciudad[i])) {
-                    return ciudad[i];
+        for(int i=0; i < ciudadReal.length; i++){
+           if (ciudadTraida.equals(ciudadReal[i])) {
+                    return ciudadReal[i];
            }
         }
         return "Error al corroborar ciudad";
@@ -200,14 +205,14 @@ public class RecursosDaoImp implements RecursosDao{
     }
 
     @Override
-    public boolean industriaMenosAEstatus(String ciudad) {
+    public boolean misionMenosAEstatus(String ciudad) {
 
         // Primero: Identificar ciudad
         RecursosModel recursos = entityManager.find(RecursosModel.class, ciudad);
-        int industria = recursos.getNivel_industria();
+        int misionComercial = recursos.getNivel_mision_comercial();
         int estatus = recursos.getEstatus();
 
-        if(estatus > industria){
+        if(estatus > misionComercial){
             return true;
         }
         return false;

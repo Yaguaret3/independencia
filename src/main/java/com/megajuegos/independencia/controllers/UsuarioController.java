@@ -22,7 +22,9 @@ public class UsuarioController {
 
     private boolean validarToken(String token){
 
-        String usuarioID = jwtUtil.getKey(token);
+        //getKey: es para tomar el primer dato enviado (en este caso el rol)
+        //getValue: es para tomar el segundo dato enviado (en este caso la ciudad)
+        String usuarioID = jwtUtil.getValue(token);
         return usuarioID != null;
 
     }

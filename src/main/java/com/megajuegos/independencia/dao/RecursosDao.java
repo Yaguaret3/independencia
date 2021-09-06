@@ -19,11 +19,11 @@ public interface RecursosDao {
 
     boolean pagar(RecursosModel traido, String ciudad, int recursosAPagar);
 
-    String corroborarCiudad(RecursosModel traido);
+    String corroborarCiudad(String token);
 
     void enviarOficiales(String ciudad);
 
-    boolean industriaMenosAEstatus(String ciudad);
+    boolean misionMenosAEstatus(String ciudad);
 
     void comerciar(RecursosModel traido, String ciudad);
 

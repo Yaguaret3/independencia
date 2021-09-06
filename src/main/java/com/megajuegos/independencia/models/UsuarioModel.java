@@ -25,5 +25,9 @@ public class UsuarioModel {
     private String nick;
     @Getter @Setter @Column(name = "password")
     private String password;
+    @Getter @Setter @Column(name = "rol")
+    private String rol;
+    @Getter @Setter @Column(name = "ciudad")
+    private String ciudad;
 
 }

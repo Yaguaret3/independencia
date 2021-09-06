@@ -24,11 +24,38 @@ public class AuthController {
         UsuarioModel usuarioALoguear = usuarioDao.obtenerUsuarioPorCredenciales(usuario);
 
         if(usuarioALoguear != null){
-            String token = jwtUtil.create(String.valueOf(usuarioALoguear.getId()), usuarioALoguear.getEmail());
+            String token = jwtUtil.create(String.valueOf(usuarioALoguear.getRol()), usuarioALoguear.getCiudad());
             return token;
         }
 
         return "FAIL";
+
+        /*String targetUrl = "";
+        if(role.contains("client")) {
+            targetUrl = "/client/index";
+        } else if(role.contains("agency")) {
+            targetUrl = "/agency/index";
+        }
+        return targetUrl;
+
+        @RequestMapping(value = "/redirect", method = RequestMethod.GET)
+            public ModelAndView method() {
+            return new ModelAndView("redirect:" + projectUrl);
+        }
+
+        @RequestMapping(value = "/redirect", method = RequestMethod.GET)
+        public void method(HttpServletResponse httpServletResponse) {
+            httpServletResponse.setHeader("Location", projectUrl);
+            httpServletResponse.setStatus(302);
+        }
+
+        @RequestMapping("/to-be-redirected")
+        public RedirectView localRedirect() {
+            RedirectView redirectView = new RedirectView();
+            redirectView.setUrl("http://www.yahoo.com");
+            return redirectView;
+}
+        */
     }
 
 }
