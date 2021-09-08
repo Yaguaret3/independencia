@@ -1,6 +1,7 @@
 package com.megajuegos.independencia.dao;
 
 import com.megajuegos.independencia.models.ActoresPoliticosModel;
+import com.megajuegos.independencia.models.EjercitosModel;
 import com.megajuegos.independencia.models.RecursosModel;
 import com.megajuegos.independencia.models.UsuarioModel;
 import com.megajuegos.independencia.utils.JWTUtil;
@@ -55,19 +56,26 @@ public class RecursosDaoImp implements RecursosDao{
 
         // Tercero: corroborar que el nivel de estatus sea el adecuado.
 
-        // Tercero: sumar nivel de industria
+        // : sumar nivel de industria
         industria.setNivel_industria(2);
         entityManager.merge(industria);
     }
 
     @Override
     public void aumentarMisionComercial(String ciudad) {
+
+        // Primero: aumentar mision comercial en tabla gobernadores
+
         RecursosModel misionComercial = entityManager.find(RecursosModel.class, ciudad);
-
-        int misionPrevia = misionComercial.getNivel_mision_comercial();
-
-        misionComercial.setNivel_mision_comercial(misionPrevia+1);
+        misionComercial.setNivel_mision_comercial(misionComercial.getNivel_mision_comercial()+1);;
         entityManager.merge(misionComercial);
+
+        // Segundo: aumentar mision comercial en tabla capitanes
+
+        EjercitosModel tablaEjercitos = entityManager.find(EjercitosModel.class, ciudad);
+        tablaEjercitos.setNivel_mision_comercial(misionComercial.getNivel_mision_comercial());
+        entityManager.merge(tablaEjercitos);
+
     }
 
     @Override
@@ -101,7 +109,7 @@ public class RecursosDaoImp implements RecursosDao{
             oficialNuevo = oficialesC[randomC];
         }
 
-        /* Tercero: sumar oficiales*/
+        // Tercero: sumar oficiales a la lista para que vea el gobernador
         String oficialesPrevios = oficiales.getOficiales();
         if(oficialesPrevios == ""){
             oficiales.setOficiales(oficialNuevo);
@@ -109,6 +117,45 @@ public class RecursosDaoImp implements RecursosDao{
             oficiales.setOficiales(oficialesPrevios + ", " + oficialNuevo);
         }
         entityManager.merge(oficiales);
+
+        // Cuarto: sumar oficial (en potencia hasta el comienzo del próximo turno) al capitán
+        EjercitosModel oficialAlCapitan = entityManager.find(EjercitosModel.class, ciudad);
+
+        switch (oficialNuevo) {
+            case "B1":
+                oficialAlCapitan.setNuevo_oficial_1("B");
+                break;
+            case "B2":
+                oficialAlCapitan.setNuevo_oficial_2("B");
+                break;
+            case "B3":
+                oficialAlCapitan.setNuevo_oficial_3("B");
+                break;
+            case "B4":
+                oficialAlCapitan.setNuevo_oficial_4("B");
+                break;
+            case "B5":
+                oficialAlCapitan.setNuevo_oficial_5("B");
+                break;
+            case "C1":
+                oficialAlCapitan.setNuevo_oficial_1("C");
+                break;
+            case "C2":
+                oficialAlCapitan.setNuevo_oficial_2("C");
+                break;
+            case "C3":
+                oficialAlCapitan.setNuevo_oficial_3("C");
+                break;
+            case "C4":
+                oficialAlCapitan.setNuevo_oficial_4("C");
+                break;
+            case "C5":
+                oficialAlCapitan.setNuevo_oficial_5("C");
+                break;
+        }
+        entityManager.merge(oficialAlCapitan);
+
+
     }
 
     @Override
@@ -122,11 +169,15 @@ public class RecursosDaoImp implements RecursosDao{
         // Segundo: Eliminar unidades reclutadas y sumar unidades enviadas
 
         unidades.setUnidades(0);
-        int unidadesEnviadasTotal = unidades.getUnidades_enviadas();
-        unidadesEnviadasTotal = unidadesEnviadasTotal + unidadesEnviadas;
+        unidades.setUnidades_enviadas(unidades.getUnidades_enviadas() + unidadesEnviadas);
         entityManager.merge(unidades);
 
         // Tercero: Sumar unidades enviadas a la tabla del Capitán
+
+        EjercitosModel unidadesNuevas = entityManager.find(EjercitosModel.class, ciudad);
+        unidadesNuevas.setUnidades_recien_llegadas(unidadesNuevas.getUnidades_recien_llegadas() + unidadesEnviadas);
+        entityManager.merge(unidadesNuevas);
+
 
     }
 
@@ -197,11 +248,6 @@ public class RecursosDaoImp implements RecursosDao{
         return "Error al corroborar ciudad";
 
 
-    }
-
-    @Override
-    public void enviarOficiales(String ciudad) {
-        //Laburar con la tabla de Capitanes
     }
 
     @Override

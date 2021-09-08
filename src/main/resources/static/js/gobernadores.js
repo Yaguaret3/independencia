@@ -69,7 +69,7 @@ async function contratarOficiales(){
         datos.vino= 1;
         datos.yerba= 1;
 
-    const request = await fetch('api/contratarOficiales/'+datos.ciudad, {
+    const request = await fetch('api/contratarOficiales/', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -79,4 +79,16 @@ async function contratarOficiales(){
     body: JSON.stringify(datos)
     });
     const oficiales = await request.json();
+}
+
+async function enviarUnidadesAlCapitan(){
+
+    const request = await fetch('api/enviarUnidades/', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem("token")
+        },
+    });
 }

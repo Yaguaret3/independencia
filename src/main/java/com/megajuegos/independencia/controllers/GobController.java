@@ -125,7 +125,9 @@ public class GobController {
 
         if(pagado){
 
-            // Cuarto: sumar oficiales a la base
+            /* Cuarto: sumar oficiales a la base. Habría que mandar esos oficiales a la tabla de capitán, pero no presentes
+             * sino potenciales, para que al cambiar del turno se actualicen.
+             */
             recursoDao.contratarOficiales(ciudad);
 
             // Quinto: devolver oficiales y recursos para que el explorador actualice.
@@ -137,7 +139,7 @@ public class GobController {
     }
 
     @RequestMapping(value = "api/enviarUnidades", method = RequestMethod.POST)
-    public RecursosModel enviarUnidades (@RequestHeader(value = "Authorization") String token, @RequestBody RecursosModel traido){
+    public RecursosModel enviarUnidades (@RequestHeader(value = "Authorization") String token){
 
         // Primero: corroborar permiso y vincular con ciudad (token)
         String ciudad = recursoDao.corroborarCiudad(token);
@@ -147,20 +149,6 @@ public class GobController {
 
         // Tercero: devolver unidades para que el explorador actualice.
         return recursoDao.listarRecursos(ciudad);
-
-    }
-
-    @RequestMapping(value = "api/enviarOficiales", method = RequestMethod.POST)
-    public String enviarOficiales (@RequestHeader(value = "Authorization") String token, @RequestBody RecursosModel traido){
-
-        // Primero: corroborar permiso y vincular con ciudad (token)
-        String ciudad = recursoDao.corroborarCiudad(token);
-
-        // Segundo: enviar unidades al capitán y limpiarlas. Hecho. Falta la parte de la tabla del capitán.
-        recursoDao.enviarOficiales(ciudad);
-
-        // Tercero: devolver unidades para que el explorador actualice.
-        return "Corroborá con el Capitán que se haya enviado";
 
     }
 

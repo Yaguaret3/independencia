@@ -7,6 +7,7 @@ import java.util.List;
 public interface RecursosDao {
 
     RecursosModel listarRecursos(String ciudad);
+
     void aumentarIndustria(String ciudad);
 
     void aumentarMisionComercial(String ciudad);
@@ -20,8 +21,6 @@ public interface RecursosDao {
     boolean pagar(RecursosModel traido, String ciudad, int recursosAPagar);
 
     String corroborarCiudad(String token);
-
-    void enviarOficiales(String ciudad);
 
     boolean misionMenosAEstatus(String ciudad);
 
