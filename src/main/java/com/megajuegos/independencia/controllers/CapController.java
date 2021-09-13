@@ -5,6 +5,9 @@ import com.megajuegos.independencia.models.EjercitosModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @RestController
 public class CapController {
@@ -36,11 +39,27 @@ public class CapController {
     public void asignarUnidades(@RequestHeader(value = "Authorization") String token, @RequestBody EjercitosModel traido){
 
         // Primero: Corroborar momento de juego
+        if(ejercitosDao.fase1()){
 
-        // Segundo: Determinar ciudad
-        String ciudad = ejercitosDao.corroborarCiudad(token);
+            // Segundo: Determinar ciudad
+            String ciudad = ejercitosDao.corroborarCiudad(token);
 
-        // Tercero: Asignar unidades
-        ejercitosDao.asignarUnidades(ciudad, traido);
+            // Tercero: Asignar unidades
+            ejercitosDao.asignarUnidades(ciudad, traido);
+        }
     }
+
+    @RequestMapping(value = "/api/capitanes/listarMovimientos", method = RequestMethod.POST)
+    public List<EjercitosModel> listarMovimientos(@RequestHeader(value = "Authorization") String token){
+
+        // Primero: Tiene que estar autorizado
+        if(ejercitosDao.actualizarCapitanes()){
+            // Segundo: Devolver Lista.
+            return ejercitosDao.listarMovimientos();
+        }
+            return null;
+
+    }
+
+
 }

@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table(name = "ejercitos")
@@ -32,38 +33,38 @@ public class EjercitosModel {
     @Getter @Setter @Column(name = "dar_unidades_a")
     private String dar_unidades_a;
 
-    @Getter @Setter @Column(name = "oficial_1")
-    private String oficial_1;
+    @Getter @Setter @Column(name = "oficial_a")
+    private String oficial_a;
 
-    @Getter @Setter @Column(name = "oficial_2")
-    private String oficial_2;
+    @Getter @Setter @Column(name = "oficial_b")
+    private String oficial_b;
 
-    @Getter @Setter @Column(name = "oficial_3")
-    private String oficial_3;
+    @Getter @Setter @Column(name = "oficial_c")
+    private String oficial_c;
 
-    @Getter @Setter @Column(name = "oficial_4")
-    private String oficial_4;
+    @Getter @Setter @Column(name = "oficial_d")
+    private String oficial_d;
 
-    @Getter @Setter @Column(name = "oficial_5")
-    private String oficial_5;
+    @Getter @Setter @Column(name = "oficial_e")
+    private String oficial_e;
 
     @Getter @Setter @Column(name = "ubicacion_militar")
-    private int ubicacion_militar;
+    private String ubicacion_militar;
 
     @Getter @Setter @Column(name = "movimiento")
     private String movimiento;
 
     @Getter @Setter @Column(name = "destino_1")
-    private int destino_1;
+    private String destino_1;
 
     @Getter @Setter @Column(name = "destino_2")
-    private int destino_2;
+    private String destino_2;
 
     @Getter @Setter @Column(name = "destino_3")
-    private int destino_3;
+    private String destino_3;
 
     @Getter @Setter @Column(name = "ubicacion_comercial")
-    private int ubicacion_comercial;
+    private String ubicacion_comercial;
 
     @Getter @Setter @Column(name = "nivel_mision_comercial")
     private int nivel_mision_comercial;
@@ -74,20 +75,23 @@ public class EjercitosModel {
     @Getter @Setter @Column(name = "asediada")
     private String asediada;
 
-    @Getter @Setter @Column(name = "nuevo_oficial_1")
-    private String nuevo_oficial_1;
+    @Getter @Setter @Column(name = "nuevo_oficial_a")
+    private String nuevo_oficial_a;
 
-    @Getter @Setter @Column(name = "nuevo_oficial_2")
-    private String nuevo_oficial_2;
+    @Getter @Setter @Column(name = "nuevo_oficial_b")
+    private String nuevo_oficial_b;
 
-    @Getter @Setter @Column(name = "nuevo_oficial_3")
-    private String nuevo_oficial_3;
+    @Getter @Setter @Column(name = "nuevo_oficial_c")
+    private String nuevo_oficial_c;
 
-    @Getter @Setter @Column(name = "nuevo_oficial_4")
-    private String nuevo_oficial_4;
+    @Getter @Setter @Column(name = "nuevo_oficial_d")
+    private String nuevo_oficial_d;
 
-    @Getter @Setter @Column(name = "nuevo_oficial_5")
-    private String nuevo_oficial_5;
+    @Getter @Setter @Column(name = "nuevo_oficial_e")
+    private String nuevo_oficial_e;
+
+    @Getter @Setter @Column(name = "ruta_a_usar")
+    private String ruta_a_usar;
 
 
 }

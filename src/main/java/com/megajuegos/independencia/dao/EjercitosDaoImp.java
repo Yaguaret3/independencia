@@ -1,7 +1,7 @@
 package com.megajuegos.independencia.dao;
 
 import com.megajuegos.independencia.models.EjercitosModel;
-import com.megajuegos.independencia.models.RecursosModel;
+import com.megajuegos.independencia.models.OtrosModel;
 import com.megajuegos.independencia.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -83,6 +84,42 @@ public class EjercitosDaoImp implements EjercitosDao{
             entityManager.merge(destino);
             entityManager.merge(recursos);
         }
+    }
+
+    @Override
+    public boolean fase1() {
+
+        // Primero: Tomamos la fase en la que estamos
+
+        OtrosModel fase = entityManager.find(OtrosModel.class, "fase_militar");
+
+        // Segundo: Si la fase es la 1, devolvemos true, si no false.
+        if(fase.getValor_int() == 1){
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public List<EjercitosModel> listarMovimientos() {
+
+        // Devolvemos una lista de resultados de consulta. EN TEORÍA limitamos al destino y movimiento.
+        String query = "SELECT ej.ciudad, ej.destino_1, ej.movimiento FROM EjercitosModel ej";
+        return entityManager.createQuery(query).getResultList();
+    }
+
+    @Override
+    public boolean actualizarCapitanes() {
+
+        // Primero: Tomamos de la base el dato
+        OtrosModel actualizar = entityManager.find(OtrosModel.class, "actualizar_capitanes");
+
+        // Segundo: Si pueden actualizar, devolvemos true, si no false.
+        if(actualizar.getValor_int() == 1){
+            return true;
+        }
+        return false;
     }
 
 

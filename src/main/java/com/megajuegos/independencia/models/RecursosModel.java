@@ -48,5 +48,19 @@ public class RecursosModel {
     private String historial_comercial;
     @Getter @Setter @Column(name = "actor_politico_pedido")
     private int actor_politico_pedido;
+    @Getter @Setter @Column(name = "improductividad")
+    private int improductividad;
+    @Getter @Setter @Column(name = "recurso_que_produce")
+    private String recurso_que_produce;
+    @Getter @Setter @Column(name = "caballos_m")
+    private int caballos_m;
+    @Getter @Setter @Column(name = "vacas_m")
+    private int vacas_m;
+    @Getter @Setter @Column(name = "hierro_m")
+    private int hierro_m;
+    @Getter @Setter @Column(name = "vino_m")
+    private int vino_m;
+    @Getter @Setter @Column(name = "yerba_m")
+    private int yerba_m;
 
 }

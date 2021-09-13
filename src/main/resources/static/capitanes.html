@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Yaguareté">
+
+    <title>SB Admin 2 - Dashboard</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/generales.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Interface
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Components</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Components:</h6>
+                        <a class="collapse-item" href="buttons.html">Buttons</a>
+                        <a class="collapse-item" href="cards.html">Cards</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Utilities</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Utilities:</h6>
+                        <a class="collapse-item" href="utilities-color.html">Colors</a>
+                        <a class="collapse-item" href="utilities-border.html">Borders</a>
+                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
+                        <a class="collapse-item" href="utilities-other.html">Other</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Addons
+            </div>
+
+            <!-- Nav Item - CiudadesCollapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Ciudades</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <option class="collapse-header">Ciudades:</option>
+                        <option class="collapse-item" value="Buenos Aires"></option>
+                        <option class="collapse-item" value="Montevideo"></option>
+                        <option class="collapse-item" value="Asunción"></option>
+                        <option class="collapse-item" value="Santa Fe"></option>
+                        <option class="collapse-item" value="Córdoba"></option>
+                        <option class="collapse-item" value="Mendoza"></option>
+                        <option class="collapse-item" value="Tucumán"></option>
+                        <option class="collapse-item" value="Salta"></option>
+                        <option class="collapse-item" value="Potosí"></option>
+                        <option class="collapse-item" value="La Paz"></option>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="charts.html">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Charts</span></a>
+            </li>
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="tables.html">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Tables</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+            <!-- Sidebar Message -->
+            <div class="sidebar-card d-none d-lg-flex">
+                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
+                <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components,
+                    and more!</p>
+                <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to
+                    Pro!</a>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar Recursos-->
+                <div class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow barraSuperior">
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav navbar-light">
+
+                        <li>
+                            <!--Caballos-->
+                            <img class="icono"
+                                src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE2LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgd2lkdGg9IjkxLjExM3B4IiBoZWlnaHQ9IjkxLjExM3B4IiB2aWV3Qm94PSIwIDAgOTEuMTEzIDkxLjExMyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgOTEuMTEzIDkxLjExMzsiDQoJIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPGc+DQoJCTxwYXRoIGQ9Ik04Ni44MzUsNTguMWMtMC4zODktMS4xMTYtMC45NTUtMi4xNzMtMS4zMjItMy4yOTVjLTAuNTItMS41ODQtMS4yMTMtMy4xMDktMS4yNjQtNC44NDgNCgkJCWMtMC4wNDYtMS42MDQtMC4zMzItMy4yMDQtMC41Ny00Ljc5OGMtMC4zNTItMi4zNTUsMC4yMy00LjUyNSwxLjExMS02LjY4YzAuNjY2LTEuNjI5LDEuMDI0LTMuMzExLDAuODg5LTUuMTMzDQoJCQljLTAuMDg1LTEuMTU3LTAuMy0yLjIxNS0wLjc3OC0zLjIxOWMtMC4xNjItMC4zMzctMC40NDctMC44NzItMC42MTktMS4yMDRjLTAuNjI0LTEuMjEtMi4yNTQtNC4wODQtNS4xNDctNy4zMTQNCgkJCWMtMS42OTMtMS41ODktMy4yODQtMy4yNjktNC40NzktNS4yOWMtMC41MzQtMC45MDMtMS4yNDEtMS43MDUtMS43NDUtMi42MjJjLTEuMjU0LTIuMjgzLTEuNjI3LTQuNzQ4LTEuMzMzLTcuMzI4DQoJCQljMC4wNTktMC41MTQsMC4wMzgtMS4wMzYsMC4wNjQtMS41NTRjMC4wNzYtMS40NzcsMC42NDktMi44MDUsMS4yMDktNC4yMDZjMC4xNC0wLjM0Ny0wLjA1Ny0wLjY0LTAuNDI5LTAuNjA3DQoJCQljLTEuMTI5LDAuMTAzLTIuMTI3LDAuNTExLTMuMTA2LDEuMDIzYy0xLjcwMywwLjg5LTIuOTM1LDIuMzE1LTMuODMxLDMuOTAyYy0wLjc0MywxLjMxNC0xLjA2LDIuODg5LTEuNDUsNC4zNzgNCgkJCWMtMC41MSwxLjkzNy0wLjI1OCwzLjg4MiwwLjE4NCw1LjgwNWMwLjAxNiwwLjA2NSwwLjA3OSwwLjEzNSwwLjA2NSwwLjE4OWMtMC4wMzMsMC4xMzEtMC4wNywwLjI2MS0wLjEwOSwwLjM5DQoJCQljLTAuMDYzLDAuMjE0LTAuMjU0LDAuMjk2LTAuNDIyLDAuMTgyYy0wLjEwOS0wLjA3My0wLjIwNy0wLjE1My0wLjI2LTAuMjU1Yy0wLjYzNi0xLjIwOC0wLjkxOS0yLjUyMy0xLjEwMi0zLjg2Ng0KCQkJYy0wLjA2Ny0wLjUwNS0wLjE0NS0xLjAxLTAuMjIxLTEuNTE0Yy0wLjA1Ni0wLjM3LTAuMTU0LTAuNjgyLTAuMjItMC42OThjLTAuMDY1LTAuMDE2LTAuMTg0LDAuMTE5LTAuMjYxLDAuMzAyDQoJCQljLTAuMDQ5LDAuMTEyLTAuMDkxLDAuMjI1LTAuMTExLDAuMzQyYy0wLjE0NiwwLjgxNy0wLjIxNywxLjY1LTAuNDEyLDIuNDU0Yy0wLjAzOSwwLjE1OC0wLjE0NiwwLjI5OS0wLjI3MSwwLjQzNw0KCQkJYy0wLjE5MSwwLjIxMi0wLjUzOCwwLjIzNS0wLjc3MSwwLjA1MmMtMC4xNTEtMC4xMTktMC4yODUtMC4yNDYtMC4zNDYtMC40MDFjLTAuNjMzLTEuNjAzLTAuMzE3LTMuMTQ5LDAuNjkzLTQuNDU0DQoJCQljMS4yNzUtMS42NDYsMi42NjktMy4xOTksNC4wNzQtNC44MzNjMC4wMDEtMC4wMDEsMC4wMDItMC4wMDMsMC4wMDQtMC4wMDRjMS4yOTItMS41MTctNy4yOTUtMi44MDQtOC4zODktMi45NzYNCgkJCWMtMi45MDYtMC40NTktNS44NDktMC41MDctOC43NjgtMC4xMzljLTUuMzQ5LDAuNjc0LTExLjYsMi4wOTktMTYuMjE4LDQuOTg0Yy0xLjE5OCwwLjc0OS0yLjI2OSwxLjY1OS0zLjE5MiwyLjczMQ0KCQkJYy0wLjU2NSwwLjY1NS0xLjIwOCwxLjI3OC0xLjY4OSwxLjk5OWMtMC4xODEsMC4yNzItMC43NzEsMi40MjQtMC4xNDksMS43NTdjMS4xODktMS4yNzcsMi44MjgtMS42NDgsNC4zODYtMi4xMDENCgkJCWMyLjM1LTAuNjgzLDQuNzAyLTAuMzI2LDcuMDgyLDAuMDk2YzIuNTM3LDAuNDQ5LDUuMTA3LDAuOTA4LDcuNzE1LDAuNTE5YzAuMDA0LTAuMDAxLDAuMDA5LTAuMDAxLDAuMDEzLTAuMDAyDQoJCQljMS44Mi0wLjI3NCwxLjAwNCwwLjkwOSwwLjA5NiwxLjQ1NmMtMS4wNDQsMC42MjgtMi40ODQsMC43NjktMy42NjYsMC45MjRjLTIuMjIsMC4yOTEtNC42NTgtMC4wMDgtNi44MzIsMC41MTMNCgkJCWMtNC4xNTksMC45OTYtOC4zNjYsNS41NzctMTAuOTkxLDguNzM5Yy0wLjk5MSwxLjE5NC0xLjYyNCwyLjU5Mi0yLjMsMy45NzNjLTAuMTU3LDAuMzItMS43OTEsMy42MzgtMi4xNTcsMi45MDENCgkJCWMtMC4wNjMtMC4xMjctMC4xMS0wLjI1LTAuMDg1LTAuMzU3YzAuMjUxLTEuMDg5LDAuNDA4LTIuMjQsMC44ODctMy4yMjljMS4xMzMtMi4zMzgsMi4zMy00LjY1Nyw0LjEyOS02LjU5Mg0KCQkJYzAuNTEyLTAuNTUsMC45ODktMS4xMzMsMS40NjktMS43MTJjMC4yMzktMC4yODgsMC4zOTktMC41NjMsMC4zNTQtMC42MTdzLTAuMzU1LDAuMDMyLTAuNjk0LDAuMTkxDQoJCQljLTYuNDYxLDMuMDIxLTEwLjU5OSw4LjIyNC0xNS4wNjQsMTMuNTY5Yy0yLjg0NywzLjQwOC01LjM4OSw3LjEwNC02Ljg0NSwxMS4zMzRjLTIuODYsOC4zMDgtMi4wMjYsMTguODE1LDEuNjEzLDI2Ljc3Mg0KCQkJYzAsMCwxMy43NDYtMi41NDgsMjUuNjYyLDEwLjg1N0M0Mi44MzMsOTIuNDMsNjAuODQxLDkxLjA3NSw2MC44NDEsOTEuMDc1QzQ2LjA4Myw3Ny41MzUsNTMuMzcsNTAuMzgsNTMuMzcsNTAuMzgNCgkJCWMyLjIzNSwwLjc2Nyw0LjQ5MSwxLjU0LDYuNzQ3LDIuMzEzYzAuMzU0LDAuMTIxLDAuNTMyLDAuNTAzLDAuNDMxLDAuODYzYy0wLjU3MiwyLjA0MS0wLjIxMSwzLjk2NSwxLjEyNSw1Ljc0NA0KCQkJYzEuMzEyLDEuNzQ2LDIuMzIzLDMuNjM5LDIuNjc1LDUuODExYzAuMTQ5LDAuOTIxLDAuMDczLDEuODQyLTAuMzA5LDIuNzZjLTAuNTY3LDEuMzY4LTEuMDE1LDIuNzktMS40NTQsNC4yMDcNCgkJCWMtMC4zOTQsMS4yNywwLjA4NSwyLjQwMywxLjI5NCwzLjM1NWMwLjQ5NCwwLjM4OSwxLDAuNzcyLDEuNDMxLDEuMjI3YzEuMDQxLDEuMDk2LDIuMjgzLDEuODk2LDMuNjExLDIuNTc3DQoJCQljMC4yNTQsMC4xMzEsMC41NDUsMC4yMjgsMC44MjgsMC4yNThjMC44NTQsMC4wOTUsMS4wNDQtMC4xMjksMS4xNTUtMC45ODNjMC4yMjUtMS43MTYtMC4yMDctMy4zNTUtMC40OTgtNS4wMTUNCgkJCWMtMC4wNjItMC4zNTItMC4wODQtMC43MTgtMC4wNzItMS4wNzVjMC4wMzUtMS4wNDksMC4zMDItMS4yODUsMS4zNTQtMS4yNTVjMS4zNTcsMC4wMzcsMi4wNjgsMC41ODEsMi4yNjUsMS45MzUNCgkJCWMwLjE1NCwxLjA2MiwwLjE4NCwyLjE1LDAuMTkxLDMuMjI2YzAuMDEyLDEuNDQzLTAuMTU2LDIuODk0LTAuMDU4LDQuMzI3YzAuMTUsMi4xODgsMS44MzEsMy44NDcsNC4wNDcsMy45ODkNCgkJCWMwLjIwOSwwLjAxMywwLjUzNi0wLjEwNSwwLjYyNy0wLjI2NWMwLjI4NS0wLjQ5OCwwLjUyMS0xLjAzMywwLjctMS41NzljMC4xMjUtMC4zNzksMC4xMzItMC43OTgsMC4xODgtMS4yDQoJCQljMC4zNTEtMi41ODIsMS45NjUtNC4zMTIsMy45MjgtNS43OTVjMS4xNDMtMC44NjQsMi4zMzktMS42NTksMy40NjEtMi41NDljMS40MzgtMS4xNDEsMi4xNzktMi42MzQsMi4xNDgtNC41MDkNCgkJCWMtMC4wMzEtMi4wNTUtMC4yODEtNC4wNjktMC44OTMtNi4wMzRDODcuODE2LDYxLjE3LDg3LjM2Niw1OS42Miw4Ni44MzUsNTguMXoiLz4NCgk8L2c+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8L3N2Zz4NCg==" />
+                        </li>
+                        <li>
+                            <p class="valorRecurso">
+                                55
+                            </p>
+                        </li>
+                        <li class="divisor"></li>
+                        <li>
+                            <!--Vacas-->
+                            <img class="icono"
+                                src="data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgaGVpZ2h0PSI1MTIiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGRhdGEtbmFtZT0iTGF5ZXIgMSI+PHBhdGggZD0ibTEzNy44MjQgMjM3LjUxMmMtLjM3MS0uODctLjcxOC0xLjcxNS0xLjA0LTIuNTE5LS4zNzMuMTY1LS41ODkuMjctLjYuMjc4YTQuNSA0LjUgMCAwIDEgLTQuMDQ0LTguMDQgNDUuMTY5IDQ1LjE2OSAwIDAgMSA3LjM2OC0yLjc1NGMtLjE2MS0uNTM4LS4zLTEuMDc4LS40MTYtMS42MTYtLjc2Ny4wMjItMS41MzkuMDQ5LTIuMjgxLjA0OS0zMC43MzQgMC0zOS44OTItMTguODM3LTQwLjI5MS0xOS42OTNhNC41IDQuNSAwIDAgMSA4LjE0MS0zLjgzN2MuMzYyLjczMyA4LjA1NSAxNS41NzggMzUuMDIyIDE0LjQ2M2EzNy44MTcgMzcuODE3IDAgMCAxIDIuNzQ2LTYuMzIgNTkuMDI2IDU5LjAyNiAwIDAgMSAtMS43MzktNy44MjhjLTcuNDQ4LS43NDMtMTcuMjEgMi0yMC43MzkgMy4yODlhNC41IDQuNSAwIDAgMSAtMy4wOTQtOC40NTFjLjU4Ni0uMjE1IDEyLjM1NC00LjQ2NyAyMy4xNTItMy45MDdhNDQuMTM5IDQ0LjEzOSAwIDAgMSA0LjEzLTE4LjkyN2MtMTkuNzM2LTYuMTA3LTkxLjMtMjUuODQyLTEzMC4xNTctNC40OTNhMTEwLjAxOCAxMTAuMDE4IDAgMCAwIDIxLjA2NiAzMC44MTljMjQuMDYxIDI0LjkwNSA1OS40NjQgMzguNDc1IDEwMi43NzYgMzkuNDg3eiIvPjxwYXRoIGQ9Im0yNTcuNDIyIDQ4Mi42M2ExMzAuMjgxIDEzMC4yODEgMCAwIDEgLTI4Ljk0MiAzLjM5NGMtMi45MDkgMC01LjkxMi0uMTIyLTguOTQ4LS4zODlhODEuNjE5IDgxLjYxOSAwIDAgMCAzNy4xMTcgOC44NjVjLjM1NCAwIC43MDggMCAxLjA2Ni0uMDA3IDE2LjY5NC0uMjA3IDI5LjEtNC4xMjkgMzguMzQ5LTguODA1cS0zLjM1OS4yNTQtNi45MzMuMjkyYTEzOS44MjIgMTM5LjgyMiAwIDAgMSAtMzAuOTY5LTMuMzU2IDEuNiAxLjYgMCAwIDAgLS43NC4wMDZ6Ii8+PHBhdGggZD0ibTE0Ni40NjYgMjMyLjEzNGMtLjM1MS4wNTYtLjcuMTE4LTEuMDM3LjE4MiAzLjE4NyA3LjcyMiA2Ljk0OCAxNC40MjggOC44IDE1LjQxIDMuOTQxIDEuOTI2IDEyLjE1NyAzLjM0MyAxOC4yMTQgNC4xNDItMi4wNDMtOC44NDMtNS44LTE0LjgyOS0xMS4yMzMtMTcuODE4LTQuNi0yLjUzMS05Ljg5LTIuNjQ5LTE0LjQxOS0xLjk2Ny0uMTA3LjAxNy0uMjE1LjAzOC0uMzI1LjA1MXoiLz48cGF0aCBkPSJtNDA0LjE5MSAxNDQuMTI4YTE5NC4xMjQgMTk0LjEyNCAwIDAgMCAtNDUuMzM5IDE1LjcwOGMuMjM0LjE4NS40NjUuMzc0LjcwNS41NTJhMzYuMTc4IDM2LjE3OCAwIDAgMSAzLjY4NyAzLjE0NWM1LjQ5NC0yLjY1NyAxNy44OTUtNy44OCAzNi4yODMtMTEuMjMxIDIxLjU2LTMuOTI4IDU1LjY0NC01Ljg0OSA5OC4xIDYuMTQzLTI2LjA4LTE2Ljk5LTU3LjQ3Mi0yMS44MTItOTMuNDM2LTE0LjMxN3oiLz48cGF0aCBkPSJtMTQ5LjE4NiAxNjMuODM3YTM5LjYwOSAzOS42MDkgMCAwIDEgMi43OTItMy4wNTJjMS4wMTEtLjk4OSAxLjk4Mi0yLjAzNCAyLjkyLTMuMTE0YTE5OC4xMTggMTk4LjExOCAwIDAgMCAtNDYuNDQ0LTE0Ljg1M2MtMzMuMS02LjExMy02Mi4yOTEtMi4yOTEtODYuOTg4IDExLjM0NyA0NS4yMTktMTUuMzUzIDExMi4zOSA0LjY4NyAxMjcuNzIgOS42NzJ6Ii8+PHBhdGggZD0ibTIzMi45NjQgNDQzLjk4NmMtLjQxLTQuMDU0LTMuMi04LjY2Ny04LjEtMTMuNDU2YTE2LjIxMiAxNi4yMTIgMCAwIDAgMS4xNDcgNi42NzUgMTMuMDg3IDEzLjA4NyAwIDAgMCA2Ljk1MyA2Ljc4MXoiLz48cGF0aCBkPSJtMzU0LjYyMyAxMTEuMDk0IDQuOTY5IDEyLjgwNWMyOS44MTgtMTUuNjE4IDQ3LjEwNy0zNC4yMTYgNTEuNC01NS4zMzUgMy40NDEtMTYuOTQ1LTIuMzU2LTMyLjI2NC03LjY2Mi00MS45NDRhMTU0LjUgMTU0LjUgMCAwIDEgLTUuMzA1IDI2LjY5NWMtOC4wMTEgMjcuMTA3LTIyLjk3MSA0Ni45ODUtNDMuNDAyIDU3Ljc3OXoiLz48cGF0aCBkPSJtMTUyLjMyMyAxMjQuMTIgNS4wNTQtMTMuMDI2Yy0yMC40MzEtMTAuNzkzLTM1LjM5MS0zMC42NzItNDMuNC01Ny43NzlhMTU0LjIzMyAxNTQuMjMzIDAgMCAxIC01LjE5NC0yNS43MDdjLTUuNDI0IDEwLjkwNy0xMS4yNDUgMjguMDktNi42NyA0Ni4xMTEgNS4xMzEgMjAuMTk3IDIyLjAxNyAzNy4xMzUgNTAuMjEgNTAuNDAxeiIvPjxwYXRoIGQ9Im0yNTIuOCA0NjQuMDA4YTQ2LjcyOSA0Ni43MjkgMCAwIDEgOC42NTkgMGMxNi40ODMgMS41MjMgMzcuMDQ1LTQuNCA0NS4yOTMtMjUuNjIyIDQuNS0xMS41NyAzLjE2OS0yMy42NzctMi45ODktMzEuMzE3LTIuNjI3LTIuMjI1LTE0LjgwNy0xMS41LTI5Ljg2OC02LjQzYTUwLjg2OSA1MC44NjkgMCAwIDEgLTMyLjI2Mi0uMDE4Yy0xNS4xNDMtNS4xLTI3LjM4NSA0LjYxMy0yOS42MSA2LjUzOS02LjQxMiA3Ljg4LTcuODQ1IDIwLjMxMy0zLjI0NyAzMi4xNDMgMi41MzcgNi41MTggMTMuMjA0IDI3LjU2MSA0NC4wMjQgMjQuNzA1em0zNy44NjUtNDQuMjIyYTQuNSA0LjUgMCAwIDEgOC4zNzQtMy4yNjIgMzMuNTk0IDMzLjU5NCAwIDAgMSAxLjQ4IDQuMTE2Yy4wMzQuMS4wNjQuMjA2LjA5LjMwOSAxLjM2MSA0Ljc0NSAyLjY3NyAxMi41NTUtLjMzMSAxOS43MS0yLjQ1OSA1Ljg1MS03LjIgMTAuMDc4LTE0LjA5MSAxMi41NjdhNy42NjMgNy42NjMgMCAwIDEgLTYuNjUxLS42ODkgNy4yNTggNy4yNTggMCAwIDEgLTMuNDQ1LTUuMzE1Yy0xLjM5MS0xMS41NzQgNS44MzgtMjIuMjMzIDE0LjU3Ny0yNy40MzZ6bS03My4yNyAxLjA2Yy4wMjktLjExNy4wNjItLjIzMy4xLS4zNDdhMzIuOTQ3IDMyLjk0NyAwIDAgMSAxLjQ0LTMuOTc1IDQuNSA0LjUgMCAwIDEgOC4xOTEgMy43MjhjMCAuMDEyLS4wMy4wNjctLjA3LjE2NCAxMy40ODQgMTEuMjIyIDE1LjU2MiAyMC43IDE0LjgyNiAyNi44MDZhNy4yNTggNy4yNTggMCAwIDEgLTMuNDQ1IDUuMzE1IDcuNjY1IDcuNjY1IDAgMCAxIC02LjY0OS42OWMtNi44OTMtMi40OS0xMS42MzQtNi43MTctMTQuMDkzLTEyLjU2OC0zLjAyNy03LjIwOC0xLjY2OS0xNS4wNzgtLjI5NS0xOS44MTN6Ii8+PHBhdGggZD0ibTE0Ny41NjEgMjE5LjA5M2ExMC41ODEgMTAuNTgxIDAgMCAwIC45IDMuNzQ5IDMwLjMzOCAzMC4zMzggMCAwIDEgMTcuMDM3IDMuMjkzIDI2Ljg0NiAyNi44NDYgMCAwIDEgNy44NjEgNi41NDYgNzQuMTQ5IDc0LjE0OSAwIDAgMCAtOC4wOTUtMjEuMDMzIDQuNSA0LjUgMCAwIDEgNy43MjYtNC42MTdjLjYzMiAxLjA1OCAxNS4wNzYgMjUuNiA4LjY2NCA0NC44OTQuNDQzIDIuMjQzLjgwNSA0LjYgMS4wNjIgNy4wODlhNC41IDQuNSAwIDAgMSAtNC4wMTUgNC45MzcgNC41OTQgNC41OTQgMCAwIDEgLS40NjcuMDI0IDQuNDg4IDQuNDg4IDAgMCAxIC00LjE1NC0yLjgzMiAxMjAuMDc5IDEyMC4wNzkgMCAwIDEgLTE5LTMuNTI3YzguNDYxIDI5LjkgMjYuNzIxIDEwMy4yNjIgMjIuOTc4IDE2OC4wNDQtMS4wNzQgMTguNTY2IDMuNTA5IDMyLjI2NSAxMy42MjEgNDAuNzE2IDguNCA3LjAyMSAyMC41NzcgMTAuNjE5IDM2LjE5NSAxMC42OTJoLjQ4NGExMjAuNjk0IDEyMC42OTQgMCAwIDAgMjYuOTYtMy4xODkgMTAuNjgyIDEwLjY4MiAwIDAgMSA0Ljg0MS0uMDMyIDEzNS4xIDEzNS4xIDAgMCAwIDI4Ljg4MiAzLjEzM2MxNi4yLS4xNjIgMjguMzI2LTMuOTIzIDM2LjAzNy0xMS4xOCA4Ljg2Ni04LjM0MyAxMS44NjYtMjEuNjkxIDguOTE2LTM5LjY3Mi00LjgtMjkuMjU1LTEuNy02OC44MjggOS4yLTExNy42MjIgNC42NzItMjAuOTEzIDkuODU0LTM5LjEgMTMuNDE2LTUwLjhhMTIxLjY4NiAxMjEuNjg2IDAgMCAxIC0xOC42NjkgMy40MzIgNC41IDQuNSAwIDAgMSAtNC4xNjcgMi44MzQgNC41NzMgNC41NzMgMCAwIDEgLS44MTEtLjA3NCA0LjUgNC41IDAgMCAxIC0zLjYyMi01LjIzMmMuNDU1LTIuNS45ODgtNC44NzEgMS41ODUtNy4xMjQtNi4zLTE5LjIyNCA3LjQ1NS00My40MTEgOC4wNTgtNDQuNDU3YTQuNSA0LjUgMCAwIDEgNy44IDQuNWMtLjA4OC4xNTMtNi4wMzkgMTAuNjQ5LTcuOTUgMjIuMTkyYTI4LjMgMjguMyAwIDAgMSAxMS40NzctOS41NjggMjcuNzY1IDI3Ljc2NSAwIDAgMSAxNC41MjktMi4wMDkgMjAuMzM4IDIwLjMzOCAwIDAgMCAtLjQtMy4xMjVjLTEuMzktNi41MzMtOC4yMzktMTQuNi0xMC43Ni0xNy4xNTRhNC41IDQuNSAwIDAgMSA2LjQtNi4zMjljLjE2NC4xNjUgMS42ODMgMS43MTQgMy42NDggNC4xMjFhNDcuNTE1IDQ3LjUxNSAwIDAgMCAxLjAzMS03LjM0MmMuNjI2LTEwLjc2NS0yLjkyNi0xOS4wOTQtMTAuNTU4LTI0Ljc1Ni0xNS44MzQtMTEuNzQ3LTIxLjgxOC0zNS4xMzYtMjIuMDY2LTM2LjEyN2E0LjUgNC41IDAgMCAxIDguNzMyLTIuMTgzIDc2LjMwOSA3Ni4zMDkgMCAwIDAgMy45OTIgMTEuMDE2YzIuODQtMi4yNDEgNS4yOTQtNS44IDcuMzI1LTEwLjY1M2wtNi41LTE2Ljc0OGE1MS43ODQgNTEuNzg0IDAgMCAxIC01LjEyMiAxLjQ3OCA0OC4xODMgNDguMTgzIDAgMCAxIC0zNi43ODQtNi4zNzJxLS44MTEtLjUxNy0xLjY0OC0xLjA2NWMtNi4xNjEtNC4wMy0yMy43MjUtMTEuMTgzLTM4LjMzMy0xMC4yODVhMTUzLjE4IDE1My4xOCAwIDAgMSAtMTguMTU2LS4wMTdjLTEzLjQyMi0uNzQ5LTI5LjA1NCA1LjkxOC0zNS43NTcgMTAuM3EtLjgzNi41NDctMS42NDggMS4wNjVhNDguMTggNDguMTggMCAwIDEgLTM2Ljc4NCA2LjM3MiA1MS41MDggNTEuNTA4IDAgMCAxIC01LjEyMi0xLjQ3OWwtNi40ODYgMTYuNzEzYTIxLjczMyAyMS43MzMgMCAwIDAgNy4zNjcgOC43MjcgMTAyLjMzMSAxMDIuMzMxIDAgMCAwIDQuMDU0LTkuNDQ4IDQuNSA0LjUgMCAwIDEgOC40OTQgMi45NzZjLS4zMTEuODg5LTcuNzg3IDIxLjkzOC0yMS40ODEgMzUuMzMyLTYuMzc4IDYuMjM5LTkuNDgyIDE0LjYyMi05LjIyNCAyNC45MThhNDkuNDM5IDQ5LjQzOSAwIDAgMCAuNDg4IDUuNzI3IDMzLjU3NCAzMy41NzQgMCAwIDEgMi43NDYtMi41OTQgNC41IDQuNSAwIDAgMSA1LjcgNi45NjdjLS4wODguMDctOC4yNyA2LjkxNC0xMC40MjcgMTYuODU4em0xODcuOTE4LTM2LjA2M2E0LjUgNC41IDAgMCAxIDYuNDU2IDYuMjcxYy0uMzc2LjM4OS0zMy44NDYgMzUuNi0yMy42ODEgNzcuNDA5YTQuNSA0LjUgMCAwIDEgLTMuMzA5IDUuNDM3IDQuNjA3IDQuNjA3IDAgMCAxIC0xLjA2Ny4xMjcgNC41IDQuNSAwIDAgMSAtNC4zNjktMy40MzdjLTExLjM2My00Ni43MzcgMjQuNDQtODQuMjM3IDI1Ljk3LTg1LjgwN3ptLTEzMCAyMTcuOTE3YTMwLjYxNiAzMC42MTYgMCAwIDEgNC44NTQtNC42MjFjMTAuOTM5LTguMyAxMC45MzktMzAuMDA3IDEwLjkzOS00OS4xNjNhNC41IDQuNSAwIDAgMSA5IDBjMCAxNS4wNjEtLjAwNyAzMS41NDEtNS4xNjkgNDMuNzgxYTM2LjQxIDM2LjQxIDAgMCAxIDE5LjQwNSAxLjE0NiA0MS44MjIgNDEuODIyIDAgMCAwIDI2LjUyLjAxOCAzNi44NzcgMzYuODc3IDAgMCAxIDE5LjgtMS4xMTVjLTUuMTgyLTEyLjI0NS01LjE4OC0yOC43NDktNS4xODgtNDMuODNhNC41IDQuNSAwIDAgMSA5IDBjMCAxOS4xNTYgMCA0MC44NjggMTAuOTM4IDQ5LjE2NCAxMi41NTcgOS41MjMgMTYuNCAyNy43MzQgOS41NyA0NS4zMTgtNi4xMTggMTUuNzQtMjEuODUzIDMxLjYyNS00OC4xMzIgMzEuNjI1cS0zLjA5MyAwLTYuMzgxLS4zYTM4LjAxMSAzOC4wMTEgMCAwIDAgLTYuOTk1IDBjLTEyLjk5MyAxLjItMjQuOTI0LTEuMzczLTM0LjUwNi03LjQ1NGE0Ny4xNzIgNDcuMTcyIDAgMCAxIC0xOC43NC0yMi45NTNjLTUuODY1LTE1LjA5MS0zLjY4OC0zMS4yMTggNS4wNTQtNDEuNTc4em0tMzUuMzE2LTIxOC4wMDhhNC41IDQuNSAwIDAgMSA2LjM1OC4wOTFjMS41MyAxLjU3NCAzNy4zMzMgMzkuMDcgMjUuOTcgODUuODA3YTQuNSA0LjUgMCAwIDEgLTQuMzY5IDMuNDM3IDQuNTYgNC41NiAwIDAgMSAtMS4wNjctLjEyNyA0LjUgNC41IDAgMCAxIC0zLjMwOS01LjQzN2MxMC4xNzEtNDEuODM0LTIzLjM0Mi03Ny4wNTktMjMuNjgxLTc3LjQxYTQuNSA0LjUgMCAwIDEgLjA5OC02LjM2MXoiLz48cGF0aCBkPSJtMjkxLjk4NCA0MzcuMTcxYTE3LjE4NyAxNy4xODcgMCAwIDAgMS4wNS04LjA1N2MtNC4yMTIgMy4zNy03Ljk4NSA4LjgxOC04LjEwOSAxNC45MTVhMTMuMTI1IDEzLjEyNSAwIDAgMCA3LjA1OS02Ljg1OHoiLz48cGF0aCBkPSJtNDc3LjM3MyAxOTcuNjMxYTEwOS4zNzMgMTA5LjM3MyAwIDAgMCAyMC4zODktMjkuNzgzYy00MS43ODItMTIuMjc5LTc1LjItMTAuNTMzLTk2LjE1NS02Ljc3NmExNDAuNjc1IDE0MC42NzUgMCAwIDAgLTMyLjY4MyA5Ljc1MyAzOS42MTQgMzkuNjE0IDAgMCAxIDQuODU2IDIxLjA2YzE4LjY0NS0zLjA0OCAyNC43ODMgMi4zOSAyNS45IDMuNjE2YTQuNjgxIDQuNjgxIDAgMCAxIDEuMDc0IDQuNjU4IDQuNTA5IDQuNTA5IDAgMCAxIC03Ljc3NiAxLjQ0M2MtMS4xNjItLjY0LTYuNjg3LTMuMDM4LTIwLjMwNi0uMzcxYTUzLjQgNTMuNCAwIDAgMSAtMi4zNzggOC4yMjIgMzAuNjQzIDMwLjY0MyAwIDAgMSAyLjk0NSA3Ljc1Yy4wMTUuMDcyLjAyNi4xNDIuMDQxLjIxNCAyNy4wMTkuNjg1IDM2LjU2Ni0xNy4zMjYgMzYuOTc0LTE4LjEyNmE0LjUgNC41IDAgMCAxIDguMDQ5IDQuMDI3Yy0uNDc3Ljk2MS0xMS4wNjMgMjEuNTEyLTQwLjAyNCAyMy4wMzYgMS4xMzIuNTc5IDEuODI2IDEgMS45NSAxLjA4MmE0LjUgNC41IDAgMCAxIC00Ljc2OCA3LjYzM2wtLjAxNy0uMDFjLS4zMTYuNzU1LS42NTQgMS41NDQtMS4wMTIgMi4zNTUgNDMuNDIyLTEuMDIgNzguOTM0LTE0LjcwNSAxMDIuOTQxLTM5Ljc4M3oiLz48cGF0aCBkPSJtMzUzLjg4OSAyMzIuNDY2Yy02LjExMiAyLjcyLTEwLjcgOS4yMTItMTMuNyAxOS4zMTcgNS45ODUtLjgxMyAxMy43NzUtMi4yIDE3LjU4Mi00LjA2IDEuODkzLTEgNS44ODgtOCA5LjI4Ni0xNS45OTMtMy45MTctLjk0OC04LjY5My0xLjI1Ni0xMy4xNjguNzM2eiIvPjwvc3ZnPg==" />
+                        </li>
+                        <p class="valorRecurso">
+                            55
+                        </p>
+                        <li class="divisor"></li>
+                        <li>
+                            <!--Hierro-->
+                            <img class="icono"
+                                src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMjsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPGc+DQoJCTxwYXRoIGQ9Ik0yNTYsMjcxYy01Ny44OTEsMC0xMDUsNDcuMTA5LTEwNSwxMDVzNDcuMTA5LDEwNSwxMDUsMTA1czEwNS00Ny4xMDksMTA1LTEwNVMzMTMuODkxLDI3MSwyNTYsMjcxeiBNMjg2LDM5MQ0KCQkJYy04LjI5MSwwLTE1LTYuNzA5LTE1LTE1YzAtOC4yNzYtNi43MjQtMTUtMTUtMTVjLTguMjkxLDAtMTUtNi43MDktMTUtMTVjMC04LjI5MSw2LjcwOS0xNSwxNS0xNWMyNC44MTQsMCw0NSwyMC4xODYsNDUsNDUNCgkJCUMzMDEsMzg0LjI5MSwyOTQuMjkxLDM5MSwyODYsMzkxeiIvPg0KCTwvZz4NCjwvZz4NCjxnPg0KCTxnPg0KCQk8cGF0aCBkPSJNMzQ2LDE1MWMtNTMuMjI1LDAtOTYuODU5LDM5Ljk2Ni0xMDMuNjIzLDkxLjM3N0MyNDYuOTIyLDI0MS45MTQsMjUxLjMzNCwyNDEsMjU2LDI0MWMyNy43NDIsMCw1My41MjksOC40NDgsNzUsMjIuODUzDQoJCQlDMzUyLjQ3MSwyNDkuNDQ4LDM3OC4yNTgsMjQxLDQwNiwyNDFjMTUuNTk3LDAsMzAuMzUyLDMuMTg4LDQ0LjMwMSw4LjA3NUM0NDYuNjU3LDE5NC40Niw0MDEuNTE5LDE1MSwzNDYsMTUxeiBNMzc2LDI0MQ0KCQkJYy04LjI5MSwwLTE1LTYuNzA5LTE1LTE1YzAtOC4yNzYtNi43MjQtMTUtMTUtMTVjLTguMjkxLDAtMTUtNi43MDktMTUtMTVzNi43MDktMTUsMTUtMTVjMjQuODE0LDAsNDUsMjAuMTg2LDQ1LDQ1DQoJCQlDMzkxLDIzNC4yOTEsMzg0LjI5MSwyNDEsMzc2LDI0MXoiLz4NCgk8L2c+DQo8L2c+DQo8Zz4NCgk8Zz4NCgkJPHBhdGggZD0iTTI1NiwzMWMtNTMuMjI1LDAtOTYuODU5LDM5Ljk2Ni0xMDMuNjIzLDkxLjM3N0MxNTYuOTIyLDEyMS45MTQsMTYxLjMzNCwxMjEsMTY2LDEyMWMzNC43LDAsNjYuMDYxLDEzLjUyNCw5MCwzNS4xMTINCgkJCUMyNzkuOTM5LDEzNC41MjQsMzExLjMsMTIxLDM0NiwxMjFjNC42NjYsMCw5LjA3OCwwLjkxNCwxMy42MjMsMS4zNzdDMzUyLjg1OSw3MC45NjYsMzA5LjIyNSwzMSwyNTYsMzF6IE0yODYsMTIxDQoJCQljLTguMjkxLDAtMTUtNi43MDktMTUtMTVjMC04LjI3Ni02LjcyNC0xNS0xNS0xNWMtOC4yOTEsMC0xNS02LjcwOS0xNS0xNXM2LjcwOS0xNSwxNS0xNWMyNC44MTQsMCw0NSwyMC4xODYsNDUsNDUNCgkJCUMzMDEsMTE0LjI5MSwyOTQuMjkxLDEyMSwyODYsMTIxeiIvPg0KCTwvZz4NCjwvZz4NCjxnPg0KCTxnPg0KCQk8cGF0aCBkPSJNMTY2LDE1MWMtNTUuNTE5LDAtMTAwLjY1Nyw0My40Ni0xMDQuMzAxLDk4LjA3NUM3NS42NDgsMjQ0LjE4OCw5MC40MDMsMjQxLDEwNiwyNDFjMjcuNzQyLDAsNTMuNTI5LDguNDQ4LDc1LDIyLjg1Mw0KCQkJYzkuMjk4LTYuMjM4LDE5LjUzMi0xMS4xMDUsMzAuMjU4LTE0LjkwN2wxLjM4Mi0xMC40ODFjMi45MjQtMjIuMjUxLDExLjU4OS00Mi4zOTYsMjMuODExLTU5Ljc2Mg0KCQkJQzIxNy44OSwxNjEuNTc2LDE5My4yNTIsMTUxLDE2NiwxNTF6IE0xNjYsMjQxYy04LjI5MSwwLTE1LTYuNzA5LTE1LTE1YzAtOC4yNzYtNi43MjQtMTUtMTUtMTVjLTguMjkxLDAtMTUtNi43MDktMTUtMTUNCgkJCXM2LjcwOS0xNSwxNS0xNWMyNC44MTQsMCw0NSwyMC4xODYsNDUsNDVDMTgxLDIzNC4yOTEsMTc0LjI5MSwyNDEsMTY2LDI0MXoiLz4NCgk8L2c+DQo8L2c+DQo8Zz4NCgk8Zz4NCgkJPHBhdGggZD0iTTQwNiwyNzFjLTE4LjYzMSwwLTM1Ljg5MSw1LjI4OC01MS4wNzUsMTMuODM1QzM3Ny4xMTcsMzA4LjkwMSwzOTEsMzQwLjc1OCwzOTEsMzc2cy0xMy44ODMsNjcuMDk5LTM2LjA3NSw5MS4xNjUNCgkJCUMzNzAuMTA5LDQ3NS43MTIsMzg3LjM2OSw0ODEsNDA2LDQ4MWM1Ny44OTEsMCwxMDYtNDcuMTA5LDEwNi0xMDVTNDYzLjg5MSwyNzEsNDA2LDI3MXogTTQ2NywzOTFjLTguMjkxLDAtMTUtNi43MDktMTUtMTUNCgkJCWMwLTguMjc2LTcuNzI0LTE1LTE2LTE1Yy04LjI5MSwwLTE1LTYuNzA5LTE1LTE1YzAtOC4yOTEsNi43MDktMTUsMTUtMTVjMjQuODE0LDAsNDYsMjAuMTg2LDQ2LDQ1DQoJCQlDNDgyLDM4NC4yOTEsNDc1LjI5MSwzOTEsNDY3LDM5MXoiLz4NCgk8L2c+DQo8L2c+DQo8Zz4NCgk8Zz4NCgkJPHBhdGggZD0iTTE1Ny4wNzUsMjg0LjgzNUMxNDEuODkxLDI3Ni4yODgsMTI0LjYzMSwyNzEsMTA2LDI3MUM0OC4xMDksMjcxLDAsMzE4LjEwOSwwLDM3NnM0OC4xMDksMTA1LDEwNiwxMDUNCgkJCWMxOC42MzEsMCwzNS44OTEtNS4yODgsNTEuMDc1LTEzLjgzNUMxMzQuODgzLDQ0My4wOTksMTIxLDQxMS4yNDIsMTIxLDM3NlMxMzQuODgzLDMwOC45MDEsMTU3LjA3NSwyODQuODM1eiBNNzYsMzkxDQoJCQljLTguMjkxLDAtMTUtNi43MDktMTUtMTVjMC04LjI3Ni03LjcyNC0xNS0xNi0xNWMtOC4yOTEsMC0xNS02LjcwOS0xNS0xNWMwLTguMjkxLDYuNzA5LTE1LDE1LTE1YzI0LjgxNCwwLDQ2LDIwLjE4Niw0Niw0NQ0KCQkJQzkxLDM4NC4yOTEsODQuMjkxLDM5MSw3NiwzOTF6Ii8+DQoJPC9nPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPC9zdmc+DQo=" />
+                        </li>
+                        <p class="valorRecurso">
+                            55
+                        </p>
+                        <li class="divisor"></li>
+                        <li>
+                            <!--Vino-->
+                            <img class="icono"
+                                src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE2LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgd2lkdGg9IjQ1cHgiIGhlaWdodD0iNDVweCIgdmlld0JveD0iMCAwIDQ1IDQ1IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0NSA0NTsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPGc+DQoJCTxwYXRoIGQ9Ik0yNC40ODksNDQuOTczYy0wLjQxNi0wLjA4Mi0xLjQ3OS0wLjMxMy0xLjE1OS0yLjE0NmMwLjMxOS0xLjgzMSwwLjI2NS0yLjYyMywwLjE4OC0zLjgyMg0KCQkJYy0wLjA3OC0xLjItMC4yNTktMjAuNjc5LTAuMjE1LTIxLjU4N2MwLjA0NS0wLjkwNy0wLjI2OS0yLjEwNywyLjMyNS01LjcxMmMxLjA2My0xLjQ4MiwwLjc2NS0yLjEwNiwwLjkyMi0zLjc1MQ0KCQkJYzAuMTAxLTEuMDM4LDAuMTM0LTQuMTc4LDAuMTI1LTUuMTAxaC0wLjAyNGMtMC4xOC0wLjIyLTAuMjI2LTEuMDc2LDAuMDIxLTEuMzY3aDAuMDMzYzAuMDE2LTAuMzk0LTAuMDE2LTAuNzY5LTAuMDE2LTAuOTM0DQoJCQlDMjYuNjksMC4zNTUsMjYuODk5LDAsMjcuMjEsMGgzLjI2MWMwLjMxMiwwLDAuNTIxLDAuMzU1LDAuNTIxLDAuNTUzYzAsMC4xNjUtMC4wMjksMC41NDEtMC4wMTYsMC45MzRoMC4wMzMNCgkJCWMwLjI0OCwwLjI5MSwwLjIwMiwxLjE0NiwwLjAyMSwxLjM2N2gtMC4wMjNDMzEsMy43NzcsMzEuMDMzLDYuOTE3LDMxLjEzMyw3Ljk1NWMwLjE1NiwxLjY0NS0wLjE0NSwyLjI2OSwwLjkyMiwzLjc1MQ0KCQkJYzIuNTk0LDMuNjA0LDIuMjgxLDQuODA1LDIuMzI2LDUuNzEyYzAuMDQzLDAuOTA5LTAuMTM3LDIwLjM4Ny0wLjIxNSwyMS41ODdjLTAuMDc2LDEuMTk5LTAuMTMzLDEuOTkxLDAuMTg4LDMuODIyDQoJCQljMC4zMiwxLjgzLTAuNzQyLDIuMDYzLTEuMTYsMi4xNDZIMjQuNDg5eiIvPg0KCQk8cGF0aCBkPSJNMTYuMzc1LDM3LjMwOWMyLjU1Ny0wLjM2NSw0LjUzOS0zLjA0MSw0LjUzOS05LjIwM0gxMC41ODZjMCw2LjE2MiwxLjk4Miw4LjgzOCw0LjUzOSw5LjIwM3Y2LjkxMWgtMi41ODhWNDVoNi40MjR2LTAuNzgNCgkJCWgtMi41ODhMMTYuMzc1LDM3LjMwOUwxNi4zNzUsMzcuMzA5eiIvPg0KCTwvZz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjwvc3ZnPg0K" />
+                        </li>
+                        <p class="valorRecurso">
+                            55
+                        </p>
+                        <li class="divisor"></li>
+                        <li>
+                            <!--Yerba-->
+                            <img class="icono"
+                                src="data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNTEyIDUxMiIgaGVpZ2h0PSI1MTIiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnPjxwYXRoIGQ9Im00ODAuOTgxIDBoLTExMi40NjdjLTMuOTc4IDAtNy43OTMgMS41ODEtMTAuNjA2IDQuMzk0bC03OC4wNzMgNzguMDczaDQyLjQyNmw1Mi40NjctNTIuNDY3aDEwNi4yNTNjMTkuODgtLjczOCAxOS44NjUtMjkuMjY5IDAtMzB6Ii8+PHBhdGggZD0ibTM2Ny40NDcgMTU5LjZjMC0yNS45ODktMjEuMTQ0LTQ3LjEzMy00Ny4xMzMtNDcuMTMzaC0xOTIuOGMtMjUuOTg5IDAtNDcuMTMzIDIxLjE0NC00Ny4xMzMgNDcuMTMzdjE3LjEzM2gyODcuMDY2eiIvPjxwYXRoIGQ9Im02Ni40ODkgMjA2LjczM2MtMjAuMDM4IDMxLjEwNS01MC4zNzUgODcuNzU2LTUwLjM3NSAxNDUuNjY3IDAgODguMTQzIDcxLjMwNSAxNTkuNjAxIDE1OS42IDE1OS41OTloOTYuNGM4OC4wMDMgMCAxNTkuNi03MS41OTYgMTU5LjYtMTU5LjYgMC01Ny45MTEtMzAuMzM2LTExNC41NjEtNTAuMzc1LTE0NS42NjdoLTMxNC44NXoiLz48L2c+PC9zdmc+" />
+                        </li>
+                        <p class="valorRecurso">
+                            55
+                        </p>
+
+                    </ul>
+
+                </div>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800" id="nombreCiudad">Oficiales</h1>
+                    </div>
+
+                    <!-- Primera línea de body: Otros recursos -->
+                    <!--left-warning cambia el colorcito a la izquierda-->
+
+                    <div class="row">
+
+                        <!-- Oficial A / col-xl-21 inventado en sb-admin-2.min.css-->
+                        <div class="col-xl-21 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Oficial A
+                                            </div>
+                                            <img class="img-fluid" src="img/A1.jpg" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Oficial B -->
+                        <div class="col-xl-21 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Oficial B
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <img class="img-fluid" src="img/B1.jpg" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Oficial C -->
+                        <div class="col-xl-21 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Oficial C
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <img class="img-fluid" src="img/C1.jpg" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Oficial D -->
+                        <div class="col-xl-21 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Oficial D
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <img class="img-fluid" src="img/D1.jpg" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Oficial E -->
+                        <div class="col-xl-21 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Oficial E
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <img class="img-fluid" src="img/E1.jpg" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Segunda Fila. Tabla de Movimientos-->
+
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Movimientos</h1>
+                    </div>
+
+                    <div class="row">
+                        <!-- Fila de Tabla -->
+                        <div class="col-lg-6 mb-4">
+
+                            <!-- Tabla de Movimientos -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Actualizar</h6>
+                                    <button>Tocame</button>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="tablaDeUsuarios" width="100%"
+                                            cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Ciudad</th>
+                                                    <th>Tipo de Movimiento</th>
+                                                    <th>Destino</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Buenos Aires</td>
+                                                    <td>Avanzar y atacar</td>
+                                                    <td>Pergamino</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Montevideo</td>
+                                                    <td>Avanzar y atacar</td>
+                                                    <td>Tacuarembó</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Asunción</td>
+                                                    <td>Avanzar y detenerse</td>
+                                                    <td>Corrientes</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Santa Fe</td>
+                                                    <td>Acompañar al ejército de:</td>
+                                                    <td>Asunción</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Córdoba</td>
+                                                    <td>Avanzar y atacar</td>
+                                                    <td>Río Cuarto</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Mendoza</td>
+                                                    <td>Avanzar y detenerse</td>
+                                                    <td>San Luis</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tucumán</td>
+                                                    <td>Acompañar al ejército de:</td>
+                                                    <td>Salta</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Salta</td>
+                                                    <td>Avanzar y atacar</td>
+                                                    <td>San Bernardo de Tarija</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Potosí</td>
+                                                    <td>Avanzar y atacar</td>
+                                                    <td>La Paz</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>La Paz</td>
+                                                    <td>Avanzar y atacar</td>
+                                                    <td>Potosí</td>
+                                                </tr>
+                                                
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 mb-4">
+
+
+                            <!-- Seleccionar movimiento -->
+                            <div class="col-xl-auto col-md-6 mb-4">
+                                <div class="card border-left-warning shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                    Seleccionar Movimiento
+                                                </div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                    <select>
+                                                        <option value="avanzar_atacar">Avanzar y atacar</option>
+                                                        <option value="avanzar_detenerse">Avanzar y detenerse</option>
+                                                        <option value="acompañar">Acompañar al ejército de:</option>
+                                                        <option value="comercial">Movimiento comercial</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Seleccionar Destino-->
+                            <div class="col-xl-auto col-md-6 mb-4">
+                                <div class="card border-left-warning shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                    Seleccionar Destino
+                                                </div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                    <select>
+                                                        <option value="buenos_aires">Buenos Aires</option>
+                                                        <option value="montevideo">Montevideo</option>
+                                                        <option value="asuncion">Asunción</option>
+                                                        <option value="etcétera">...</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Seleccionar destino -->
+                            <div class="col-xl-auto col-md-6 mb-4">
+                                <div class="card border-left-warning shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                    Enviar
+                                                </div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                    <button onclick="listarMovimientos()">Tocame</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; MegaJuegos Argentina 2021</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="js/capitanes.js"></script>
+
+</body>
+
+</html>

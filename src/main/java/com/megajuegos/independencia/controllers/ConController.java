@@ -4,6 +4,7 @@ import com.megajuegos.independencia.dao.ControlDao;
 import com.megajuegos.independencia.dao.EjercitosDao;
 import com.megajuegos.independencia.models.ActoresPoliticosModel;
 import com.megajuegos.independencia.models.EjercitosModel;
+import com.megajuegos.independencia.models.OtrosModel;
 import com.megajuegos.independencia.models.RecursosModel;
 import com.megajuegos.independencia.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -147,4 +148,117 @@ public class ConController {
 
         controlDao.editarActorPolitico(actor, actualizacion);
     }
+
+    @RequestMapping(value = "api/control/avanzarFase")
+    public void avanzarFase(@RequestHeader(value = "Authorization") String token){
+
+        // Primero: Corroborar que el pedido lo hace Control
+
+        if(jwtUtil.getKey(token) != "control"){
+            return;
+        }
+
+        // Segundo: Avanzar fase. IMPORTANTE: Falta asignar recursos de mapa.
+
+        controlDao.avanzarFase();
+    }
+
+    @RequestMapping(value = "api/control/avanzarTurno")
+    public void avanzarTurno(@RequestHeader(value = "Authorization") String token){
+
+        // Primero: Corroborar que el pedido lo hace Control
+
+        if(jwtUtil.getKey(token) != "control"){
+            return;
+        }
+        // Segundo: Corroborar federalismo / centralismo
+        String sistemaDeGobierno = controlDao.getSistemaDeGobierno();
+
+        // Tercero: Recuperar presidente
+        String presidente = controlDao.getPresidente();
+
+        // Cuarto: Corroborar proteccionismo/liberalismo
+        String sistemaEconomico = controlDao.getSistemaEconomico();
+
+        // Quinto: Corroborar improductividad y ganar recursos en mapa.
+        controlDao.recursosMapa();
+
+        // Sexto: Avanzar turno
+        controlDao.avanzarTurno();
+
+        // Séptimo: Repartir recursos.
+        controlDao.repartirRecursos(sistemaDeGobierno, presidente, sistemaEconomico);
+
+        // Octavo: actualizar oficiales en capitanes
+        controlDao.actualizarOficiales();
+    }
+
+    @RequestMapping(value = "api/control/improductividad")
+    public void improductividad(@RequestHeader(value = "Authorization") String token, @RequestBody ActoresPoliticosModel actorPolitico) {
+
+        // Primero: Corroborar que el pedido lo hace Control
+
+        if (jwtUtil.getKey(token) != "control") {
+            return;
+        }
+
+        // Segundo: Generar improductividad
+
+        controlDao.improductividad(actorPolitico);
+    }
+
+    @RequestMapping(value = "api/control/editarSistemaDeGobierno")
+    public void editarSistemaDeGobierno(@RequestHeader(value = "Authorization") String token, @RequestBody OtrosModel nuevoSistema) {
+
+        // Primero: Corroborar que el pedido lo hace Control
+
+        if (jwtUtil.getKey(token) != "control") {
+            return;
+        }
+
+        //Segundo: Editar sistema de gobierno
+        controlDao.editarSistemaDeGobierno(nuevoSistema);
+    }
+
+    @RequestMapping(value = "api/control/editarPresidente")
+    public void editarPresidente(@RequestHeader(value = "Authorization") String token, @RequestBody OtrosModel nuevoPresidente) {
+
+        // Primero: Corroborar que el pedido lo hace Control
+
+        if (jwtUtil.getKey(token) != "control") {
+            return;
+        }
+
+        //Segundo: Editar presidente
+        controlDao.editarPresidente(nuevoPresidente);
+    }
+
+    @RequestMapping(value = "api/control/editarSistemaEconomico")
+    public void editarSistemaEconomico(@RequestHeader(value = "Authorization") String token, @RequestBody OtrosModel nuevoSistema) {
+
+        // Primero: Corroborar que el pedido lo hace Control
+
+        if (jwtUtil.getKey(token) != "control") {
+            return;
+        }
+
+        //Segundo: Editar sistema economico
+        controlDao.editarSistemaEconomico(nuevoSistema);
+    }
+
+    @RequestMapping(value = "api/control/permitirActualizarListaCapitanes")
+    public void permitirActualizarListaCapitanes(@RequestHeader(value = "Authorization") String token, @RequestBody OtrosModel nuevo) {
+
+        // Primero: Corroborar que el pedido lo hace Control
+
+        if (jwtUtil.getKey(token) != "control") {
+            return;
+        }
+
+        controlDao.permitirActualizarListaCapitanes(nuevo);
+
+    }
+
+
+    //TODO LO QUE ES IA
 }

@@ -122,35 +122,35 @@ public class RecursosDaoImp implements RecursosDao{
         EjercitosModel oficialAlCapitan = entityManager.find(EjercitosModel.class, ciudad);
 
         switch (oficialNuevo) {
-            case "B1":
-                oficialAlCapitan.setNuevo_oficial_1("B");
+            case "A2":
+                oficialAlCapitan.setNuevo_oficial_a("2");
                 break;
             case "B2":
-                oficialAlCapitan.setNuevo_oficial_2("B");
-                break;
-            case "B3":
-                oficialAlCapitan.setNuevo_oficial_3("B");
-                break;
-            case "B4":
-                oficialAlCapitan.setNuevo_oficial_4("B");
-                break;
-            case "B5":
-                oficialAlCapitan.setNuevo_oficial_5("B");
-                break;
-            case "C1":
-                oficialAlCapitan.setNuevo_oficial_1("C");
+                oficialAlCapitan.setNuevo_oficial_b("2");
                 break;
             case "C2":
-                oficialAlCapitan.setNuevo_oficial_2("C");
+                oficialAlCapitan.setNuevo_oficial_c("2");
+                break;
+            case "D2":
+                oficialAlCapitan.setNuevo_oficial_d("2");
+                break;
+            case "E2":
+                oficialAlCapitan.setNuevo_oficial_e("2");
+                break;
+            case "A3":
+                oficialAlCapitan.setNuevo_oficial_a("3");
+                break;
+            case "B3":
+                oficialAlCapitan.setNuevo_oficial_b("3");
                 break;
             case "C3":
-                oficialAlCapitan.setNuevo_oficial_3("C");
+                oficialAlCapitan.setNuevo_oficial_c("3");
                 break;
-            case "C4":
-                oficialAlCapitan.setNuevo_oficial_4("C");
+            case "D3":
+                oficialAlCapitan.setNuevo_oficial_d("3");
                 break;
-            case "C5":
-                oficialAlCapitan.setNuevo_oficial_5("C");
+            case "E3":
+                oficialAlCapitan.setNuevo_oficial_e("3");
                 break;
         }
         entityManager.merge(oficialAlCapitan);
