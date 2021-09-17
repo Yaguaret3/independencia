@@ -94,17 +94,17 @@ public class RecursosDaoImp implements RecursosDao{
 
         String oficialNuevo = "";
 
-        // Primero: determinar si pide nivel B o nivel C
-        if (oficiales.getNivel_oficial_pedido() == "B"){
+        // Primero: determinar si pide nivel 2 o nivel 3
+        if (oficiales.getNivel_oficial_pedido() == "2"){
 
             // Segundo: elegir por azar un oficial
-            String[] oficialesB = {"B1", "B2", "B3", "B4", "B5"};
+            String[] oficialesB = {"A2", "B2", "C2", "D2", "E2"};
             int randomB = new Random().nextInt(oficialesB.length);
             oficialNuevo = oficialesB[randomB];
 
-        } else if (oficiales.getNivel_oficial_pedido() == "C"){
+        } else if (oficiales.getNivel_oficial_pedido() == "3"){
 
-            String[] oficialesC = {"C1", "C2", "C3", "C4", "C5"};
+            String[] oficialesC = {"A3", "B3", "C3", "D3", "E3"};
             int randomC = new Random().nextInt(oficialesC.length);
             oficialNuevo = oficialesC[randomC];
         }

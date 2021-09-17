@@ -88,27 +88,10 @@ public class ControlDaoImp implements ControlDao{
     }
 
     @Override
-    public void avanzarFase() {
+    public void seleccionarFase(OtrosModel fase) {
 
         OtrosModel otros = entityManager.find(OtrosModel.class, "fase_militar");
-        switch (otros.getValor_int()){
-            case 1:
-                //moverAntesDeConflictos();
-                otros.setValor_int(2);
-                break;
-            case 2:
-                otros.setValor_int(3);
-                break;
-            case 3:
-                otros.setValor_int(4);
-                break;
-            case 4:
-                otros.setValor_int(1);
-
-                // Dar recursos ganados en mapa
-
-                break;
-        }
+        otros.setValor_int(fase.getValor_int());
         entityManager.merge(otros);
     }
 
@@ -236,18 +219,18 @@ public class ControlDaoImp implements ControlDao{
 
         ActoresPoliticosModel actor = entityManager.find(ActoresPoliticosModel.class, actorPolitico);
          switch (actor.getActor()){
-             case "Capital Ingles":
+             case "Capital Inglés":
              case "Campaña":
                  RecursosModel buenosAires = entityManager.find(RecursosModel.class, "Buenos Aires");
                  buenosAires.setImproductividad(1);
                  RecursosModel tucuman = entityManager.find(RecursosModel.class, "Tucumán");
                  tucuman.setImproductividad(1);
                  break;
-             case "Capital Frances":
+             case "Capital Francés":
              case "Cultura":
                  RecursosModel montevideo = entityManager.find(RecursosModel.class, "Montevideo");
                  montevideo.setImproductividad(1);
-                 RecursosModel cordoba = entityManager.find(RecursosModel.class, "Cordoba");
+                 RecursosModel cordoba = entityManager.find(RecursosModel.class, "Córdoba");
                  cordoba.setImproductividad(1);
                  break;
              case "Esclavos":

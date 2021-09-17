@@ -365,6 +365,8 @@
                                                     <th>Ciudad</th>
                                                     <th>Tipo de Movimiento</th>
                                                     <th>Destino</th>
+                                                    <th>Unidades</th>
+                                                    <th>Nivel de Misión Comercial</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -372,54 +374,73 @@
                                                     <td>Buenos Aires</td>
                                                     <td>Avanzar y atacar</td>
                                                     <td>Pergamino</td>
+                                                    <td>3</td>
+                                                    <td>2</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Montevideo</td>
                                                     <td>Avanzar y atacar</td>
                                                     <td>Tacuarembó</td>
+                                                    <td>4</td>
+                                                    <td>3</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Asunción</td>
                                                     <td>Avanzar y detenerse</td>
                                                     <td>Corrientes</td>
+                                                    <td>8</td>
+                                                    <td>1</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Santa Fe</td>
                                                     <td>Acompañar al ejército de:</td>
                                                     <td>Asunción</td>
+                                                    <td>4</td>
+                                                    <td>4</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Córdoba</td>
                                                     <td>Avanzar y atacar</td>
                                                     <td>Río Cuarto</td>
+                                                    <td>5</td>
+                                                    <td>3</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Mendoza</td>
                                                     <td>Avanzar y detenerse</td>
                                                     <td>San Luis</td>
+                                                    <td>10</td>
+                                                    <td>1</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Tucumán</td>
                                                     <td>Acompañar al ejército de:</td>
                                                     <td>Salta</td>
+                                                    <td>4</td>
+                                                    <td>2</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Salta</td>
                                                     <td>Avanzar y atacar</td>
                                                     <td>San Bernardo de Tarija</td>
+                                                    <td>1</td>
+                                                    <td>1</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Potosí</td>
                                                     <td>Avanzar y atacar</td>
                                                     <td>La Paz</td>
+                                                    <td>7</td>
+                                                    <td>4</td>
                                                 </tr>
                                                 <tr>
                                                     <td>La Paz</td>
                                                     <td>Avanzar y atacar</td>
                                                     <td>Potosí</td>
+                                                    <td>5</td>
+                                                    <td>3</td>
                                                 </tr>
                                                 
-
                                             </tbody>
                                         </table>
                                     </div>
@@ -440,12 +461,13 @@
                                                     Seleccionar Movimiento
                                                 </div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                    <select>
-                                                        <option value="avanzar_atacar">Avanzar y atacar</option>
-                                                        <option value="avanzar_detenerse">Avanzar y detenerse</option>
-                                                        <option value="acompañar">Acompañar al ejército de:</option>
-                                                        <option value="comercial">Movimiento comercial</option>
-                                                    </select>
+                                                    <input list="movimientos_js" name="cars" type="text">
+                                                    <datalist id="movimientos_js">
+                                                        <option value="Avanzar y atacar"></option>
+                                                        <option value="Avanzar y detenerse"></option>
+                                                        <option value="Acompañar al ejército de:"></option>
+                                                        <option value="Movimiento comercial"></option>
+                                                    </datalist>
                                                 </div>
                                             </div>
                                         </div>
@@ -463,12 +485,48 @@
                                                     Seleccionar Destino
                                                 </div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                    <select>
-                                                        <option value="buenos_aires">Buenos Aires</option>
-                                                        <option value="montevideo">Montevideo</option>
-                                                        <option value="asuncion">Asunción</option>
-                                                        <option value="etcétera">...</option>
-                                                    </select>
+                                                    <input list="destinos_js" name="cars" type="text">
+                                                    <datalist id="destinos_js">
+                                                        <option value="Arequipa"></option>
+                                                        <option value="Asunción"></option>
+                                                        <option value="Buenos Aires"></option>
+                                                        <option value="Catamarca"></option>
+                                                        <option value="Chuquisaca"></option>
+                                                        <option value="Cochabamba"></option>
+                                                        <option value="Coimbra"></option>
+                                                        <option value="Concepción (Chile)"></option>
+                                                        <option value="Concepción del Uruguay"></option>
+                                                        <option value="Copiapó"></option>
+                                                        <option value="Coquimbo"></option>
+                                                        <option value="Córdoba"></option>
+                                                        <option value="Corrientes"></option>
+                                                        <option value="Esteco Nuevo"></option>
+                                                        <option value="Europa"></option>
+                                                        <option value="Jujuy"></option>
+                                                        <option value="La Paz"></option>
+                                                        <option value="La Rioja"></option>
+                                                        <option value="Mendoza"></option>
+                                                        <option value="Misiones"></option>
+                                                        <option value="Montevideo"></option>
+                                                        <option value="Porto Alegre"></option>
+                                                        <option value="Potosí"></option>
+                                                        <option value="Río Cuarto"></option>
+                                                        <option value="Salta"></option>
+                                                        <option value="Salto Chico"></option>
+                                                        <option value="San Juan"></option>
+                                                        <option value="San Luis"></option>
+                                                        <option value="San Borja"></option>
+                                                        <option value="Santa Fe"></option>
+                                                        <option value="Santiago (Chile)"></option>
+                                                        <option value="Santiago del Estero"></option>
+                                                        <option value="Suipacha"></option>
+                                                        <option value="Tacuarembó"></option>
+                                                        <option value="Talca"></option>
+                                                        <option value="Tarija"></option>
+                                                        <option value="Tucumán"></option>
+                                                        <option value="Valparaíso"></option>
+                                                        <option value="Xerez"></option>
+                                                    </datalist>
                                                 </div>
                                             </div>
                                         </div>

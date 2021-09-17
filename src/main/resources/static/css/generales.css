@@ -20,3 +20,8 @@
     width: 2px;
     background-color: black;
 }
+.editar{
+    position: fixed;
+    left: 5%;
+    width: 90%;
+}

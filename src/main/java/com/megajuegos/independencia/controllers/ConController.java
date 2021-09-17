@@ -33,9 +33,9 @@ public class ConController {
 
         // Primero: Corroborar que el pedido lo hace Control
 
-        if(jwtUtil.getKey(token) != "control"){
+        if(!jwtUtil.getKey(token).equals("control")){
             return new ArrayList<>();
-        }
+        };
 
         // Segundo: Listar recursos y devolver
 
@@ -47,9 +47,9 @@ public class ConController {
 
         // Primero: Corroborar que el pedido lo hace Control
 
-        if(jwtUtil.getKey(token) != "control"){
+        if(!jwtUtil.getKey(token).equals("control")){
             return new ArrayList<>();
-        }
+        };
 
         // Segundo: Listar recursos y devolver
 
@@ -61,9 +61,9 @@ public class ConController {
 
         // Primero: Corroborar que el pedido lo hace Control
 
-        if(jwtUtil.getKey(token) != "control"){
+        if(!jwtUtil.getKey(token).equals("control")){
             return new ArrayList<>();
-        }
+        };
 
         // Segundo: Listar recursos y devolver
 
@@ -150,7 +150,7 @@ public class ConController {
     }
 
     @RequestMapping(value = "api/control/avanzarFase")
-    public void avanzarFase(@RequestHeader(value = "Authorization") String token){
+    public void seleccionarFase(@RequestHeader(value = "Authorization") String token, @RequestBody OtrosModel fase){
 
         // Primero: Corroborar que el pedido lo hace Control
 
@@ -158,9 +158,9 @@ public class ConController {
             return;
         }
 
-        // Segundo: Avanzar fase. IMPORTANTE: Falta asignar recursos de mapa.
+        // Segundo: Avanzar fase. IMPORTANTE: Falta asignar recursos de mapa. CONTROL ELIGE LA FASE, NO LA AVANZA.
 
-        controlDao.avanzarFase();
+        controlDao.seleccionarFase(fase);
     }
 
     @RequestMapping(value = "api/control/avanzarTurno")

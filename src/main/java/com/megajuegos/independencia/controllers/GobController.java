@@ -1,12 +1,17 @@
 package com.megajuegos.independencia.controllers;
 
+import com.megajuegos.independencia.dao.ControlDao;
 import com.megajuegos.independencia.dao.RecursosDao;
+import com.megajuegos.independencia.models.ActoresPoliticosModel;
 import com.megajuegos.independencia.models.RecursosModel;
 import com.megajuegos.independencia.utils.JWTUtil;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class GobController {
@@ -17,13 +22,30 @@ public class GobController {
     @Autowired
     private RecursosDao recursoDao;
 
+    @Autowired
+    private ControlDao controlDao;
 
-    @RequestMapping(value = "api/recursos", method = RequestMethod.POST)
+
+    @RequestMapping(value = "api/gobernadores/cargarRecursos", method = RequestMethod.POST)
     public RecursosModel listarRecursos(@RequestHeader(value = "Authorization") String token){
 
         String ciudad = recursoDao.corroborarCiudad(token);
 
         return recursoDao.listarRecursos(ciudad);
+    }
+
+    @RequestMapping(value = "api/gobernadores/listarActoresPoliticos")
+    public List<ActoresPoliticosModel> listarActoresPoliticos(@RequestHeader(value = "Authorization") String token){
+
+        // Primero: Corroborar que el pedido lo hace un gobernador
+
+        if(!jwtUtil.getKey(token).equals("gobernador")){
+            return new ArrayList<>();
+        };
+
+        // Segundo: Listar recursos y devolver
+
+        return controlDao.listarActoresPoliticos();
     }
 
     @RequestMapping(value = "api/aumentarIndustria", method = RequestMethod.POST)

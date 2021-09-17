@@ -14,7 +14,7 @@ public interface ControlDao {
     void editarCiudad(String ciudad, RecursosModel actualizacion);
     void editarEjercito(String ciudad, EjercitosModel actualizacion);
     void editarActorPolitico(String actor, ActoresPoliticosModel actualizacion);
-    void avanzarFase();
+    void seleccionarFase(OtrosModel fase);
     void avanzarTurno();
     String getSistemaDeGobierno();
     String getPresidente();

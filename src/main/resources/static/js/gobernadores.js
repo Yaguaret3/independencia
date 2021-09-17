@@ -1,13 +1,34 @@
 // Call the dataTables jQuery plugin
 $(document).ready(function() {
+  cargarRecursos();
+  cargarActoresPoliticos();
 });
 
+async function cargarActoresPoliticos(){
+
+  const request = await fetch('api/gobernadores/listarActoresPoliticos', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem("token")
+      },
+    });
+  const actoresPoliticos = await request.json();
+
+  let listadoHtml = "";
+
+  for (let actor of actoresPoliticos) {
+
+      let actorHtml = '<tr><td>'+actor.actor+'</td><td>'+actor.valor+'</td></tr>';
+      listadoHtml += actorHtml;
+    }
+    document.querySelector('#tablaActoresPoliticos tbody').outerHTML = listadoHtml;
+}
+
+
 async function cargarRecursos(){
-
-    alert("Anda")
-
-
-    const request = await fetch('api/recursos', {
+    const request = await fetch('api/gobernadores/cargarRecursos', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -15,7 +36,11 @@ async function cargarRecursos(){
           'Authorization': localStorage.getItem("token")
         },
       });
-    const recursos = await request.json();
+    const respuesta = await request.json();
+
+    // Cargar historial de comercio
+    document.querySelector('#historialComercial').innerHTML = respuesta.historial_comercial;
+
 }
 
 async function aumentarIndustria(){
