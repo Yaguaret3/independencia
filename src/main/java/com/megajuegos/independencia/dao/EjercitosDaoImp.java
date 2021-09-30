@@ -46,16 +46,19 @@ public class EjercitosDaoImp implements EjercitosDao{
     }
 
     @Override
-    public void movimientos(String ciudad, EjercitosModel traido) {
+    public void movimientos(String ciudad, EjercitosModel traido, int fase) {
 
         // Primero tomar recursos
-        EjercitosModel recursos = entityManager.find(EjercitosModel.class, ciudad);
+        EjercitosModel ejercito = entityManager.find(EjercitosModel.class, ciudad);
 
         // Segundo: sobreescribir movimiento y destinos
-        recursos.setMovimiento(traido.getMovimiento());
-        recursos.setDestino_1(traido.getDestino_1());
-        recursos.setDestino_2(traido.getDestino_2());
-        recursos.setDestino_3(traido.getDestino_3());
+        ejercito.setMovimiento(traido.getMovimiento());
+        ejercito.setDestino_1(traido.getDestino_1());
+
+        // Tercero: ubicación comercial
+        if(fase == 3){
+            ejercito.setUbicacion_comercial(traido.getDestino_1());
+        }
 
     }
 
@@ -87,18 +90,12 @@ public class EjercitosDaoImp implements EjercitosDao{
     }
 
     @Override
-    public boolean fase1() {
+    public int fase() {
 
-        // Primero: Tomamos la fase en la que estamos
-
+        //Tomamos la fase en la que estamos
         OtrosModel fase = entityManager.find(OtrosModel.class, "fase_militar");
 
-        // Segundo: Si la fase es la 1, devolvemos true, si no false.
-        if(fase.getValor_int() == 1){
-            return true;
-        }
-
-        return false;
+        return fase.getValor();
     }
 
     @Override
@@ -116,7 +113,7 @@ public class EjercitosDaoImp implements EjercitosDao{
         OtrosModel actualizar = entityManager.find(OtrosModel.class, "actualizar_capitanes");
 
         // Segundo: Si pueden actualizar, devolvemos true, si no false.
-        if(actualizar.getValor_int() == 1){
+        if(actualizar.getValor() == 1){
             return true;
         }
         return false;

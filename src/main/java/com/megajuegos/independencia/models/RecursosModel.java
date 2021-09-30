@@ -28,8 +28,6 @@ public class RecursosModel {
     private int yerba;
     @Getter @Setter @Column(name = "nivel_industria")
     private int nivel_industria;
-    @Getter @Setter @Column(name = "nivel_mision_comercial")
-    private int nivel_mision_comercial;
     @Getter @Setter @Column(name = "unidades")
     private int unidades;
     @Getter @Setter @Column(name = "oficiales")
@@ -62,5 +60,7 @@ public class RecursosModel {
     private int vino_m;
     @Getter @Setter @Column(name = "yerba_m")
     private int yerba_m;
+    @Getter @Setter @Column(name = "congreso")
+    private int congreso;
 
 }

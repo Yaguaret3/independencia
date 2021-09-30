@@ -10,11 +10,11 @@ public interface EjercitosDao {
 
     EjercitosModel recursosEjercito(String ciudad);
 
-    void movimientos(String ciudad, EjercitosModel traido);
+    void movimientos(String ciudad, EjercitosModel traido, int fase);
 
     void asignarUnidades(String ciudad, EjercitosModel traido);
 
-    boolean fase1();
+    int fase();
 
     List<EjercitosModel> listarMovimientos();
 

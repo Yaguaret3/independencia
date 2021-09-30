@@ -9,6 +9,7 @@ public interface ControlDao {
     List<RecursosModel> listarRecursos();
     List<EjercitosModel> listarEjercitos();
     List<ActoresPoliticosModel> listarActoresPoliticos();
+    List<CongresoModel> listarCongresos();
     void pausar();
     void despausar();
     void editarCiudad(String ciudad, RecursosModel actualizacion);
@@ -16,18 +17,14 @@ public interface ControlDao {
     void editarActorPolitico(String actor, ActoresPoliticosModel actualizacion);
     void seleccionarFase(OtrosModel fase);
     void avanzarTurno();
-    String getSistemaDeGobierno();
-    String getPresidente();
-    String getSistemaEconomico();
     void recursosMapa();
     void improductividad(ActoresPoliticosModel actorPolitico);
-    void editarSistemaDeGobierno(OtrosModel nuevoSistema);
-    void editarPresidente(OtrosModel nuevoPresidente);
-    void editarSistemaEconomico(OtrosModel nuevoSistema);
-    void repartirRecursos(String sistemaDeGobierno, String presidente, String sistemaEconomico);
+    void editarCongreso(CongresoModel nuevoCongreso);
+    void repartirRecursos();
     void actualizarOficiales();
-
     void permitirActualizarListaCapitanes(OtrosModel nuevo);
+
+
     //List<DeterminandoConflictosModel> moverAntesDeConflictos();
     //List<String> buscarCaminos(String ubicacion, String destino);
 }

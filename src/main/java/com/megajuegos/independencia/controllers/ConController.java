@@ -2,10 +2,7 @@ package com.megajuegos.independencia.controllers;
 
 import com.megajuegos.independencia.dao.ControlDao;
 import com.megajuegos.independencia.dao.EjercitosDao;
-import com.megajuegos.independencia.models.ActoresPoliticosModel;
-import com.megajuegos.independencia.models.EjercitosModel;
-import com.megajuegos.independencia.models.OtrosModel;
-import com.megajuegos.independencia.models.RecursosModel;
+import com.megajuegos.independencia.models.*;
 import com.megajuegos.independencia.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -70,12 +67,26 @@ public class ConController {
         return controlDao.listarActoresPoliticos();
     }
 
+    @RequestMapping(value = "api/control/listarCongresos")
+    public List<CongresoModel> listarCongresos(@RequestHeader(value = "Authorization") String token){
+
+        // Primero: Corroborar que el pedido lo hace Control
+
+        if(!jwtUtil.getKey(token).equals("control")){
+            return new ArrayList<>();
+        };
+
+        // Segundo: Listar recursos y devolver
+
+        return controlDao.listarCongresos();
+    }
+
     @RequestMapping(value = "api/control/pausar")
     public void pausar(@RequestHeader(value = "Authorization") String token){
 
         // Primero: Corroborar que el pedido lo hace Control
 
-        if(jwtUtil.getKey(token) != "control"){
+        if(!jwtUtil.getKey(token).equals("control")){
             return;
         }
 
@@ -89,7 +100,7 @@ public class ConController {
 
         // Primero: Corroborar que el pedido lo hace Control
 
-        if(jwtUtil.getKey(token) != "control"){
+        if(!jwtUtil.getKey(token).equals("control")){
             return;
         }
 
@@ -103,7 +114,7 @@ public class ConController {
 
         // Primero: Corroborar que el pedido lo hace Control
 
-        if(jwtUtil.getKey(token) != "control"){
+        if(!jwtUtil.getKey(token).equals("control")){
             return;
         }
 
@@ -115,12 +126,12 @@ public class ConController {
         controlDao.editarCiudad(ciudad, actualizacion);
     }
 
-    @RequestMapping(value = "api/control/editarEjército")
+    @RequestMapping(value = "api/control/editarEjercito")
     public void editarEjercito(@RequestHeader(value = "Authorization") String token, @RequestBody EjercitosModel actualizacion){
 
         // Primero: Corroborar que el pedido lo hace Control
 
-        if(jwtUtil.getKey(token) != "control"){
+        if(!jwtUtil.getKey(token).equals("control")){
             return;
         }
 
@@ -132,33 +143,33 @@ public class ConController {
         controlDao.editarEjercito(ciudad, actualizacion);
     }
 
-    @RequestMapping(value = "api/control/editarActoresPoliticos")
+    @RequestMapping(value = "api/control/editarActorPolitico")
     public void editarActoresPoliticos(@RequestHeader(value = "Authorization") String token, @RequestBody ActoresPoliticosModel actualizacion){
 
         // Primero: Corroborar que el pedido lo hace Control
 
-        if(jwtUtil.getKey(token) != "control"){
+        if(!jwtUtil.getKey(token).equals("control")){
             return;
         }
 
         // Segundo: Seleccionar actor a editar
         String actor = actualizacion.getActor();
 
-        // Tercero: Editar ciudad
+        // Tercero: Editar actor
 
         controlDao.editarActorPolitico(actor, actualizacion);
     }
 
-    @RequestMapping(value = "api/control/avanzarFase")
+    @RequestMapping(value = "api/control/seleccionarFase")
     public void seleccionarFase(@RequestHeader(value = "Authorization") String token, @RequestBody OtrosModel fase){
 
         // Primero: Corroborar que el pedido lo hace Control
 
-        if(jwtUtil.getKey(token) != "control"){
+        if(!jwtUtil.getKey(token).equals("control")){
             return;
         }
 
-        // Segundo: Avanzar fase. IMPORTANTE: Falta asignar recursos de mapa. CONTROL ELIGE LA FASE, NO LA AVANZA.
+        // Segundo: Avanzar fase. CONTROL ELIGE LA FASE, NO LA AVANZA.
 
         controlDao.seleccionarFase(fase);
     }
@@ -168,28 +179,20 @@ public class ConController {
 
         // Primero: Corroborar que el pedido lo hace Control
 
-        if(jwtUtil.getKey(token) != "control"){
+        if(!jwtUtil.getKey(token).equals("control")){
             return;
         }
-        // Segundo: Corroborar federalismo / centralismo
-        String sistemaDeGobierno = controlDao.getSistemaDeGobierno();
 
-        // Tercero: Recuperar presidente
-        String presidente = controlDao.getPresidente();
-
-        // Cuarto: Corroborar proteccionismo/liberalismo
-        String sistemaEconomico = controlDao.getSistemaEconomico();
-
-        // Quinto: Corroborar improductividad y ganar recursos en mapa.
+        // Segundo: Corroborar improductividad y ganar recursos en mapa.
         controlDao.recursosMapa();
 
-        // Sexto: Avanzar turno
+        // Tercero: Avanzar turno
         controlDao.avanzarTurno();
 
-        // Séptimo: Repartir recursos.
-        controlDao.repartirRecursos(sistemaDeGobierno, presidente, sistemaEconomico);
+        // Cuarto: Repartir recursos.
+        controlDao.repartirRecursos();
 
-        // Octavo: actualizar oficiales en capitanes
+        // Quinto: actualizar oficiales en capitanes
         controlDao.actualizarOficiales();
     }
 
@@ -198,7 +201,7 @@ public class ConController {
 
         // Primero: Corroborar que el pedido lo hace Control
 
-        if (jwtUtil.getKey(token) != "control") {
+        if(!jwtUtil.getKey(token).equals("control")){
             return;
         }
 
@@ -207,43 +210,17 @@ public class ConController {
         controlDao.improductividad(actorPolitico);
     }
 
-    @RequestMapping(value = "api/control/editarSistemaDeGobierno")
-    public void editarSistemaDeGobierno(@RequestHeader(value = "Authorization") String token, @RequestBody OtrosModel nuevoSistema) {
+    @RequestMapping(value = "api/control/editarCongreso")
+    public void editarCongreso(@RequestHeader(value = "Authorization") String token, @RequestBody CongresoModel nuevoCongreso) {
 
         // Primero: Corroborar que el pedido lo hace Control
 
-        if (jwtUtil.getKey(token) != "control") {
+        if(!jwtUtil.getKey(token).equals("control")){
             return;
         }
 
         //Segundo: Editar sistema de gobierno
-        controlDao.editarSistemaDeGobierno(nuevoSistema);
-    }
-
-    @RequestMapping(value = "api/control/editarPresidente")
-    public void editarPresidente(@RequestHeader(value = "Authorization") String token, @RequestBody OtrosModel nuevoPresidente) {
-
-        // Primero: Corroborar que el pedido lo hace Control
-
-        if (jwtUtil.getKey(token) != "control") {
-            return;
-        }
-
-        //Segundo: Editar presidente
-        controlDao.editarPresidente(nuevoPresidente);
-    }
-
-    @RequestMapping(value = "api/control/editarSistemaEconomico")
-    public void editarSistemaEconomico(@RequestHeader(value = "Authorization") String token, @RequestBody OtrosModel nuevoSistema) {
-
-        // Primero: Corroborar que el pedido lo hace Control
-
-        if (jwtUtil.getKey(token) != "control") {
-            return;
-        }
-
-        //Segundo: Editar sistema economico
-        controlDao.editarSistemaEconomico(nuevoSistema);
+        controlDao.editarCongreso(nuevoCongreso);
     }
 
     @RequestMapping(value = "api/control/permitirActualizarListaCapitanes")
@@ -251,7 +228,7 @@ public class ConController {
 
         // Primero: Corroborar que el pedido lo hace Control
 
-        if (jwtUtil.getKey(token) != "control") {
+        if(!jwtUtil.getKey(token).equals("control")){
             return;
         }
 

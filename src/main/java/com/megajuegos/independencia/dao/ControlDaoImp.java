@@ -41,15 +41,22 @@ public class ControlDaoImp implements ControlDao{
     }
 
     @Override
+    public List<CongresoModel> listarCongresos() {
+        String query = "FROM CongresoModel";
+        List<CongresoModel> resultado = entityManager.createQuery(query).getResultList();
+        return resultado;
+    }
+
+    @Override
     public void pausar() {
         OtrosModel pausa = entityManager.find(OtrosModel.class, "pausa");
-        pausa.setValor_int(1);
+        pausa.setValor(1);
     }
 
     @Override
     public void despausar() {
         OtrosModel pausa = entityManager.find(OtrosModel.class, "pausa");
-        pausa.setValor_int(0);
+        pausa.setValor(0);
     }
 
     @Override
@@ -62,7 +69,6 @@ public class ControlDaoImp implements ControlDao{
         editado.setVino(actualizacion.getVino());
         editado.setYerba(actualizacion.getYerba());
         editado.setNivel_industria(actualizacion.getNivel_industria());
-        editado.setNivel_mision_comercial(actualizacion.getNivel_mision_comercial());
         entityManager.merge(editado);
     }
     @Override
@@ -91,56 +97,27 @@ public class ControlDaoImp implements ControlDao{
     public void seleccionarFase(OtrosModel fase) {
 
         OtrosModel otros = entityManager.find(OtrosModel.class, "fase_militar");
-        otros.setValor_int(fase.getValor_int());
+        otros.setValor(fase.getValor());
         entityManager.merge(otros);
     }
 
     @Override
     public void avanzarTurno() {
         OtrosModel otros = entityManager.find(OtrosModel.class, "turno");
-        otros.setValor_int(otros.getValor_int() + 1);
+        otros.setValor(otros.getValor() + 1);
         entityManager.merge(otros);
     }
 
-    @Override
-    public String getSistemaDeGobierno() {
-        OtrosModel otros = entityManager.find(OtrosModel.class, "sistema_de_gobierno");
-        return otros.getValor_char();
-    }
 
     @Override
-    public String getPresidente() {
-        OtrosModel otros = entityManager.find(OtrosModel.class, "presidente");
-        return otros.getValor_char();
-    }
-
-    @Override
-    public String getSistemaEconomico() {
-        OtrosModel otros = entityManager.find(OtrosModel.class, "sistema_economico");
-        return otros.getValor_char();
-    }
-
-
-
-    @Override
-    public void editarSistemaDeGobierno(OtrosModel nuevoSistema) {
-        OtrosModel otros = entityManager.find(OtrosModel.class, nuevoSistema.getAccion());
-        otros.setValor_char(nuevoSistema.getValor_char());
-        entityManager.merge(otros);
-    }
-
-    @Override
-    public void editarPresidente(OtrosModel nuevoPresidente) {
-        OtrosModel otros = entityManager.find(OtrosModel.class, nuevoPresidente.getAccion());
-        otros.setValor_char(nuevoPresidente.getValor_char());
-        entityManager.merge(otros);
-    }
-
-    @Override
-    public void editarSistemaEconomico(OtrosModel nuevoSistema) {
-        OtrosModel otros = entityManager.find(OtrosModel.class, nuevoSistema.getAccion());
-        otros.setValor_char(nuevoSistema.getValor_char());
-        entityManager.merge(otros);
+    public void editarCongreso(CongresoModel nuevoCongreso) {
+        CongresoModel congreso = entityManager.find(CongresoModel.class, nuevoCongreso.getId());
+        congreso.setCapital(nuevoCongreso.getCapital());
+        congreso.setSistema_de_gobierno(nuevoCongreso.getSistema_de_gobierno());
+        congreso.setSistema_economico(nuevoCongreso.getSistema_economico());
+        congreso.setCuantos(nuevoCongreso.getCuantos());
+        congreso.setPresidente(nuevoCongreso.getPresidente());
+        entityManager.merge(congreso);
     }
 
     @Override
@@ -255,236 +232,269 @@ public class ControlDaoImp implements ControlDao{
                  salta.setImproductividad(1);
                  break;
          }
+         entityManager.merge(actor);
     }
 
     @Override
-    public void repartirRecursos(String sistemaDeGobierno, String presidente, String sistemaEconomico) {
+    public void repartirRecursos() {
 
-        switch (sistemaDeGobierno) {
+        // Primero: Tomamos el primer congreso y sus propiedades
+        for (int i = 0; i < 10; i++) {
+            int idCongreso = i+1;
+            CongresoModel congreso = entityManager.find(CongresoModel.class, idCongreso);
+            String sistemaDeGobierno = congreso.getSistema_de_gobierno();
+            String sistemaEconomico = congreso.getSistema_economico();
+            String presidente = congreso.getPresidente();
 
-            // Primero: para federalismo politico
-            case "federalismo":
-                switch (sistemaEconomico){
+            // Segundo: comparamos su sistema de gobierno
+            switch (sistemaDeGobierno) {
 
-                    // Segundo: para default y liberalismo economico
-                    case "default":
-                    case "liberalismo":
+                // Tercero: para federalismo
+                case "federalismo":
 
-                        for(int i = 0; i<10; i++){
-                            int id= i+1;
-                            RecursosModel ciudad = entityManager.find(RecursosModel.class, id);
+                    // Cuarto: comparamos su sistema económico
+                    switch (sistemaEconomico){
 
-                            // Tercero: corroborar improductividad
-                            if (ciudad.getImproductividad() == 0) {
+                        // Quinto: para default y liberalismo economico
+                        case "default":
+                        case "liberalismo":
 
-                                // Cuarto: corroborar recurso que produce y producirlo (liberalismo sólo +1)
-                                switch (ciudad.getRecurso_que_produce()) {
-                                    case "caballos":
-                                        ciudad.setCaballos(ciudad.getCaballos() + 1);
-                                        break;
-                                    case "vacas":
-                                        ciudad.setVacas(ciudad.getVacas() + 1);
-                                        break;
-                                    case "hierro":
-                                        ciudad.setHierro(ciudad.getHierro() + 1);
-                                        break;
-                                    case "vino":
-                                        ciudad.setVino(ciudad.getVino() + 1);
-                                        break;
-                                    case "yerba":
-                                        ciudad.setYerba(ciudad.getYerba() + 1);
-                                        break;
+                            // Sexto: tomamos todas las ciudades y nos quedamos con las que participen de ese congreso.
+                            for(int j = 0; j<10; j++){
+                                int id= j+1;
+                                RecursosModel ciudad = entityManager.find(RecursosModel.class, id);
+
+                                if(ciudad.getCongreso() == congreso.getId()){
+
+                                    // Séptimo: corroborar improductividad
+                                    if (ciudad.getImproductividad() == 0) {
+
+                                        // Octavo: corroborar recurso que produce y producirlo (liberalismo sólo +1)
+                                        switch (ciudad.getRecurso_que_produce()) {
+                                            case "caballos":
+                                                ciudad.setCaballos(ciudad.getCaballos() + 1);
+                                                break;
+                                            case "vacas":
+                                                ciudad.setVacas(ciudad.getVacas() + 1);
+                                                break;
+                                            case "hierro":
+                                                ciudad.setHierro(ciudad.getHierro() + 1);
+                                                break;
+                                            case "vino":
+                                                ciudad.setVino(ciudad.getVino() + 1);
+                                                break;
+                                            case "yerba":
+                                                ciudad.setYerba(ciudad.getYerba() + 1);
+                                                break;
+                                        }
+                                    }
+
+                                    // Noveno: sumar recursos de mapa
+                                    ciudad.setCaballos(ciudad.getCaballos() + ciudad.getCaballos_m());
+                                    ciudad.setCaballos_m(0);
+                                    ciudad.setVacas(ciudad.getVacas() + ciudad.getVacas_m());
+                                    ciudad.setVacas_m(0);
+                                    ciudad.setHierro(ciudad.getHierro() + ciudad.getHierro_m());
+                                    ciudad.setHierro_m(0);
+                                    ciudad.setVino(ciudad.getVino() + ciudad.getVino_m());
+                                    ciudad.setVino_m(0);
+                                    ciudad.setYerba(ciudad.getYerba() + ciudad.getYerba_m());
+                                    ciudad.setYerba_m(0);
+
+                                    //Décimo: actualizar tabla
+                                    entityManager.merge(ciudad);
                                 }
                             }
-                            // Quinto: sumar recursos de mapa
-                            ciudad.setCaballos(ciudad.getCaballos() + ciudad.getCaballos_m());
-                            ciudad.setCaballos_m(0);
-                            ciudad.setVacas(ciudad.getVacas() + ciudad.getVacas_m());
-                            ciudad.setVacas_m(0);
-                            ciudad.setHierro(ciudad.getHierro() + ciudad.getHierro_m());
-                            ciudad.setHierro_m(0);
-                            ciudad.setVino(ciudad.getVino() + ciudad.getVino_m());
-                            ciudad.setVino_m(0);
-                            ciudad.setYerba(ciudad.getYerba() + ciudad.getYerba_m());
-                            ciudad.setYerba_m(0);
+                            break;
 
+                        // Décimo primero: para proteccionismo
+                        case "proteccionismo":
 
-                            //Sexto: actualizar tabla
-                            entityManager.merge(ciudad);
-                        }
-                        break;
+                            // Décimo segundo: tomamos todas las ciudades y nos quedamos con las que participen de ese congreso.
+                            for(int j = 0; j<10; j++){
+                                int id= j+1;
+                                RecursosModel ciudad = entityManager.find(RecursosModel.class, id);
 
-                    // Séptimo: para proteccionismo
-                    case "proteccionismo":
+                                if(ciudad.getCongreso() == congreso.getId()){
 
-                        for(int i = 0; i<10; i++){
-                            int id= i+1;
-                            RecursosModel ciudad = entityManager.find(RecursosModel.class, id);
+                                    // Décimo tercero: corroborar improductividad
+                                    if (ciudad.getImproductividad() == 0) {
 
-                            // Octavo: corroborar improductividad
-                            if (ciudad.getImproductividad() == 0) {
+                                        // Décimo cuarto: corroborar recurso que produce y producirlo (proteccionismo: pueden subir 2)
+                                        switch (ciudad.getRecurso_que_produce()) {
+                                            case "caballos":
+                                                ciudad.setCaballos(ciudad.getCaballos() + ciudad.getNivel_industria());
+                                                break;
+                                            case "vacas":
+                                                ciudad.setVacas(ciudad.getVacas() + ciudad.getNivel_industria());
+                                                break;
+                                            case "hierro":
+                                                ciudad.setHierro(ciudad.getHierro() + ciudad.getNivel_industria());
+                                                break;
+                                            case "vino":
+                                                ciudad.setVino(ciudad.getVino() + ciudad.getNivel_industria());
+                                                break;
+                                            case "yerba":
+                                                ciudad.setYerba(ciudad.getYerba() + ciudad.getNivel_industria());
+                                                break;
+                                        }
+                                    }
+                                    // Décimo quinto: sumar recursos de mapa
+                                    ciudad.setCaballos(ciudad.getCaballos() + ciudad.getCaballos_m());
+                                    ciudad.setCaballos_m(0);
+                                    ciudad.setVacas(ciudad.getVacas() + ciudad.getVacas_m());
+                                    ciudad.setVacas_m(0);
+                                    ciudad.setHierro(ciudad.getHierro() + ciudad.getHierro_m());
+                                    ciudad.setHierro_m(0);
+                                    ciudad.setVino(ciudad.getVino() + ciudad.getVino_m());
+                                    ciudad.setVino_m(0);
+                                    ciudad.setYerba(ciudad.getYerba() + ciudad.getYerba_m());
+                                    ciudad.setYerba_m(0);
 
-                                // Noveno: corroborar recurso que produce y producirlo (proteccionismo: pueden subir 2)
-                                switch (ciudad.getRecurso_que_produce()) {
-                                    case "caballos":
-                                        ciudad.setCaballos(ciudad.getCaballos() + ciudad.getNivel_industria());
-                                        break;
-                                    case "vacas":
-                                        ciudad.setVacas(ciudad.getVacas() + ciudad.getNivel_industria());
-                                        break;
-                                    case "hierro":
-                                        ciudad.setHierro(ciudad.getHierro() + ciudad.getNivel_industria());
-                                        break;
-                                    case "vino":
-                                        ciudad.setVino(ciudad.getVino() + ciudad.getNivel_industria());
-                                        break;
-                                    case "yerba":
-                                        ciudad.setYerba(ciudad.getYerba() + ciudad.getNivel_industria());
-                                        break;
+                                    //Décimo sexto: actualizar tabla
+                                    entityManager.merge(ciudad);
                                 }
                             }
-                            // Décimo: sumar recursos de mapa
-                            ciudad.setCaballos(ciudad.getCaballos() + ciudad.getCaballos_m());
-                            ciudad.setCaballos_m(0);
-                            ciudad.setVacas(ciudad.getVacas() + ciudad.getVacas_m());
-                            ciudad.setVacas_m(0);
-                            ciudad.setHierro(ciudad.getHierro() + ciudad.getHierro_m());
-                            ciudad.setHierro_m(0);
-                            ciudad.setVino(ciudad.getVino() + ciudad.getVino_m());
-                            ciudad.setVino_m(0);
-                            ciudad.setYerba(ciudad.getYerba() + ciudad.getYerba_m());
-                            ciudad.setYerba_m(0);
+                            break;
+                    }
+                    break;
 
-                            //Décimo primero: actualizar tabla
-                            entityManager.merge(ciudad);
-                        }
-                        break;
-                }
-                break;
+                // Décimo séptimo: para centralismo declaramos totales que recibirá el ejecutivo
+                case "centralismo":
 
-            // Décimo segundo: para centralismo
-            case "centralismo":
+                    int totalCaballos = 0;
+                    int totalVacas = 0;
+                    int totalHierro = 0;
+                    int totalVino = 0;
+                    int totalYerba = 0;
 
-                int totalCaballos = 0;
-                int totalVacas = 0;
-                int totalHierro = 0;
-                int totalVino = 0;
-                int totalYerba = 0;
+                    // Décimo octavo: comparamos su sistema económico
+                    switch (sistemaEconomico){
 
-                // Décimo tercero: para default y proteccionismo economico
-                switch (sistemaEconomico){
-                    case "default":
-                    case "liberalismo":
-                        for(int i = 0; i<10; i++) {
-                            int id = i + 1;
-                            RecursosModel ciudad = entityManager.find(RecursosModel.class, id);
+                        // Décimo noveno: para default y liberalismo economico
+                        case "default":
+                        case "liberalismo":
 
-                            // Décimo cuarto: corroborar improductividad
-                            if (ciudad.getImproductividad() == 0) {
+                            // Vigésimo: tomamos todas las ciudades y nos quedamos con las que participen de ese congreso.
+                            for(int j = 0; j<10; j++){
+                                int id= j+1;
+                                RecursosModel ciudad = entityManager.find(RecursosModel.class, id);
 
-                                // Décimo Quinto: corroborar recurso que produce y producirlo (liberalismo sólo +1)
-                                switch (ciudad.getRecurso_que_produce()) {
-                                    case "caballos":
-                                        totalCaballos = totalCaballos + 1;
-                                        break;
-                                    case "vacas":
-                                        totalVacas = totalVacas + 1;
-                                        break;
-                                    case "hierro":
-                                        totalHierro = totalHierro + 1;
-                                        break;
-                                    case "vino":
-                                        totalVino = totalVino + 1;
-                                        break;
-                                    case "yerba":
-                                        totalYerba = totalYerba + 1;
-                                        break;
+                                if(ciudad.getCongreso() == congreso.getId()){
+
+                                    // Vigésimo primero: corroborar improductividad
+                                    if (ciudad.getImproductividad() == 0) {
+
+                                        // Vigésimo segundo: corroborar recurso que produce y producirlo (liberalismo sólo +1)
+                                        switch (ciudad.getRecurso_que_produce()) {
+                                            case "caballos":
+                                                totalCaballos = totalCaballos + 1;
+                                                break;
+                                            case "vacas":
+                                                totalVacas = totalVacas + 1;
+                                                break;
+                                            case "hierro":
+                                                totalHierro = totalHierro + 1;
+                                                break;
+                                            case "vino":
+                                                totalVino = totalVino + 1;
+                                                break;
+                                            case "yerba":
+                                                totalYerba = totalYerba + 1;
+                                                break;
+                                        }
+                                    }
+                                    // Vigésimo tercero: sumar recursos de mapa
+                                    totalCaballos = totalCaballos + ciudad.getCaballos_m();
+                                    ciudad.setCaballos_m(0);
+                                    totalVacas = totalVacas + ciudad.getVacas_m();
+                                    ciudad.setVacas_m(0);
+                                    totalHierro = totalHierro + ciudad.getHierro_m();
+                                    ciudad.setHierro_m(0);
+                                    totalVino = totalVino + ciudad.getVino_m();
+                                    ciudad.setVino_m(0);
+                                    totalYerba = totalYerba + ciudad.getYerba_m();
+                                    ciudad.setYerba_m(0);
                                 }
-                            }
-                            // Décimo Sexto: sumar recursos de mapa
-                            totalCaballos = totalCaballos + ciudad.getCaballos_m();
-                            ciudad.setCaballos_m(0);
-                            totalVacas = totalVacas + ciudad.getVacas_m();
-                            ciudad.setVacas_m(0);
-                            totalHierro = totalHierro + ciudad.getHierro_m();
-                            ciudad.setHierro_m(0);
-                            totalVino = totalVino + ciudad.getVino_m();
-                            ciudad.setVino_m(0);
-                            totalYerba = totalYerba + ciudad.getYerba_m();
-                            ciudad.setYerba_m(0);
-                        }
-                        //Décimo Séptimo: pasarle recursos al presidente
-                        RecursosModel ciudad = entityManager.find(RecursosModel.class, presidente);
+                                //Vigésimo cuarto: pasarle recursos al presidente
+                                RecursosModel ejecutivo = entityManager.find(RecursosModel.class, presidente);
 
-                        ciudad.setCaballos(ciudad.getCaballos() + totalCaballos);
-                        ciudad.setVacas(ciudad.getVacas() + totalVacas);
-                        ciudad.setHierro(ciudad.getHierro() + totalHierro);
-                        ciudad.setVino(ciudad.getVino() + totalVino);
-                        ciudad.setYerba(ciudad.getYerba() + totalYerba);
+                                ejecutivo.setCaballos(ciudad.getCaballos() + totalCaballos);
+                                ejecutivo.setVacas(ciudad.getVacas() + totalVacas);
+                                ejecutivo.setHierro(ciudad.getHierro() + totalHierro);
+                                ejecutivo.setVino(ciudad.getVino() + totalVino);
+                                ejecutivo.setYerba(ciudad.getYerba() + totalYerba);
 
-                        //Décimo Octavo: actualizar tabla
-                        entityManager.merge(ciudad);
-
-                        break;
-
-                    // Décimo Noveno: para proteccionismo economico
-                    case "proteccionismo":
-
-                        for(int i = 0; i<10; i++) {
-                            int id = i + 1;
-                            RecursosModel ciudad2 = entityManager.find(RecursosModel.class, id);
-
-                            // Vigésimo: corroborar improductividad
-                            if (ciudad2.getImproductividad() == 0) {
-
-                                // Vigésimo primero: corroborar recurso que produce y producirlo (proteccionismo: según industria)
-                                switch (ciudad2.getRecurso_que_produce()) {
-                                    case "caballos":
-                                        totalCaballos = totalCaballos + ciudad2.getNivel_industria();
-                                        break;
-                                    case "vacas":
-                                        totalVacas = totalVacas + ciudad2.getNivel_industria();
-                                        break;
-                                    case "hierro":
-                                        totalHierro = totalHierro + ciudad2.getNivel_industria();
-                                        break;
-                                    case "vino":
-                                        totalVino = totalVino + ciudad2.getNivel_industria();
-                                        break;
-                                    case "yerba":
-                                        totalYerba = totalYerba + ciudad2.getNivel_industria();
-                                        break;
+                                //Vigésimo quinto: actualizar tabla
+                                entityManager.merge(ejecutivo);
                                 }
-                            }
-                            // Vigésimo segundo: sumar recursos de mapa
-                            totalCaballos = totalCaballos + ciudad2.getCaballos_m();
-                            ciudad2.setCaballos_m(0);
-                            totalVacas = totalVacas + ciudad2.getVacas_m();
-                            ciudad2.setVacas_m(0);
-                            totalHierro = totalHierro + ciudad2.getHierro_m();
-                            ciudad2.setHierro_m(0);
-                            totalVino = totalVino + ciudad2.getVino_m();
-                            ciudad2.setVino_m(0);
-                            totalYerba = totalYerba + ciudad2.getYerba_m();
-                            ciudad2.setYerba_m(0);
+                            break;
 
-                        }
-                        // Vigésimo tercero: pasarle recursos al presidente
-                        RecursosModel ciudad2 = entityManager.find(RecursosModel.class, presidente);
+                        // Vigésimo sexto: para proteccionismo economico
+                        case "proteccionismo":
 
-                        ciudad2.setCaballos(ciudad2.getCaballos() + totalCaballos);
-                        ciudad2.setVacas(ciudad2.getVacas() + totalVacas);
-                        ciudad2.setHierro(ciudad2.getHierro() + totalHierro);
-                        ciudad2.setVino(ciudad2.getVino() + totalVino);
-                        ciudad2.setYerba(ciudad2.getYerba() + totalYerba);
+                            // Vigésimo séptimo: tomamos todas las ciudades y nos quedamos con las que participen de ese congreso.
+                            for(int j = 0; j<10; j++){
+                                int id= j+1;
+                                RecursosModel ciudad = entityManager.find(RecursosModel.class, id);
 
-                        //Décimo Octavo: actualizar tabla
-                        entityManager.merge(ciudad2);
+                                if(ciudad.getCongreso() == congreso.getId()){
 
-                        break;
-                }
-                break;
+                                    // Vigésimo octavo: corroborar improductividad
+                                    if (ciudad.getImproductividad() == 0) {
+
+                                        // Vigésimo noveno: corroborar recurso que produce y producirlo (proteccionismo: según industria)
+                                        switch (ciudad.getRecurso_que_produce()) {
+                                            case "caballos":
+                                                totalCaballos = totalCaballos + ciudad.getNivel_industria();
+                                                break;
+                                            case "vacas":
+                                                totalVacas = totalVacas + ciudad.getNivel_industria();
+                                                break;
+                                            case "hierro":
+                                                totalHierro = totalHierro + ciudad.getNivel_industria();
+                                                break;
+                                            case "vino":
+                                                totalVino = totalVino + ciudad.getNivel_industria();
+                                                break;
+                                            case "yerba":
+                                                totalYerba = totalYerba + ciudad.getNivel_industria();
+                                                break;
+                                        }
+                                    }
+                                    // Trigésimo: sumar recursos de mapa
+                                    totalCaballos = totalCaballos + ciudad.getCaballos_m();
+                                    ciudad.setCaballos_m(0);
+                                    totalVacas = totalVacas + ciudad.getVacas_m();
+                                    ciudad.setVacas_m(0);
+                                    totalHierro = totalHierro + ciudad.getHierro_m();
+                                    ciudad.setHierro_m(0);
+                                    totalVino = totalVino + ciudad.getVino_m();
+                                    ciudad.setVino_m(0);
+                                    totalYerba = totalYerba + ciudad.getYerba_m();
+                                    ciudad.setYerba_m(0);
+
+                                }
+                                // Trigésimo primero: pasarle recursos al presidente
+                                RecursosModel ejecutivo = entityManager.find(RecursosModel.class, presidente);
+
+                                ejecutivo.setCaballos(ejecutivo.getCaballos() + totalCaballos);
+                                ejecutivo.setVacas(ejecutivo.getVacas() + totalVacas);
+                                ejecutivo.setHierro(ejecutivo.getHierro() + totalHierro);
+                                ejecutivo.setVino(ejecutivo.getVino() + totalVino);
+                                ejecutivo.setYerba(ejecutivo.getYerba() + totalYerba);
+
+                                // Trigésimo segundo: actualizar tabla
+                                entityManager.merge(ejecutivo);
+                                }
+                            break;
+                    }
+                    break;
+            }
+
         }
+
+
     }
 
     @Override
@@ -578,89 +588,10 @@ public class ControlDaoImp implements ControlDao{
     @Override
     public void permitirActualizarListaCapitanes(OtrosModel nuevo) {
         OtrosModel permitir = entityManager.find(OtrosModel.class, "actualizar_capitanes");
-        permitir.setValor_int(nuevo.getValor_int());
+        permitir.setValor(nuevo.getValor());
     }
 
-    /*@Override
-    public List<DeterminandoConflictosModel> moverAntesDeConflictos() {
 
-        List<DeterminandoConflictosModel> conflictos = new ArrayList<>();
-
-        // Segundo: Buscar caminos que tengan los mismos puntos.
-
-        String query = "FROM EjercitosModel";
-        List<EjercitosModel> listadeEjercitos = entityManager.createQuery(query).getResultList();
-
-        for (EjercitosModel ejercito : listadeEjercitos) {
-
-            // Seteo ruta a partir de ubicacion y destino
-            ejercito.setRuta_a_usar(buscarCaminos(ejercito.getUbicacion_militar(), ejercito.getDestino_1()));
-
-            // Asegurar que destino queda a 1 casillero de distancia
-            boolean movimientoLegal = false;
-
-            int ordenUbicacion = 0;
-            int ordenDestino = 0;
-            for (String punto:
-                    ejercito.getRuta_a_usar()) {
-                ordenUbicacion++;
-                if(punto.equals(ejercito.getUbicacion_militar())){
-                    break;
-                }
-            }
-            for (String punto:
-                    ejercito.getRuta_a_usar()) {
-                ordenDestino++;
-                if(punto.equals(ejercito.getDestino_1())){
-                    break;
-                }
-            }
-            if((ordenUbicacion == ordenDestino+1) || (ordenUbicacion == ordenDestino-1)){
-                movimientoLegal = true;
-            }
-
-            // Conflictos en destino
-            for (EjercitosModel segundoEjercito: listadeEjercitos
-                 ) {
-                if(ejercito.getDestino_1().equals(segundoEjercito.getDestino_1())){
-
-                    DeterminandoConflictosModel conflicto = new DeterminandoConflictosModel();
-                    conflicto.setUbicacion(ejercito.getDestino_1());
-                    conflicto.setEjercito_1(ejercito.getCiudad());
-                    if(conflicto.getEjercito_2().equals("")){
-                        conflicto.setEjercito_2(segundoEjercito.getCiudad());
-                    } else if(conflicto.getEjercito_3().equals("")){
-                        conflicto.setEjercito_3(segundoEjercito.getCiudad());
-                    } else{
-                        conflicto.setEjercito_4(segundoEjercito.getCiudad());
-                    }
-                    conflictos.add(conflicto);
-                }
-            }
-
-            // Conflictos cruzados
-            for (EjercitosModel segundoEjercito:
-                 listadeEjercitos) {
-                if((ejercito.getDestino_1().equals(segundoEjercito.getUbicacion_militar())) &&
-                        (ejercito.getUbicacion_militar().equals(segundoEjercito.getDestino_1()))){
-
-                    DeterminandoConflictosModel conflicto = new DeterminandoConflictosModel();
-                    conflicto.setUbicacion(ejercito.getDestino_1());
-                    conflicto.setEjercito_1(ejercito.getCiudad());
-                    if(conflicto.getEjercito_2().equals("")){
-                        conflicto.setEjercito_2(segundoEjercito.getCiudad());
-                    } else if(conflicto.getEjercito_3().equals("")){
-                        conflicto.setEjercito_3(segundoEjercito.getCiudad());
-                    } else{
-                        conflicto.setEjercito_4(segundoEjercito.getCiudad());
-                    }
-                    conflictos.add(conflicto);
-                }
-            }
-        }
-        return conflictos;
-    }
-     */
 
     /*
     @Override

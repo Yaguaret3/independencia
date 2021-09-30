@@ -1,9 +1,6 @@
 package com.megajuegos.independencia.dao;
 
-import com.megajuegos.independencia.models.ActoresPoliticosModel;
-import com.megajuegos.independencia.models.EjercitosModel;
-import com.megajuegos.independencia.models.RecursosModel;
-import com.megajuegos.independencia.models.UsuarioModel;
+import com.megajuegos.independencia.models.*;
 import com.megajuegos.independencia.utils.JWTUtil;
 import com.sun.jna.StringArray;
 import de.mkammerer.argon2.Argon2;
@@ -43,6 +40,37 @@ public class RecursosDaoImp implements RecursosDao{
     }
 
     @Override
+    public EjercitosModel cargarNivelMisionComercial(String ciudad) {
+        EjercitosModel mision_comercial = entityManager.find(EjercitosModel.class, ciudad);
+
+        mision_comercial.setUnidades_agrupadas(0);
+        mision_comercial.setUnidades_recien_llegadas(0);
+        mision_comercial.setUnidades_a_asignar(0);
+        mision_comercial.setDar_unidades_a("");
+        mision_comercial.setOficial_a("");
+        mision_comercial.setOficial_b("");
+        mision_comercial.setOficial_c("");
+        mision_comercial.setOficial_d("");
+        mision_comercial.setOficial_e("");
+        mision_comercial.setUbicacion_militar("");
+        mision_comercial.setMovimiento("");
+        mision_comercial.setDestino_1("");
+        mision_comercial.setDestino_2("");
+        mision_comercial.setDestino_3("");
+        mision_comercial.setUbicacion_comercial("");
+        mision_comercial.setCiudades_aliadas("");
+        mision_comercial.setAsediada("");
+        mision_comercial.setNuevo_oficial_a("");
+        mision_comercial.setNuevo_oficial_b("");
+        mision_comercial.setNuevo_oficial_c("");
+        mision_comercial.setNuevo_oficial_d("");
+        mision_comercial.setNuevo_oficial_e("");
+        mision_comercial.setRuta_a_usar("");
+
+        return mision_comercial;
+    }
+
+    @Override
     public void aumentarIndustria(String ciudad) {
 
         RecursosModel industria = entityManager.find(RecursosModel.class, ciudad);
@@ -64,17 +92,11 @@ public class RecursosDaoImp implements RecursosDao{
     @Override
     public void aumentarMisionComercial(String ciudad) {
 
-        // Primero: aumentar mision comercial en tabla gobernadores
+        // Aumentar mision comercial en tabla capitanes
 
-        RecursosModel misionComercial = entityManager.find(RecursosModel.class, ciudad);
-        misionComercial.setNivel_mision_comercial(misionComercial.getNivel_mision_comercial()+1);;
+        EjercitosModel misionComercial = entityManager.find(EjercitosModel.class, ciudad);
+        misionComercial.setNivel_mision_comercial(misionComercial.getNivel_mision_comercial());
         entityManager.merge(misionComercial);
-
-        // Segundo: aumentar mision comercial en tabla capitanes
-
-        EjercitosModel tablaEjercitos = entityManager.find(EjercitosModel.class, ciudad);
-        tablaEjercitos.setNivel_mision_comercial(misionComercial.getNivel_mision_comercial());
-        entityManager.merge(tablaEjercitos);
 
     }
 
@@ -253,11 +275,15 @@ public class RecursosDaoImp implements RecursosDao{
     @Override
     public boolean misionMenosAEstatus(String ciudad) {
 
-        // Primero: Identificar ciudad
+        // Primero: Identificar estatus
         RecursosModel recursos = entityManager.find(RecursosModel.class, ciudad);
-        int misionComercial = recursos.getNivel_mision_comercial();
         int estatus = recursos.getEstatus();
 
+        // Segundo: Identificar nivel de misión comercial
+        EjercitosModel nivel = entityManager.find(EjercitosModel.class, ciudad);
+        int misionComercial = nivel.getNivel_mision_comercial();
+
+        // Comparar
         if(estatus > misionComercial){
             return true;
         }
@@ -380,5 +406,18 @@ public class RecursosDaoImp implements RecursosDao{
 
         // Cuarto: actualizar tabla de actores políticos
         entityManager.merge(actorPolitico);
+    }
+
+    @Override
+    public boolean pausa() {
+
+        OtrosModel pausa = entityManager.find(OtrosModel.class, "pausa");
+
+        if(pausa.getValor() == 1){
+            return true;
+        } else{
+            return false;
+        }
+
     }
 }

@@ -4,8 +4,6 @@ import com.megajuegos.independencia.dao.EjercitosDao;
 import com.megajuegos.independencia.models.EjercitosModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,18 +26,20 @@ public class CapController {
     @RequestMapping(value = "/api/capitanes/movimientos", method = RequestMethod.POST)
     public void movimientos(@RequestHeader(value = "Authorization") String token, @RequestBody EjercitosModel traido){
 
-        // Primero determinar ciudad
+        // Primero: determinar ciudad.
         String ciudad = ejercitosDao.corroborarCiudad(token);
+        // Segundo: determinar fase.
+        int fase = ejercitosDao.fase();
 
-        //Segundo enviar movimientos a base
-        ejercitosDao.movimientos(ciudad, traido);
+        // Tercero: enviar movimientos a base
+        ejercitosDao.movimientos(ciudad, traido, fase);
     }
 
     @RequestMapping(value = "/api/capitanes/asignarUnidades", method = RequestMethod.POST)
     public void asignarUnidades(@RequestHeader(value = "Authorization") String token, @RequestBody EjercitosModel traido){
 
-        // Primero: Corroborar momento de juego
-        if(ejercitosDao.fase1()){
+        // Primero: Corroborar fase inicial
+        if(ejercitosDao.fase() == 1){
 
             // Segundo: Determinar ciudad
             String ciudad = ejercitosDao.corroborarCiudad(token);

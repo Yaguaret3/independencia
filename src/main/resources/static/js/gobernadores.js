@@ -38,9 +38,40 @@ async function cargarRecursos(){
       });
     const respuesta = await request.json();
 
-    // Cargar historial de comercio
-    document.querySelector('#historialComercial').innerHTML = respuesta.historial_comercial;
+    // Cargar nombre de ciudad
+    $("#nombreCiudad").html(respuesta.ciudad);
 
+    // Cargar recursos
+    $("#caballos_base").html(respuesta.caballos);
+    $("#vacas_base").html(respuesta.vacas);
+    $("#hierro_base").html(respuesta.hierro);
+    $("#vino_base").html(respuesta.vino);
+    $("#yerba_base").html(respuesta.yerba);
+    $("#estatus").html(respuesta.estatus);
+    $("#nivel_industria").html(respuesta.nivel_industria);
+    $("#unidades_reclutadas_no_enviadas").html(respuesta.unidades);
+    $("#unidades_totales_enviadas").html(respuesta.unidades_enviadas);
+    $("#oficiales_contratados").html(respuesta.oficiales);
+
+    // Cargar historial de comercio
+    $('#historialComercial').html(respuesta.historial_comercial);
+
+    // Cargar nivel de mision comercial
+    cargarNivelMisionComercial();
+}
+
+async function cargarNivelMisionComercial(){
+
+    const request = await fetch('api/gobernadores/cargarNivelMisionComercial', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem("token")
+        },
+      });
+    const respuesta = await request.json();
+    $("#nivel_mision_comercial").html(respuesta.nivel_mision_comercial);
 }
 
 async function aumentarIndustria(){
@@ -62,6 +93,8 @@ async function aumentarIndustria(){
         body: JSON.stringify(datos)
       });
     const industria = await request.json();
+
+    cargarRecursos();
 }
 
 async function aumentarMisionComercial(){
@@ -83,6 +116,8 @@ async function aumentarMisionComercial(){
         body: JSON.stringify(datos)
       });
     const misionComercial = await request.json();
+
+    cargarRecursos();
 }
 
 async function contratarOficiales(){
@@ -104,6 +139,8 @@ async function contratarOficiales(){
     body: JSON.stringify(datos)
     });
     const oficiales = await request.json();
+
+    cargarRecursos();
 }
 
 async function enviarUnidadesAlCapitan(){
@@ -116,4 +153,6 @@ async function enviarUnidadesAlCapitan(){
           'Authorization': localStorage.getItem("token")
         },
     });
+
+    cargarRecursos();
 }

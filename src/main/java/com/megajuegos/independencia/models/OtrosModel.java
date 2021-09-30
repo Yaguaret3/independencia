@@ -16,10 +16,7 @@ public class OtrosModel {
     @Getter @Setter @Column(name ="accion")
     private String accion;
 
-    @Getter @Setter @Column(name = "valor_int")
-    private int valor_int;
-
-    @Getter @Setter @Column(name = "valor_char")
-    private String valor_char;
+    @Getter @Setter @Column(name = "valor")
+    private int valor;
 
 }

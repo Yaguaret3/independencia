@@ -51,87 +51,60 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
+            <!-- Heading - Control General - Siguiente Turno - Pausar - Despausar -->
             <div class="sidebar-heading">
-                Interface
+                Control General
             </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
-                    </div>
-                </div>
+                <a class="nav-link" href="#" onclick="siguienteTurno()">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Siguiente Turno</span></a>
             </li>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
-                </div>
+                <a class="nav-link" href="#" onclick="pausar()">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Pausar</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#" onclick="despausar()">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Despausar</span></a>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
+            <!-- Heading - Control Congresos-->
             <div class="sidebar-heading">
-                Addons
+                Control Congresos
             </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
+            <!-- Nav Item - Menu Congresos -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Congresos</span>
                 </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                        <h6 class="collapse-header">Seleccionar:</h6>
+                        <a href="#" class="collapse-item" data-toggle="modal" data-target="#editarCongreso" onclick="mostrarModalCongreso('1')">Congreso 01</a>
+                        <a href="#" class="collapse-item" data-toggle="modal" data-target="#editarCongreso" onclick="mostrarModalCongreso('2')">Congreso 02</a>
+                        <a href="#" class="collapse-item" data-toggle="modal" data-target="#editarCongreso" onclick="mostrarModalCongreso('3')">Congreso 03</a>
+                        <a href="#" class="collapse-item" data-toggle="modal" data-target="#editarCongreso" onclick="mostrarModalCongreso('4')">Congreso 04</a>
+                        <a href="#" class="collapse-item" data-toggle="modal" data-target="#editarCongreso" onclick="mostrarModalCongreso('5')">Congreso 05</a>
+                        <a href="#" class="collapse-item" data-toggle="modal" data-target="#editarCongreso" onclick="mostrarModalCongreso('6')">Congreso 06</a>
+                        <a href="#" class="collapse-item" data-toggle="modal" data-target="#editarCongreso" onclick="mostrarModalCongreso('7')">Congreso 07</a>
+                        <a href="#" class="collapse-item" data-toggle="modal" data-target="#editarCongreso" onclick="mostrarModalCongreso('8')">Congreso 08</a>
+                        <a href="#" class="collapse-item" data-toggle="modal" data-target="#editarCongreso" onclick="mostrarModalCongreso('9')">Congreso 09</a>
+                        <a href="#" class="collapse-item" data-toggle="modal" data-target="#editarCongreso" onclick="mostrarModalCongreso('10')">Congreso 10</a>
+
                     </div>
                 </div>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
             </li>
 
             <!-- Divider -->
@@ -140,15 +113,6 @@
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-            <!-- Sidebar Message -->
-            <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
-                <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components,
-                    and more!</p>
-                <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to
-                    Pro!</a>
             </div>
 
         </ul>
@@ -364,7 +328,7 @@
                 <div class="container-fluid">
 
                     <div class="row">
-                        <div class="col-lg-6 mb-4">
+                        <div class="col-lg-8 mb-4">
                             <!-- Control General Visión General -->
                             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                 <h1 class="h3 mb-0 text-gray-800">Ciudades</h1>
@@ -373,10 +337,8 @@
                             <!-- Tabla de ciudades -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary dropdown-item" data-toggle="modal" data-target="#editarCiudad">
-                                        
+                                    <h6 class="m-0 font-weight-bold text-primary dropdown-item">
                                             Ciudades
-                                        
                                     </h6>
                                 </div>
                                 <div class="card-body">
@@ -393,6 +355,8 @@
                                                     <th>Vino</th>
                                                     <th>Yerba</th>
                                                     <th>Nivel Industrial</th>
+                                                    <th>Improductividad</th>
+                                                    <th>Congreso</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -404,17 +368,15 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6 mb-4">
+                        <div class="col-lg-4 mb-4">
                             <!-- Actores Políticos -->
                             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                 <h1 class="h3 mb-0 text-gray-800">Actores Políticos</h1>
                             </div>
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary dropdown-item" data-toggle="modal" data-target="#editarActoresPoliticos">
-                                        
+                                    <h6 class="m-0 font-weight-bold text-primary dropdown-item">
                                         Actores Políticos
-                                    
                                 </h6>
                                 </div>
                                 <div class="card-body">
@@ -445,14 +407,12 @@
                         <div class="col-lg-6 mb-4">
                             <!-- Tabla de ejércitos -->
                             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                <h1 class="h3 mb-0 text-gray-800">Ejércitos</h1>
+                                <h1 id="referencia" class="h3 mb-0 text-gray-800">Ejércitos</h1>
                             </div>
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary dropdown-item" data-toggle="modal" data-target="#editarEjercito">
-                                        
+                                    <h6 class="m-0 font-weight-bold text-primary dropdown-item">
                                         Ejércitos
-                                    
                                 </h6>
                                 </div>
                                 <div class="card-body">
@@ -490,19 +450,19 @@
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">
-                                        <select>
-                                            <option value="fase_1">Fase inicial</option>
-                                            <option value="fase_2">Fase militar 1</option>
-                                            <option value="fase_3">Fase comercial</option>
-                                            <option value="fase_4">Fase militar 2</option>
-                                            <option value="fase_5">Fase final</option>
+                                        <select id="faseMilitarSelect">
+                                            <option value="1">Fase inicial</option>
+                                            <option value="2">Fase militar 1</option>
+                                            <option value="3">Fase comercial</option>
+                                            <option value="4">Fase militar 2</option>
+                                            <option value="5">Fase final</option>
                                         </select>
-                                        <button>Tocame</button>
-                                        <select>
-                                            <option value="si">Sí</option>
-                                            <option value="no">No</option>
+                                        <a href=#referencia class="btn btn-primary" onclick="nuevaFase()">Actualizar Fase</a>
+                                        <select id="permitirActualizarSelect">
+                                            <option value="1">Sí</option>
+                                            <option value="0">No</option>
                                         </select>
-                                        <button>Permitir actualizar</button>
+                                        <a href=#referencia class="btn btn-primary" onclick="permitirActualizar()">Permitir Actualizar</a>
                                     </h6>
                                 </div>
                                 <div class="card-body">
@@ -558,294 +518,255 @@
     </a>
 
     <!-- Modal Editar Ciudades-->
-    <div class="modal fade" id="editarCiudad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="editarCiudadModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog " role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ciudad</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
+                    <h5 class="modal-title">Ciudad</h5>
                 </div>
                 <div class="modal-body">
-                    <h5>Pausar al abrir</h5>
+                    <div class="row">
+                        <label>
+                            Ciudad:
+                        </label>
+                        <input type="text" id="ciudad_modal">
+                    </div>
                     <div class="row">
                         <label>
                             Estatus:
                         </label>
-                        <input type="text" name="estaus" id="estatus" placeholder="#">
+                        <input type="text" id="estatus_modal">
                     </div>
                     <div class="row">
                         <label>
                             Caballos:
                         </label>
-                        <input type="text" name="caballos" id="caballos" placeholder="#">
+                        <input type="text" id="caballos_modal">
                     </div>
                     <div class="row">
                         <label>
                             Vacas:
                         </label>
-                        <input type="text" name="vacas" id="vacas" placeholder="#">
+                        <input type="text" id="vacas_modal">
                     </div>
                     <div class="row">
                         <label>
                             Hierro
                         </label>
-                        <input type="text" name="hierro" id="hierro" placeholder="#">
+                        <input type="text" id="hierro_modal">
                     </div>
                     <div class="row">
                         <label>
                             Vino
                         </label>
-                        <input type="text" name="vino" id="vino" placeholder="#">
+                        <input type="text" id="vino_modal">
                     </div>
                     <div class="row">
                         <label>
                             Yerba
                         </label>
-                        <input type="text" name="yerba" id="yerba" placeholder="#">
+                        <input type="text" id="yerba_modal">
                     </div>
                     <div class="row">
                         <label>
                             Nivel de Industria
                         </label>
-                        <input type="text" name="nivel_industria" id="nivel_industria" placeholder="#">
+                        <input type="text" id="nivel_industria_modal">
                     </div>
                     <div class="row">
                         <label>
                             Improductividad
                         </label>
-                        <input type="text" name="improductividad" id="improductividad" placeholder="#">
+                        <input type="text" id="improduc_ciudad_modal">
                     </div>
                     <div class="row">
-                        <h5>Despausar al cerrar / enviar</h5>
+                        <label>
+                            Congreso
+                        </label>
+                        <input type="text" id="congreso_ciudad_modal">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary">Enviar</a>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal" onclick="despausar()">Cancelar y despausar</button>
+                    <a href=# class="btn btn-primary" onclick="actualizarCiudad()">Enviar y despausar</a>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Modal Editar Ejercitos-->
-    <div class="modal fade" id="editarEjercito" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="editarEjercitoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog " role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ejército</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
+                    <h5 class="modal-title">Ejército</h5>
                 </div>
                 <div class="modal-body">
-                    <h5>Pausar al abrir</h5>
+                    <div class="row">
+                        <label>
+                            Ciudad:
+                        </label>
+                        <input type="text" id="ciudad_ej_modal">
+                    </div>
                     <div class="row">
                         <label>
                             Oficial A:
                         </label>
-                        <input type="text" name="oficial_a" id="oficial_a" placeholder="#">
+                        <input type="text" id="oficial_a_modal">
                     </div>
                     <div class="row">
                         <label>
                             Oficial B:
                         </label>
-                        <input type="text" name="oficial_b" id="oficial_b" placeholder="#">
+                        <input type="text" id="oficial_b_modal">
                     </div>
                     <div class="row">
                         <label>
                             Oficial C:
                         </label>
-                        <input type="text" name="oficial_c" id="oficial_c" placeholder="#">
+                        <input type="text" id="oficial_c_modal">
                     </div>
                     <div class="row">
                         <label>
                             Oficial D:
                         </label>
-                        <input type="text" name="oficial_d" id="oficial_d" placeholder="#">
+                        <input type="text" id="oficial_d_modal">
                     </div>
                     <div class="row">
                         <label>
                             Oficial E:
                         </label>
-                        <input type="text" name="oficial_e" id="oficial_e" placeholder="#">
+                        <input type="text" id="oficial_e_modal">
                     </div>
                     <div class="row">
                         <label>
                             Nivel de Misión Comercial
                         </label>
-                        <input type="text" name="nivel_mision_comercial" id="nivel_mision_comercial" placeholder="#">
+                        <input type="text" id="nivel_mision_comercial_modal">
                     </div>
                     <div class="row">
                         <label>
                             Ubicación Comercial
                         </label>
-                        <input type="text" name="ubicacion_comercial" id="ubicacion_comercial" placeholder="#">
+                        <input type="text" id="ubicacion_comercial_modal">
                     </div>
                     <div class="row">
                         <label>
                             Unidades a asignar
                         </label>
-                        <input type="text" name="unidades_a_asignar" id="unidades_a_asignar" placeholder="#">
+                        <input type="text" id="unidades_a_asignar_modal">
                     </div>
                     <div class="row">
                         <label>
                             Unidades agrupadas
                         </label>
-                        <input type="text" name="unidades_agrupadas" id="unidades_agrupadas" placeholder="#">
-                    </div>
-                    <div class="row">
-                        <h5>Despausar al cerrar / enviar</h5>
+                        <input type="text" id="unidades_agrupadas_modal">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary">Enviar</a>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal" onclick="despausar()">Cancelar y despausar</button>
+                    <a href=#referencia class="btn btn-primary" onclick="actualizarEjercito()">Enviar y despausar</a>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Modal Editar Actores Políticos-->
-    <div class="modal fade" id="editarActoresPoliticos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="editarActorPoliticoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog " role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Actores Políticos</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
+                    <h5 class="modal-title">Actores Políticos</h5>
                 </div>
                 <div class="modal-body">
-                    <h5>Pausar al abrir</h5>
                     <div class="row">
                         <label>
-                            Capital Inglés:
+                            Actor:
                         </label>
-                        <input type="text" name="capital_ingles_txt" id="capital_ingles_txt" placeholder="#">
-                        <input type="button" value="Improductividad">
+                        <input type="text" id="actor_politico_modal">
                     </div>
                     <div class="row">
                         <label>
-                            Capital Francés:
+                            Valor:
                         </label>
-                        <input type="text" name="capital_frances_txt" id="capital_frances_txt" placeholder="#">
-                        <input type="button" value="Improductividad">
+                        <input type="text" id="valor_actor_politico_modal">
                     </div>
                     <div class="row">
-                        <label>
-                            Esclavos:
-                        </label>
-                        <input type="text" name="esclavos_txt" id="esclavos_txt" placeholder="#">
-                        <input type="button" value="Improductividad">
+                        <input type="button" value="Improductividad" onclick="improductividad()">
                     </div>
-                    <div class="row">
-                        <label>
-                            Iglesia:
-                        </label>
-                        <input type="text" name="iglesia_txt" id="iglesia_txt" placeholder="#">
-                        <input type="button" value="Improductividad">
-                    </div>
-                    <div class="row">
-                        <label>
-                            Minería:
-                        </label>
-                        <input type="text" name="mineria_txt" id="mineria_txt" placeholder="#">
-                        <input type="button" value="Improductividad">
-                    </div>
-                    <div class="row">
-                        <label>
-                            Campaña:
-                        </label>
-                        <input type="text" name="campaña_txt" id="campaña_txt" placeholder="#">
-                        <input type="button" value="Improductividad">
-                    </div>
-                    <div class="row">
-                        <label>
-                            Elite:
-                        </label>
-                        <input type="text" name="elite_txt" id="elite_txt" placeholder="#">
-                        <input type="button" value="Improductividad">
-                    </div>
-                    <div class="row">
-                        <label>
-                            Cultura:
-                        </label>
-                        <input type="text" name="cultura_txt" id="Cultura_txt" placeholder="#">
-                        <input type="button" value="Improductividad">
-                    </div>
-                    <div class="row">
-                        <label>
-                            Banca:
-                        </label>
-                        <input type="text" name="banca_txt" id="banca_txt" placeholder="#">
-                        <input type="button" value="Improductividad">
-                    </div>
-                    <div class="row">
-                        <label>
-                            Gremios::
-                        </label>
-                        <input type="text" name="gremios_txt" id="gremios_txt" placeholder="#">
-                        <input type="button" value="Improductividad">
-                    </div>
-                    <div class="row">
-                        <label>
-                            Gobierno Nacional:
-                        </label>
-                        <input type="text" name="gobierno_nacional_txt" id="gobierno_nacional_txt" placeholder="#">
-                        <input type="button" value="Improductividad">
-                    </div>
-                    <div class="row">
-                        <h5>Despausar al cerrar / enviar</h5>
-                    </div>
+
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary">Enviar</a>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal" onclick="despausar()">Cancelar y despausar</button>
+                    <a href=# class="btn btn-primary" onclick="actualizarActor()">Enviar y despausar</a>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Modal Editar Congreso-->
-    <div class="modal fade" id="EditarCongreso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="editarCongreso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog " role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Congreso</h5>
+                    <h5 class="modal-title">Congreso</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h5>Pausar al abrir</h5>
                     <div class="row">
                         <label>
-                            Sistema Político:
+                            Congreso:
                         </label>
-                        <input type="text" name="sistema_politico_txt" id="sistema_politico_txt" placeholder="federalismo o centralismo">
+                        <input type="text" id="id_congreso_modal">
+                    </div>
+                    <div class="row">
+                        <label>
+                            Capital:
+                        </label>
+                        <input type="text" id="capital_congreso_modal">
+                    </div>
+                    <div class="row">
+                        <label>
+                            Sistema Político: (federalismo o centralismo)
+                        </label>
+                    </div>
+                    <div class="row">
+                        <input type="text" id="sistema_politico_modal">
+                    </div>
+                    <div class="row">
+                        <label>
+                            ¿Cuántas ciudades lo componen?
+                        </label>
+                    </div>
+                    <div class="row">
+                        <input type="text" id="cuantos_congreso_modal">
                     </div>
                     <div class="row">
                         <label>
                             Jefe del Ejecutivo:
                         </label>
-                        <input type="text" name="jefe_ejecutivo_txt" id="jefe_ejecutivo_txt" placeholder="Jefe del Ejecutivo">
+                    </div>
+                    <div class="row">
+                        <input type="text" id="jefe_ejecutivo_modal">
                     </div>
                     <div class="row">
                         <label>
-                            Sistema Económico
+                            Sistema Económico: (default, liberalismo o proteccionismo)
                         </label>
-                        <input type="text" name="sistema_economico" id="sistema_economico" placeholder="default, liberalismo, proteccionismo">
+                    </div>
+                    <div>
+                        <input type="text" id="sistema_economico_modal">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary">Enviar</a>
+                    <a href=# class="btn btn-primary" onclick="actualizarCongreso()">Enviar</a>
                 </div>
             </div>
         </div>
