@@ -13,8 +13,7 @@ import java.util.List;
 @Table(name = "ejercitos")
 public class EjercitosModel {
 
-
-    @Getter @Setter @Column(name = "id")
+    @Getter @Setter @Column(name="id")
     private int id;
     @Id
     @Getter @Setter @Column(name = "ciudad")
@@ -28,15 +27,15 @@ public class EjercitosModel {
     @Getter @Setter @Column(name = "dar_unidades_a")
     private String dar_unidades_a;
     @Getter @Setter @Column(name = "oficial_a")
-    private String oficial_a;
+    private int oficial_a;
     @Getter @Setter @Column(name = "oficial_b")
-    private String oficial_b;
+    private int oficial_b;
     @Getter @Setter @Column(name = "oficial_c")
-    private String oficial_c;
+    private int oficial_c;
     @Getter @Setter @Column(name = "oficial_d")
-    private String oficial_d;
+    private int oficial_d;
     @Getter @Setter @Column(name = "oficial_e")
-    private String oficial_e;
+    private int oficial_e;
     @Getter @Setter @Column(name = "ubicacion_militar")
     private String ubicacion_militar;
     @Getter @Setter @Column(name = "movimiento")
@@ -56,15 +55,15 @@ public class EjercitosModel {
     @Getter @Setter @Column(name = "asediada")
     private String asediada;
     @Getter @Setter @Column(name = "nuevo_oficial_a")
-    private String nuevo_oficial_a;
+    private Integer nuevo_oficial_a;
     @Getter @Setter @Column(name = "nuevo_oficial_b")
-    private String nuevo_oficial_b;
+    private Integer nuevo_oficial_b;
     @Getter @Setter @Column(name = "nuevo_oficial_c")
-    private String nuevo_oficial_c;
+    private Integer nuevo_oficial_c;
     @Getter @Setter @Column(name = "nuevo_oficial_d")
-    private String nuevo_oficial_d;
+    private Integer nuevo_oficial_d;
     @Getter @Setter @Column(name = "nuevo_oficial_e")
-    private String nuevo_oficial_e;
+    private Integer nuevo_oficial_e;
     @Getter @Setter @Column(name = "ruta_a_usar")
     private String ruta_a_usar;
 }

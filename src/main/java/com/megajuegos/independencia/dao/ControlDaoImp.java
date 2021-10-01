@@ -504,82 +504,82 @@ public class ControlDaoImp implements ControlDao{
             int id = i + 1;
             EjercitosModel ciudad = entityManager.find(EjercitosModel.class, id);
             switch (ciudad.getOficial_a()){
-                case "1":
+                case 1:
                     switch (ciudad.getNuevo_oficial_a()){
-                        case "2":
-                            ciudad.setOficial_a("2");
+                        case 2:
+                            ciudad.setOficial_a(2);
                             break;
-                        case "3":
-                            ciudad.setOficial_a("3");
+                        case 3:
+                            ciudad.setOficial_a(3);
                             break;
                     }
-                case "2":
-                    if(ciudad.getNuevo_oficial_a().equals("3")){
-                        ciudad.setOficial_a("3");
+                case 2:
+                    if(ciudad.getNuevo_oficial_a() == 3){
+                        ciudad.setOficial_a(3);
                     }
             }
 
             switch (ciudad.getOficial_b()){
-                case "1":
+                case 1:
                     switch (ciudad.getNuevo_oficial_b()){
-                        case "2":
-                            ciudad.setOficial_b("2");
+                        case 2:
+                            ciudad.setOficial_b(2);
                             break;
-                        case "3":
-                            ciudad.setOficial_c("3");
+                        case 3:
+                            ciudad.setOficial_c(3);
                             break;
                     }
-                case "2":
-                    if(ciudad.getNuevo_oficial_b().equals("3")){
-                        ciudad.setOficial_b("3");
+                case 2:
+                    if(ciudad.getNuevo_oficial_b() == 3){
+                        ciudad.setOficial_b(3);
                     }
             }
 
             switch (ciudad.getOficial_c()){
-                case "1":
+                case 1:
                     switch (ciudad.getNuevo_oficial_c()){
-                        case "2":
-                            ciudad.setOficial_c("2");
+                        case 2:
+                            ciudad.setOficial_c(2);
                             break;
-                        case "3":
-                            ciudad.setOficial_c("3");
+                        case 3:
+                            ciudad.setOficial_c(3);
                             break;
                     }
-                case "2":
-                    if(ciudad.getNuevo_oficial_c().equals("3")){
-                        ciudad.setOficial_c("3");
+                case 2:
+                    if(ciudad.getNuevo_oficial_c() == 3){
+                        ciudad.setOficial_c(3);
                     }
             }
 
             switch (ciudad.getOficial_d()){
-                case "1":
+                case 1:
                     switch (ciudad.getNuevo_oficial_d()){
-                        case "2":
-                            ciudad.setOficial_d("2");
+                        case 2:
+                            ciudad.setOficial_d(2);
                             break;
-                        case "3":
-                            ciudad.setOficial_d("3");
+                        case 3:
+                            ciudad.setOficial_d(3);
                             break;
                     }
-                case "2":
-                    if(ciudad.getNuevo_oficial_d().equals("3")){
-                        ciudad.setOficial_d("3");
+                case 2:
+                    if(ciudad.getNuevo_oficial_d() == 3){
+                        ciudad.setOficial_d(3);
                     }
             }
 
             switch (ciudad.getOficial_e()){
-                case "1":
+                case 1:
                     switch (ciudad.getNuevo_oficial_e()){
-                        case "2":
-                            ciudad.setOficial_e("2");
+                        case 2:
+                            ciudad.setOficial_e(2);
                             break;
-                        case "3":
-                            ciudad.setOficial_e("3");
+                        case 3:
+                            ciudad.setOficial_e(3);
                             break;
                     }
-                case "2":
-                    if(ciudad.getNuevo_oficial_e().equals("3")){
-                        ciudad.setOficial_e("3");
+                case 2:
+                    if(ciudad.getNuevo_oficial_e() == (3)){
+                        ciudad.setOficial_e(3);
                     }
             }
         }

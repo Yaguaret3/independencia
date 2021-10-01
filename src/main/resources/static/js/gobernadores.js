@@ -52,6 +52,10 @@ async function cargarRecursos(){
     $("#unidades_reclutadas_no_enviadas").html(respuesta.unidades);
     $("#unidades_totales_enviadas").html(respuesta.unidades_enviadas);
     $("#oficiales_contratados").html(respuesta.oficiales);
+    $("#actorPolitico1").html(respuesta.actor_politico_1);
+    $("#actPol1").html(respuesta.actor_politico_1);
+    $("#actorPolitico2").html(respuesta.actor_politico_2);
+    $("#actPol2").html(respuesta.actor_politico_2);
 
     // Cargar historial de comercio
     $('#historialComercial').html(respuesta.historial_comercial);
@@ -74,16 +78,36 @@ async function cargarNivelMisionComercial(){
     $("#nivel_mision_comercial").html(respuesta.nivel_mision_comercial);
 }
 
-async function aumentarIndustria(){
+async function aumentarEstatus(){
+
+    $("#aumentarEstatusModal").modal("hide");
 
     let datos = {};
-    datos.caballos= 1;
-    datos.vacas= 1;
-    datos.hierro= 1;
-    datos.vino= 1;
-    datos.yerba= 1;
+    datos.caballos= 0;
+    datos.vacas= 0;
+    datos.hierro= 0;
+    datos.vino= 0;
+    datos.yerba= 0;
 
-    const request = await fetch('api/aumentarIndustria', {
+    datos.actor_politico_pedido = $("input[name='actorPedido']:checked").val();
+
+    if($("#caballos_checkbox_estatus").is(":checked")){
+            datos.caballos= 1;
+        }
+        if($("#vacas_checkbox_estatus").is(":checked")){
+            datos.vacas= 1;
+        }
+        if($("#hierro_checkbox_estatus").is(":checked")){
+            datos.hierro= 1;
+        }
+        if($("#vino_checkbox_estatus").is(":checked")){
+            datos.vino= 1;
+        }
+        if($("#yerba_checkbox_estatus").is(":checked")){
+            datos.yerba= 1;
+        }
+
+    const request = await fetch('api/gobernadores/aumentarEstatus', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -91,22 +115,75 @@ async function aumentarIndustria(){
           'Authorization': localStorage.getItem("token")
         },
         body: JSON.stringify(datos)
-      });
-    const industria = await request.json();
+    });
+}
 
-    cargarRecursos();
+async function aumentarIndustria(){
+
+    $("#aumentarIndustriaModal").modal("hide");
+
+    let datos = {};
+    datos.caballos= 0;
+    datos.vacas= 0;
+    datos.hierro= 0;
+    datos.vino= 0;
+    datos.yerba= 0;
+
+    if($("#caballos_checkbox_industria").is(":checked")){
+        datos.caballos= 1;
+    }
+    if($("#vacas_checkbox_industria").is(":checked")){
+        datos.vacas= 1;
+    }
+    if($("#hierro_checkbox_industria").is(":checked")){
+        datos.hierro= 1;
+    }
+    if($("#vino_checkbox_industria").is(":checked")){
+        datos.vino= 1;
+    }
+    if($("#yerba_checkbox_industria").is(":checked")){
+        datos.yerba= 1;
+    }
+
+    const request = await fetch('api/gobernadores/aumentarIndustria', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem("token")
+        },
+        body: JSON.stringify(datos)
+    });
 }
 
 async function aumentarMisionComercial(){
 
-    let datos = {};
-        datos.caballos= 1;
-        datos.vacas= 1;
-        datos.hierro= 1;
-        datos.vino= 1;
-        datos.yerba= 1;
+    $("#aumentarNivelMisionComercialModal").modal("hide");
 
-    const request = await fetch('api/aumentarMisionComercial', {
+    let datos = {};
+    datos.caballos= 0;
+    datos.vacas= 0;
+    datos.hierro= 0;
+    datos.vino= 0;
+    datos.yerba= 0;
+
+    if($("#caballos_checkbox_mision").is(":checked")){
+        datos.caballos= 1;
+    }
+    if($("#vacas_checkbox_mision").is(":checked")){
+        datos.vacas= 1;
+    }
+    if($("#hierro_checkbox_mision").is(":checked")){
+        datos.hierro= 1;
+    }
+    if($("#vino_checkbox_mision").is(":checked")){
+        datos.vino= 1;
+    }
+    if($("#yerba_checkbox_mision").is(":checked")){
+        datos.yerba= 1;
+    }
+
+    const request = await fetch('api/gobernadores/aumentarMisionComercial', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -115,21 +192,76 @@ async function aumentarMisionComercial(){
         },
         body: JSON.stringify(datos)
       });
-    const misionComercial = await request.json();
-
-    cargarRecursos();
 }
 
-async function contratarOficiales(){
+async function reclutarUnidades(){
+
+    $("#reclutarUnidadesModal").modal("hide");
 
     let datos = {};
-        datos.caballos= 1;
-        datos.vacas= 1;
-        datos.hierro= 1;
-        datos.vino= 1;
-        datos.yerba= 1;
+    datos.caballos= 0;
+    datos.vacas= 0;
+    datos.hierro= 0;
+    datos.vino= 0;
+    datos.yerba= 0;
 
-    const request = await fetch('api/contratarOficiales/', {
+    if($("#caballos_checkbox_unidades").is(":checked")){
+        datos.caballos= 1;
+    }
+    if($("#vacas_checkbox_unidades").is(":checked")){
+        datos.vacas= 1;
+    }
+    if($("#hierro_checkbox_unidades").is(":checked")){
+        datos.hierro= 1;
+    }
+    if($("#vino_checkbox_unidades").is(":checked")){
+        datos.vino= 1;
+    }
+    if($("#yerba_checkbox_unidades").is(":checked")){
+        datos.yerba= 1;
+    }
+
+    const request = await fetch('api/gobernadores/reclutarUnidades', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem("token")
+        },
+        body: JSON.stringify(datos)
+      });
+}
+
+async function contratarOficial(){
+
+    $("#contratarOficialesModal").modal("hide");
+
+    let datos = {};
+    datos.caballos= 0;
+    datos.vacas= 0;
+    datos.hierro= 0;
+    datos.vino= 0;
+    datos.yerba= 0;
+
+    if($("#caballos_checkbox_unidades").is(":checked")){
+        datos.caballos= 1;
+    }
+    if($("#vacas_checkbox_unidades").is(":checked")){
+        datos.vacas= 1;
+    }
+    if($("#hierro_checkbox_unidades").is(":checked")){
+        datos.hierro= 1;
+    }
+    if($("#vino_checkbox_unidades").is(":checked")){
+        datos.vino= 1;
+    }
+    if($("#yerba_checkbox_unidades").is(":checked")){
+        datos.yerba= 1;
+    }
+
+    datos.nivel_oficial_pedido = $("#gradoOficial").val();
+
+    const request = await fetch('api/gobernadores/contratarOficiales/', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -138,12 +270,11 @@ async function contratarOficiales(){
         },
     body: JSON.stringify(datos)
     });
-    const oficiales = await request.json();
-
-    cargarRecursos();
 }
 
-async function enviarUnidadesAlCapitan(){
+async function enviarUnidades(){
+
+    $("#enviarUnidadesModal").modal("hide");
 
     const request = await fetch('api/enviarUnidades/', {
         method: 'POST',
@@ -153,6 +284,47 @@ async function enviarUnidadesAlCapitan(){
           'Authorization': localStorage.getItem("token")
         },
     });
+}
 
-    cargarRecursos();
+async function comerciar(){
+
+    $("#comerciarModal").modal("hide");
+
+    let datos = {};
+    datos.caballos= 0;
+    datos.vacas= 0;
+    datos.hierro= 0;
+    datos.vino= 0;
+    datos.yerba= 0;
+
+    datos.destino_comercial = $("#comerciarCon").val();
+
+    switch ($("input[name='recursos']:checked").val()) {
+        case 'caballos':
+            datos.caballos = ($("#cantidadAEnviarComercio").val())
+            break;
+        case 'vacas':
+            datos.vacas = ($("#cantidadAEnviarComercio").val())
+            break;
+        case 'hierro':
+            datos.hierro = ($("#cantidadAEnviarComercio").val())
+            break;
+        case 'vino':
+            datos.vino = ($("#cantidadAEnviarComercio").val())
+            break;
+        case 'yerba':
+            datos.yerba = ($("#cantidadAEnviarComercio").val())
+            break;
+    }
+
+    const request = await fetch('api/gobernadores/comerciar', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem("token")
+        },
+    body: JSON.stringify(datos)
+    });
+
 }

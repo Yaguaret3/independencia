@@ -41,33 +41,18 @@ public class RecursosDaoImp implements RecursosDao{
 
     @Override
     public EjercitosModel cargarNivelMisionComercial(String ciudad) {
-        EjercitosModel mision_comercial = entityManager.find(EjercitosModel.class, ciudad);
 
-        mision_comercial.setUnidades_agrupadas(0);
-        mision_comercial.setUnidades_recien_llegadas(0);
-        mision_comercial.setUnidades_a_asignar(0);
-        mision_comercial.setDar_unidades_a("");
-        mision_comercial.setOficial_a("");
-        mision_comercial.setOficial_b("");
-        mision_comercial.setOficial_c("");
-        mision_comercial.setOficial_d("");
-        mision_comercial.setOficial_e("");
-        mision_comercial.setUbicacion_militar("");
-        mision_comercial.setMovimiento("");
-        mision_comercial.setDestino_1("");
-        mision_comercial.setDestino_2("");
-        mision_comercial.setDestino_3("");
-        mision_comercial.setUbicacion_comercial("");
-        mision_comercial.setCiudades_aliadas("");
-        mision_comercial.setAsediada("");
-        mision_comercial.setNuevo_oficial_a("");
-        mision_comercial.setNuevo_oficial_b("");
-        mision_comercial.setNuevo_oficial_c("");
-        mision_comercial.setNuevo_oficial_d("");
-        mision_comercial.setNuevo_oficial_e("");
-        mision_comercial.setRuta_a_usar("");
+        //Inventamos un nuevo ejercitomodel
+        EjercitosModel devolver = new EjercitosModel();
 
-        return mision_comercial;
+        //Buscamos la ciudad
+        EjercitosModel ejercito = entityManager.find(EjercitosModel.class, ciudad);
+
+        //Pasamos el valor
+        devolver.setNivel_mision_comercial(ejercito.getNivel_mision_comercial());
+
+        //Devolver
+        return devolver;
     }
 
     @Override
@@ -110,74 +95,62 @@ public class RecursosDaoImp implements RecursosDao{
     }
 
     @Override
-    public void contratarOficiales(String ciudad) {
+    public void contratarOficiales(String ciudad, RecursosModel traido) {
 
         RecursosModel oficiales = entityManager.find(RecursosModel.class, ciudad);
+        EjercitosModel oficialAlCapitan = entityManager.find(EjercitosModel.class, ciudad);
 
         String oficialNuevo = "";
 
-        // Primero: determinar si pide nivel 2 o nivel 3
-        if (oficiales.getNivel_oficial_pedido() == "2"){
+        // Primero: Hacer tirada de oficial
+        int random = new Random().nextInt(5);
 
-            // Segundo: elegir por azar un oficial
-            String[] oficialesB = {"A2", "B2", "C2", "D2", "E2"};
-            int randomB = new Random().nextInt(oficialesB.length);
-            oficialNuevo = oficialesB[randomB];
-
-        } else if (oficiales.getNivel_oficial_pedido() == "3"){
-
-            String[] oficialesC = {"A3", "B3", "C3", "D3", "E3"};
-            int randomC = new Random().nextInt(oficialesC.length);
-            oficialNuevo = oficialesC[randomC];
+        // Segundo: Comparar el nivel pedido con el anterior.
+        // Tercero: Actualizarlo, de ser mayor (para el siguiente turno)
+        switch(random){
+            case 0:
+                oficialNuevo = "A"+random;
+                if(oficialAlCapitan.getOficial_a() < traido.getNivel_oficial_pedido()){
+                    oficialAlCapitan.setNuevo_oficial_a(traido.getNivel_oficial_pedido());
+                }
+                break;
+            case 1:
+                oficialNuevo = "B"+random;
+                if(oficialAlCapitan.getOficial_b() < traido.getNivel_oficial_pedido()){
+                    oficialAlCapitan.setNuevo_oficial_b(traido.getNivel_oficial_pedido());
+                }
+                break;
+            case 2:
+                oficialNuevo = "C"+random;
+                if(oficialAlCapitan.getOficial_c() < traido.getNivel_oficial_pedido()){
+                    oficialAlCapitan.setNuevo_oficial_c(traido.getNivel_oficial_pedido());
+                }
+                break;
+            case 3:
+                oficialNuevo = "D"+random;
+                if(oficialAlCapitan.getOficial_d() < traido.getNivel_oficial_pedido()){
+                    oficialAlCapitan.setNuevo_oficial_d(traido.getNivel_oficial_pedido());
+                }
+                break;
+            case 4:
+                oficialNuevo = "E"+random;
+                if(oficialAlCapitan.getOficial_e() < traido.getNivel_oficial_pedido()){
+                    oficialAlCapitan.setNuevo_oficial_e(traido.getNivel_oficial_pedido());
+                }
+                break;
         }
+        entityManager.merge(oficialAlCapitan);
 
-        // Tercero: sumar oficiales a la lista para que vea el gobernador
+        // Cuarto: sumar oficiales a la lista para que vea el gobernador
+
         String oficialesPrevios = oficiales.getOficiales();
+
         if(oficialesPrevios == ""){
             oficiales.setOficiales(oficialNuevo);
         } else {
             oficiales.setOficiales(oficialesPrevios + ", " + oficialNuevo);
         }
         entityManager.merge(oficiales);
-
-        // Cuarto: sumar oficial (en potencia hasta el comienzo del próximo turno) al capitán
-        EjercitosModel oficialAlCapitan = entityManager.find(EjercitosModel.class, ciudad);
-
-        switch (oficialNuevo) {
-            case "A2":
-                oficialAlCapitan.setNuevo_oficial_a("2");
-                break;
-            case "B2":
-                oficialAlCapitan.setNuevo_oficial_b("2");
-                break;
-            case "C2":
-                oficialAlCapitan.setNuevo_oficial_c("2");
-                break;
-            case "D2":
-                oficialAlCapitan.setNuevo_oficial_d("2");
-                break;
-            case "E2":
-                oficialAlCapitan.setNuevo_oficial_e("2");
-                break;
-            case "A3":
-                oficialAlCapitan.setNuevo_oficial_a("3");
-                break;
-            case "B3":
-                oficialAlCapitan.setNuevo_oficial_b("3");
-                break;
-            case "C3":
-                oficialAlCapitan.setNuevo_oficial_c("3");
-                break;
-            case "D3":
-                oficialAlCapitan.setNuevo_oficial_d("3");
-                break;
-            case "E3":
-                oficialAlCapitan.setNuevo_oficial_e("3");
-                break;
-        }
-        entityManager.merge(oficialAlCapitan);
-
-
     }
 
     @Override
@@ -252,23 +225,6 @@ public class RecursosDaoImp implements RecursosDao{
         }
 
         return false;
-
-    }
-
-    @Override
-    public String corroborarCiudad(String token) {
-
-        String ciudadTraida = jwtUtil.getValue(token);
-
-        String[] ciudadReal = {"Buenos Aires", "Montevideo", "Asunción", "Santa Fe", "Córdoba", "Mendoza", "Tucumán", "Salta", "Potosí", "La Paz"};
-
-        for(int i=0; i < ciudadReal.length; i++){
-           if (ciudadTraida.equals(ciudadReal[i])) {
-                    return ciudadReal[i];
-           }
-        }
-        return "Error al corroborar ciudad";
-
 
     }
 
@@ -356,18 +312,6 @@ public class RecursosDaoImp implements RecursosDao{
         entityManager.merge(emisora);
         entityManager.merge(destino);
 
-    }
-
-    @Override
-    public int valorOficial(RecursosModel traido) {
-
-        int recursosAPagar = 10;
-        if (traido.getNivel_oficial_pedido() == "B") {
-            recursosAPagar = 2;
-        } else if (traido.getNivel_oficial_pedido() == "C") {
-            recursosAPagar = 3;
-        }
-        return recursosAPagar;
     }
 
     @Override

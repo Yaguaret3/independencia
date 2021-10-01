@@ -29,7 +29,7 @@ public class RecursosModel {
     @Getter @Setter @Column(name = "nivel_industria")
     private int nivel_industria;
     @Getter @Setter @Column(name = "unidades")
-    private int unidades;
+    private Integer unidades;
     @Getter @Setter @Column(name = "oficiales")
     private String oficiales;
     @Getter @Setter @Column(name = "actor_politico_1")
@@ -39,7 +39,7 @@ public class RecursosModel {
     @Getter @Setter @Column(name = "unidades_enviadas")
     private int unidades_enviadas;
     @Getter @Setter @Column(name = "nivel_oficial_pedido")
-    private String nivel_oficial_pedido;
+    private int nivel_oficial_pedido;
     @Getter @Setter @Column(name = "destino_comercial")
     private String destino_comercial;
     @Getter @Setter @Column(name = "historial_comercio")

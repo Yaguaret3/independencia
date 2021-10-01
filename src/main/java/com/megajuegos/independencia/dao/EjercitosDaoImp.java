@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -22,25 +23,9 @@ public class EjercitosDaoImp implements EjercitosDao{
     private EntityManager entityManager;
 
     @Override
-    public String corroborarCiudad(String token) {
-
-        String ciudadTraida = jwtUtil.getValue(token);
-
-        String[] ciudadReal = {"Buenos Aires", "Montevideo", "Asunción", "Santa Fe", "Córdoba", "Mendoza", "Tucumán", "Salta", "Potosí", "La Paz"};
-
-        for(int i=0; i < ciudadReal.length; i++){
-            if (ciudadTraida.equals(ciudadReal[i])) {
-                return ciudadReal[i];
-            }
-        }
-        return "Error al corroborar ciudad";
-    }
-
-    @Override
     public EjercitosModel recursosEjercito(String ciudad) {
 
         EjercitosModel recursos = entityManager.find(EjercitosModel.class, ciudad);
-
         return recursos;
 
     }
@@ -48,7 +33,7 @@ public class EjercitosDaoImp implements EjercitosDao{
     @Override
     public void movimientos(String ciudad, EjercitosModel traido, int fase) {
 
-        // Primero tomar recursos
+        // Primero seleccionar ciudad
         EjercitosModel ejercito = entityManager.find(EjercitosModel.class, ciudad);
 
         // Segundo: sobreescribir movimiento y destinos
@@ -59,13 +44,12 @@ public class EjercitosDaoImp implements EjercitosDao{
         if(fase == 3){
             ejercito.setUbicacion_comercial(traido.getDestino_1());
         }
-
     }
 
     @Override
     public void asignarUnidades(String ciudad, EjercitosModel traido) {
 
-        // Primero: Tomar recursos
+        // Primero: Tomar ejercito
 
         EjercitosModel recursos = entityManager.find(EjercitosModel.class, ciudad);
 
@@ -101,9 +85,26 @@ public class EjercitosDaoImp implements EjercitosDao{
     @Override
     public List<EjercitosModel> listarMovimientos() {
 
-        // Devolvemos una lista de resultados de consulta. EN TEORÍA limitamos al destino y movimiento.
-        String query = "SELECT ej.ciudad, ej.destino_1, ej.movimiento FROM EjercitosModel ej";
-        return entityManager.createQuery(query).getResultList();
+        List<EjercitosModel> lista = new ArrayList<>();
+
+        String[] ciudades = {"Buenos Aires", "Montevideo", "Asunción", "Santa Fe", "Córdoba", "Mendoza",
+                            "Salta", "Tucumán", "Potosí", "La Paz"};
+        // Ciclo para meter info a la lista
+        for (int i = 0; i < 10; i++) {
+
+            EjercitosModel vacio = new EjercitosModel();
+            EjercitosModel ejercito = entityManager.find(EjercitosModel.class, ciudades[i]);
+
+            vacio.setCiudad(ejercito.getCiudad());
+            vacio.setMovimiento(ejercito.getMovimiento());
+            vacio.setDestino_1(ejercito.getDestino_1());
+            vacio.setNivel_mision_comercial(ejercito.getNivel_mision_comercial());
+            vacio.setUnidades_agrupadas(ejercito.getUnidades_agrupadas());
+
+            lista.add(vacio);
+        }
+
+        return lista;
     }
 
     @Override

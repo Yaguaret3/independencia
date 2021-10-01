@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface EjercitosDao {
 
-    String corroborarCiudad(String token);
-
     EjercitosModel recursosEjercito(String ciudad);
 
     void movimientos(String ciudad, EjercitosModel traido, int fase);

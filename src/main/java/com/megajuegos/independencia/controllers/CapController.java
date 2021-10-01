@@ -2,6 +2,7 @@ package com.megajuegos.independencia.controllers;
 
 import com.megajuegos.independencia.dao.EjercitosDao;
 import com.megajuegos.independencia.models.EjercitosModel;
+import com.megajuegos.independencia.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -11,27 +12,41 @@ import java.util.List;
 public class CapController {
 
     @Autowired
+    private JWTUtil jwtUtil;
+
+    @Autowired
     private EjercitosDao ejercitosDao;
 
     @RequestMapping(value = "/api/capitanes/listarRecursos", method = RequestMethod.POST)
     public EjercitosModel listarRecursos(@RequestHeader(value = "Authorization") String token){
 
-        // Primero determinar ciudad
-        String ciudad = ejercitosDao.corroborarCiudad(token);
+        // Primero: Corroborar que el pedido lo hace un capitán
+        if(!jwtUtil.getKey(token).equals("capitan")){
+            return null;
+        }
 
-        //Segundo devolver estado de recursos
+        // Segundo: Corroborar ciudad
+        String ciudad = jwtUtil.getValue(token);
+
+        //Tercero: Devolver estado de recursos
         return ejercitosDao.recursosEjercito(ciudad);
     }
 
-    @RequestMapping(value = "/api/capitanes/movimientos", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/capitanes/enviarMovimiento", method = RequestMethod.POST)
     public void movimientos(@RequestHeader(value = "Authorization") String token, @RequestBody EjercitosModel traido){
 
-        // Primero: determinar ciudad.
-        String ciudad = ejercitosDao.corroborarCiudad(token);
-        // Segundo: determinar fase.
+        // Primero: Corroborar que el pedido lo hace un capitán
+        if(!jwtUtil.getKey(token).equals("capitan")){
+            return;
+        }
+
+        // Segundo: Corroborar ciudad
+        String ciudad = jwtUtil.getValue(token);
+
+        // Tercero: determinar fase.
         int fase = ejercitosDao.fase();
 
-        // Tercero: enviar movimientos a base
+        // Cuarto: enviar movimientos a base
         ejercitosDao.movimientos(ciudad, traido, fase);
     }
 
@@ -41,10 +56,15 @@ public class CapController {
         // Primero: Corroborar fase inicial
         if(ejercitosDao.fase() == 1){
 
-            // Segundo: Determinar ciudad
-            String ciudad = ejercitosDao.corroborarCiudad(token);
+            // Segundo: Corroborar que el pedido lo hace un capitán
+            if(!jwtUtil.getKey(token).equals("capitan")){
+                return;
+            }
 
-            // Tercero: Asignar unidades
+            // Tercero: Corroborar ciudad
+            String ciudad = jwtUtil.getValue(token);
+
+            // Cuarto: Asignar unidades
             ejercitosDao.asignarUnidades(ciudad, traido);
         }
     }
@@ -52,12 +72,21 @@ public class CapController {
     @RequestMapping(value = "/api/capitanes/listarMovimientos", method = RequestMethod.POST)
     public List<EjercitosModel> listarMovimientos(@RequestHeader(value = "Authorization") String token){
 
-        // Primero: Tiene que estar autorizado
+        // Primero: Corroborar que el pedido lo hace un capitán
+        if(!jwtUtil.getKey(token).equals("capitan")){
+            return null;
+        }
+        // Segundo: Corroborar ciudad
+        String ciudad = jwtUtil.getValue(token);
+
+        // Tercero: Tiene que estar autorizado
         if(ejercitosDao.actualizarCapitanes()){
-            // Segundo: Devolver Lista.
+
+            // Cuarto: Devolver Lista.
             return ejercitosDao.listarMovimientos();
         }
-            return null;
+
+        return null;
 
     }
 

@@ -33,7 +33,7 @@ public class GobController {
             return new RecursosModel();
         }
 
-        String ciudad = recursoDao.corroborarCiudad(token);
+        String ciudad = jwtUtil.getValue(token);
 
         return recursoDao.listarRecursos(ciudad);
     }
@@ -46,7 +46,7 @@ public class GobController {
             return new EjercitosModel();
         }
 
-        String ciudad = recursoDao.corroborarCiudad(token);
+        String ciudad = jwtUtil.getValue(token);
 
         return recursoDao.cargarNivelMisionComercial(ciudad);
     }
@@ -57,7 +57,7 @@ public class GobController {
         // Primero: Corroborar que el pedido lo hace un gobernador
         if(!jwtUtil.getKey(token).equals("gobernador")){
             return new ArrayList<>();
-        };
+        }
 
         // Segundo: Listar recursos y devolver
         return controlDao.listarActoresPoliticos();
@@ -69,9 +69,10 @@ public class GobController {
         // Primero: Corroborar que el pedido lo hace un gobernador
         if(!jwtUtil.getKey(token).equals("gobernador")){
             return;
-        };
+        }
+
         // Segundo: Corroborar ciudad
-        String ciudad = recursoDao.corroborarCiudad(token);
+        String ciudad = jwtUtil.getValue(token);
 
         // Tercero: corroborar pausa
         if(recursoDao.pausa()){
@@ -102,9 +103,10 @@ public class GobController {
         // Primero: Corroborar que el pedido lo hace un gobernador
         if(!jwtUtil.getKey(token).equals("gobernador")){
             return;
-        };
+        }
+
         // Segundo: Corroborar ciudad
-        String ciudad = recursoDao.corroborarCiudad(token);
+        String ciudad = jwtUtil.getValue(token);
 
         // Tercero: corroborar pausa
         if(recursoDao.pausa()){
@@ -134,9 +136,10 @@ public class GobController {
         // Primero: Corroborar que el pedido lo hace un gobernador
         if(!jwtUtil.getKey(token).equals("gobernador")){
             return;
-        };
+        }
+
         // Segundo: Corroborar ciudad
-        String ciudad = recursoDao.corroborarCiudad(token);
+        String ciudad = jwtUtil.getValue(token);
 
         // Tercero: corroborar pausa
         if(recursoDao.pausa()){
@@ -160,9 +163,10 @@ public class GobController {
         // Primero: Corroborar que el pedido lo hace un gobernador
         if(!jwtUtil.getKey(token).equals("gobernador")){
             return;
-        };
+        }
+
         // Segundo: Corroborar ciudad
-        String ciudad = recursoDao.corroborarCiudad(token);
+        String ciudad = jwtUtil.getValue(token);
 
         // Tercero: corroborar pausa
         if(recursoDao.pausa()){
@@ -170,7 +174,7 @@ public class GobController {
         }
 
         // Cuarto: determinar si paga un nivel B o un nivel C.
-        int recursosAPagar = recursoDao.valorOficial(traido);
+        int recursosAPagar = traido.getNivel_oficial_pedido();
 
         // Quinto: pagar y cobrar. El Front-End tiene que mandar 1 de cada recurso elegido, si no le va a restar lo que manden. Hay que escribir la reacción si no alcanza.
         boolean pagado = recursoDao.pagar(traido, ciudad, recursosAPagar);
@@ -180,7 +184,7 @@ public class GobController {
             /* Sexto: sumar oficiales a la base. Habría que mandar esos oficiales a la tabla de capitán, pero no presentes
              * sino potenciales, para que al cambiar del turno se actualicen.
              */
-            recursoDao.contratarOficiales(ciudad);
+            recursoDao.contratarOficiales(ciudad, traido);
         }
     }
 
@@ -190,9 +194,10 @@ public class GobController {
         // Primero: Corroborar que el pedido lo hace un gobernador
         if(!jwtUtil.getKey(token).equals("gobernador")){
             return;
-        };
+        }
+
         // Segundo: Corroborar ciudad
-        String ciudad = recursoDao.corroborarCiudad(token);
+        String ciudad = jwtUtil.getValue(token);
 
         // Tercero: corroborar pausa
         if(recursoDao.pausa()){
@@ -209,9 +214,10 @@ public class GobController {
         // Primero: Corroborar que el pedido lo hace un gobernador
         if(!jwtUtil.getKey(token).equals("gobernador")){
             return;
-        };
+        }
+
         // Segundo: Corroborar ciudad
-        String ciudad = recursoDao.corroborarCiudad(token);
+        String ciudad = jwtUtil.getValue(token);
 
         // Tercero: corroborar pausa
         if(recursoDao.pausa()){
@@ -228,9 +234,10 @@ public class GobController {
         // Primero: Corroborar que el pedido lo hace un gobernador
         if(!jwtUtil.getKey(token).equals("gobernador")){
             return;
-        };
+        }
+
         // Segundo: Corroborar ciudad
-        String ciudad = recursoDao.corroborarCiudad(token);
+        String ciudad = jwtUtil.getValue(token);
 
         // Tercero: corroborar pausa
         if(recursoDao.pausa()){

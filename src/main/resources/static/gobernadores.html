@@ -20,7 +20,6 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link href="css/generales.css" rel="stylesheet" type="text/css">
-    <link href="css/gobernadores.css" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -416,7 +415,7 @@
                                                 Aumentar Estatus
                                             </div>
                                             <div>
-                                                <button data-toggle="modal"
+                                                <button class="btn btn-primary" data-toggle="modal"
                                                     data-target="#aumentarEstatusModal">Tocame</button>
                                             </div>
                                         </div>
@@ -435,7 +434,8 @@
                                                 Invertir en Industria
                                             </div>
                                             <div>
-                                                <button onclick="aumentarIndustria()">Tocame</button>
+                                                <button class="btn btn-primary" data-toggle="modal"
+                                                        data-target="#aumentarIndustriaModal">Tocame</button>
 
                                             </div>
                                         </div>
@@ -457,7 +457,8 @@
                                                 Incentivar Misiones Comerciales
                                             </div>
                                             <div>
-                                                <button onclick="aumentarMisionComercial()">Tocame</button>
+                                                <button class="btn btn-primary" data-toggle="modal"
+                                                        data-target="#aumentarNivelMisionComercialModal">Tocame</button>
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -479,7 +480,8 @@
                                                 Reclutar Unidades Militares
                                             </div>
                                             <div>
-                                                <button>Tocame</button>
+                                                <button class="btn btn-primary" data-toggle="modal"
+                                                        data-target="#reclutarUnidadesModal">Tocame</button>
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -500,7 +502,7 @@
                                                 Contratar Oficial Militar
                                             </div>
                                             <div>
-                                                <button data-toggle="modal"
+                                                <button class="btn btn-primary" data-toggle="modal"
                                                     data-target="#contratarOficialesModal">Tocame</button>
                                             </div>
                                         </div>
@@ -522,28 +524,8 @@
                                                 Enviar Unidades Militares al Capitán
                                             </div>
                                             <div>
-                                                <button onclick="enviarUnidadesAlCapitan()">Tocame</button>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Enviar Oficiales Militares al Capitán-->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Enviar Oficiales Militares al Capitán
-                                            </div>
-                                            <div>
-                                                <button onclick="pruebaDameHashDeCiudad()">Tocame</button>
+                                                <button class="btn btn-primary" data-toggle="modal"
+                                                        data-target="#enviarUnidadesModal">Tocame</button>
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -564,7 +546,7 @@
                                                 Comerciar
                                             </div>
                                             <div>
-                                                <button data-toggle="modal"
+                                                <button class="btn btn-primary" data-toggle="modal"
                                                     data-target="#comerciarModal">Tocame</button>
                                             </div>
                                         </div>
@@ -575,7 +557,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     <!-- Content Row -->
@@ -685,14 +666,16 @@
                 </div>
                 <div class="modal-body">
 
-                    <input list="actores_js" name="cars" type="text">
+                    <input list="actores_js" name="actorPedido" type="text">
                     <datalist id="actores_js">
-                        <option value=""></option>
-                        <option value=""></option>
-                        <option value="Gobierno Nacional"></option>
+                        <option id="actorPolitico1" value="1"></option>
+                        <option id="actorPolitico2" value="2"></option>
+                        <option value="3">Gobierno Nacional</option>
                     </datalist>
-                    <div>Elegí con qué pagar: 1 solo recurso para actor político 1, 2 recursos diferentes para actor
-                        político 2, y 3 para Gobierno Nacional</div>
+                    <div>Elegí con qué pagar:
+                        <br>1 solo recurso para <span id="actPol1"></span>,
+                        <br>2 recursos diferentes para <span id="actPol2"></span>, y
+                        <br>3 para Gobierno Nacional</div>
                     <div>
                         <input type="checkbox" id="caballos_checkbox_estatus" name="caballos">
                         <label for="caballos_checkbox_estatus">Caballos</label>
@@ -716,7 +699,136 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Enviar</a>
+                    <a class="btn btn-primary" href="#" onlick="aumentarEstatus()">Seleccionar y pagar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Aumentar Industria-->
+    <div class="modal fade" id="aumentarIndustriaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Invertir en Industria</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div>Elegí con qué pagar: 2 recursos diferentes</div>
+                    <div>
+                        <input type="checkbox" id="caballos_checkbox_industria" name="caballos">
+                        <label for="caballos_checkbox_industria">Caballos</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="vacas_checkbox_industria" name="vacas">
+                        <label for="vacas_checkbox_industria">Vacas</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="hierro_checkbox_industria" name="hierro">
+                        <label for="hierro_checkbox_industria">Hierro</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="vino_checkbox_industria" name="vino">
+                        <label for="vino_checkbox_industria">Vino</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="yerba_checkbox_industria" name="yerba">
+                        <label for="yerba_checkbox_industria">Yerba</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" href="#" onclick="aumentarIndustria()">Pagar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Aumentar Nivel de Misión Comercial-->
+    <div class="modal fade" id="aumentarNivelMisionComercialModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Incentivar Misiones Comerciales</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div>Elegí con qué pagar: 1 recurso</div>
+                    <div>
+                        <input type="checkbox" id="caballos_checkbox_mision">
+                        <label for="caballos_checkbox_mision">Caballos</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="vacas_checkbox_mision">
+                        <label for="vacas_checkbox_mision">Vacas</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="hierro_checkbox_mision">
+                        <label for="hierro_checkbox_mision">Hierro</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="vino_checkbox_mision">
+                        <label for="vino_checkbox_mision">Vino</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="yerba_checkbox_mision">
+                        <label for="yerba_checkbox_mision">Yerba</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" href="#" onclick="aumentarMisionComercial()">Pagar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Reclutar Unidades -->
+    <div class="modal fade" id="reclutarUnidadesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reclutar Unidades Militares</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div>Elegí con qué pagar: 1 recurso = 3 unidades</div>
+                    <div>
+                        <input type="checkbox" id="caballos_checkbox_unidades">
+                        <label for="caballos_checkbox_unidades">Caballos</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="vacas_checkbox_unidades">
+                        <label for="vacas_checkbox_unidades">Vacas</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="hierro_checkbox_unidades">
+                        <label for="hierro_checkbox_unidades">Hierro</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="vino_checkbox_unidades">
+                        <label for="vino_checkbox_unidades">Vino</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="yerba_checkbox_unidades">
+                        <label for="yerba_checkbox_unidades">Yerba</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" href="#" onclick="reclutarUnidades()">Pagar</a>
                 </div>
             </div>
         </div>
@@ -735,7 +847,7 @@
                 </div>
                 <div class="modal-body">
                     <h6>Nivel:</h6>
-                    <input list="oficiales_js" name="cars" type="text">
+                    <input list="oficiales_js" id="gradoOficial" type="text">
                     <datalist id="oficiales_js">
                         <option value="2"></option>
                         <option value="3"></option>
@@ -765,7 +877,27 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Enviar</a>
+                    <a class="btn btn-primary" href="#" onclick="contratarOficial()">Pagar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Enviar Unidades-->
+    <div class="modal fade" id="enviarUnidadesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Enviar Unidades al Capitán</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="#" onclick="enviarUnidades()">Enviar</a>
                 </div>
             </div>
         </div>
@@ -784,7 +916,7 @@
                 </div>
                 <div class="modal-body">
                     <h6>Con:</h6>
-                    <input list="comerciar_js" name="cars" type="text">
+                    <input list="comerciar_js" id="comerciarCon" type="text">
                     <datalist id="comerciar_js">
                         <option value="Buenos Aires"></option>
                         <option value="Asunción"></option>
@@ -817,7 +949,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary">Enviar</a>
+                    <a class="btn btn-primary" onlick="comerciar()">Enviar</a>
                 </div>
             </div>
         </div>
