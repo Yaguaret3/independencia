@@ -3,7 +3,78 @@ $(document).ready(function() {
     cargarEjercitosCiudades();
     cargarActoresPoliticos();
     cargarCongresos();
+    conectarWS();
+    cargarTimer();
 });
+
+let intervalo = setInterval(function(){
+
+    // Tomamos la fecha actual
+    let ahora = new Date().getTime();
+
+    // Restamos para calcular la distancia
+    let distancia = localStorage.proximoFinTurno - ahora;
+    // Calculamos minutos y segundos
+    let minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+    let segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+    let minDec = "";
+    let minUni = "";
+    let secDec = "";
+    let secUni = "";
+
+    // Mostramos el resultado
+    if(minutos<10){
+        minDec = "0";
+        minUni = minutos.toString().charAt(0);
+    } else{
+        minDec = minutos.toString().charAt(0);
+        minUni = minutos.toString().charAt(1);
+    }
+    if(segundos<10){
+        secDec = "0";
+        secUni = segundos.toString().charAt(0);
+    } else{
+        secDec = segundos.toString().charAt(0);
+        secUni = segundos.toString().charAt(1);
+    }
+    $("#minDec").html(minDec);
+    $("#minUni").html(minUni);
+    $("#secDec").html(secDec);
+    $("#secUni").html(secUni);
+
+    // Si la cuenta terminó, dejá en cero todo
+    if (distancia < 0) {
+        $("#minDec").html(0);
+        $("#minUni").html(0);
+        $("#secDec").html(0);
+        $("#secUni").html(0);
+    }
+    },1000);
+
+function conectarWS() {
+    var socket = new SockJS('/independencia-websocket');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+        stompClient.subscribe('/actualizar_control', function (valorFinal) {
+            cargarRecursosCiudades();
+            cargarEjercitosCiudades();
+            cargarActoresPoliticos();
+            cargarCongresos();
+            cargarTimer();
+        });
+    });
+}
+
+function disparoControl(){
+    stompClient.send('/actualizar_control', {}, JSON.stringify({'mensaje': ""}));
+}
+function disparoGobernadores(){
+    stompClient.send('/actualizar_gobernadores', {}, JSON.stringify({'mensaje': ""}));
+}
+function disparoCapitanes(){
+    stompClient.send('/actualizar_capitanes', {}, JSON.stringify({'mensaje': ""}));
+}
 
 async function cargarRecursosCiudades(){
 
@@ -100,6 +171,67 @@ async function cargarCongresos(){
     localStorage.congresos = JSON.stringify(congresos);
 }
 
+async function cargarTimer(){
+
+    const request = await fetch('api/control/cargarTimer', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem("token")
+        },
+      });
+    const cosas = await request.json();
+
+    for (let cosa of cosas){
+
+        // Cargo TURNO
+        if(cosa.accion == "turno"){
+            if(cosa.valor<10){
+                $("#turnoDec").html(0);
+                $("#turnoUni").html(cosa.valor.toString().charAt(0));
+            } else{
+                $("#turnoDec").html(cosa.valor.toString().charAt(0));
+                $("#turnoUni").html(cosa.valor.toString().charAt(1));
+            }
+        }
+        // Cargo FASE
+        if(cosa.accion == "fase_militar"){
+            switch(cosa.valor){
+                case 1:
+                    $("#fase_base").html("Inicial");
+                    break;
+                case 2:
+                    $("#fase_base").html("Militar 1");
+                    break;
+                case 3:
+                    $("#fase_base").html("Comercial");
+                    break;
+                case 4:
+                    $("#fase_base").html("Militar 2");
+                    break;
+                case 5:
+                    $("#fase_base").html("Final");
+                    break;
+            }
+        }
+        // Cargo PAUSA
+        if(cosa.accion == "pausa"){
+            if(cosa.valor == 1){
+                $("#pausado").html('<span class="fase mb-4">PAUSADO</span>');
+            }
+            if(cosa.valor == 0){
+                $("#pausado").html('');
+            }
+        }
+
+        // Cargo TIMER
+        if(cosa.accion == "timer"){
+            localStorage.proximoFinTurno = new Date(cosa.valor).getTime();
+        }
+    }
+}
+
 async function pausar(){
 
   const request = await fetch('api/control/pausar', {
@@ -110,6 +242,8 @@ async function pausar(){
         'Authorization': localStorage.getItem("token")
       },
     });
+    disparoControl();
+    disparoGobernadores();
 }
 
 async function despausar(){
@@ -122,6 +256,8 @@ async function despausar(){
         'Authorization': localStorage.getItem("token")
       },
     });
+    disparoControl();
+    disparoGobernadores();
 }
 
 function mostrarModalCiudad(ciudad){
@@ -211,7 +347,8 @@ async function actualizarCiudad(){
 
     //Despausar y cargar recursos de nuevo
     despausar();
-    cargarRecursosCiudades();
+    disparoControl();
+    disparoGobernadores();
 
     // Cerrar el modal
     $("#editarCiudadModal").modal("hide");
@@ -245,7 +382,9 @@ async function actualizarEjercito(){
 
     // Despausar y recargar ejercitos
     despausar();
-    cargarEjercitosCiudades();
+    disparoControl();
+    disparoGobernadores();
+    disparoCapitanes();
 
     // Cerrar el modal
     $("#editarEjercitoModal").modal("hide");
@@ -271,7 +410,8 @@ async function actualizarActor(){
 
     // Despausar y recargar actores
     despausar();
-    cargarActoresPoliticos();
+    disparoControl();
+    disparoGobernadores();
 
     // Cerrar el Modal
     $("#editarActorPoliticoModal").modal("hide");
@@ -293,6 +433,8 @@ async function improductividad(){
        },
        body: JSON.stringify(datos)
     });
+
+    disparoControl();
 }
 
 function mostrarModalCongreso(id){
@@ -331,7 +473,7 @@ async function actualizarCongreso(){
        body: JSON.stringify(datos)
     });
 
-    cargarCongresos();
+    disparoControl();
 }
 
 async function siguienteTurno(){
@@ -344,6 +486,10 @@ async function siguienteTurno(){
        'Authorization': localStorage.getItem("token")
        },
     });
+
+    disparoControl();
+    disparoGobernadores();
+    disparoCapitanes();
 }
 
 async function nuevaFase(){
@@ -363,7 +509,9 @@ async function nuevaFase(){
        },
        body: JSON.stringify(datos)
     });
-
+    disparoControl();
+    disparoGobernadores();
+    disparoCapitanes();
 }
 
 async function permitirActualizar(){
@@ -383,4 +531,6 @@ async function permitirActualizar(){
        },
        body: JSON.stringify(datos)
     });
+    disparoControl();
+    disparoCapitanes();
 }

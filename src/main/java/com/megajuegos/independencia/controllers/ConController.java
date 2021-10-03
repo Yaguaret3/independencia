@@ -81,6 +81,16 @@ public class ConController {
         return controlDao.listarCongresos();
     }
 
+    @RequestMapping(value = "api/control/cargarTimer")
+    public List<OtrosModel> cargarTimer(@RequestHeader(value = "Authorization") String token) {
+
+        // Primero: Corroborar que el pedido lo hace Control
+        if(!jwtUtil.getKey(token).equals("control")){
+            return null;
+        }
+        return controlDao.cargarTimer();
+    }
+
     @RequestMapping(value = "api/control/pausar")
     public void pausar(@RequestHeader(value = "Authorization") String token){
 

@@ -4,6 +4,7 @@ import com.megajuegos.independencia.dao.ControlDao;
 import com.megajuegos.independencia.dao.RecursosDao;
 import com.megajuegos.independencia.models.ActoresPoliticosModel;
 import com.megajuegos.independencia.models.EjercitosModel;
+import com.megajuegos.independencia.models.OtrosModel;
 import com.megajuegos.independencia.models.RecursosModel;
 import com.megajuegos.independencia.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,16 @@ public class GobController {
 
         // Segundo: Listar recursos y devolver
         return controlDao.listarActoresPoliticos();
+    }
+
+    @RequestMapping(value = "api/gobernadores/cargarTimer")
+    public List<OtrosModel> cargarTimer(@RequestHeader(value = "Authorization") String token) {
+
+        // Primero: Corroborar que el pedido lo hace un gobernador
+        if(!jwtUtil.getKey(token).equals("gobernador")){
+            return null;
+        }
+        return controlDao.cargarTimer();
     }
 
     @RequestMapping(value = "api/gobernadores/aumentarIndustria", method = RequestMethod.POST)

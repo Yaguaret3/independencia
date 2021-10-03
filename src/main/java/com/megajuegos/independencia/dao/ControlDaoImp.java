@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Repository
@@ -45,6 +45,15 @@ public class ControlDaoImp implements ControlDao{
         String query = "FROM CongresoModel";
         List<CongresoModel> resultado = entityManager.createQuery(query).getResultList();
         return resultado;
+    }
+
+    @Override
+    public List<OtrosModel> cargarTimer() {
+
+        String query = "FROM OtrosModel";
+        List<OtrosModel> devolver = entityManager.createQuery(query).getResultList();
+        return devolver;
+
     }
 
     @Override
@@ -103,12 +112,19 @@ public class ControlDaoImp implements ControlDao{
 
     @Override
     public void avanzarTurno() {
-        OtrosModel otros = entityManager.find(OtrosModel.class, "turno");
-        otros.setValor(otros.getValor() + 1);
-        entityManager.merge(otros);
+
+        // Primero: Avanzar el turno
+        OtrosModel turno = entityManager.find(OtrosModel.class, "turno");
+        turno.setValor(turno.getValor() + 1);
+        entityManager.merge(turno);
+
+        // Segundo: Avanzar el timer
+        OtrosModel timer = entityManager.find(OtrosModel.class, "timer");
+        Calendar proximoFinDeTurno = Calendar.getInstance();
+        proximoFinDeTurno.setTimeInMillis(proximoFinDeTurno.getTimeInMillis()+1000*60*30);
+        timer.setValor(proximoFinDeTurno.getTimeInMillis());
+        entityManager.merge(timer);
     }
-
-
     @Override
     public void editarCongreso(CongresoModel nuevoCongreso) {
         CongresoModel congreso = entityManager.find(CongresoModel.class, nuevoCongreso.getId());
@@ -164,10 +180,13 @@ public class ControlDaoImp implements ControlDao{
 
         // Segundo: tomar recurso de mapa
 
+        String[] ciudades = {"Buenos Aires", "Montevideo", "Asunción", "Santa Fe", "Córdoba", "Mendoza", "Tucumán", "Salta",
+                            "Potosí", "La Paz"};
+
         for(int i = 0; i<10; i++) {
-            int id = i + 1;
-            RecursosModel ciudad = entityManager.find(RecursosModel.class, id);
-            EjercitosModel ejercito = entityManager.find(EjercitosModel.class, id);
+
+            RecursosModel ciudad = entityManager.find(RecursosModel.class, ciudades[i]);
+            EjercitosModel ejercito = entityManager.find(EjercitosModel.class, ciudades[i]);
 
             if(ejercito.getUbicacion_comercial().equals("Río Cuarto") && !improductividadCaballos){
                 ciudad.setCaballos_m(1);
@@ -238,6 +257,9 @@ public class ControlDaoImp implements ControlDao{
     @Override
     public void repartirRecursos() {
 
+        String[] ciudadesArray = {"Buenos Aires", "Montevideo", "Asunción", "Santa Fe", "Córdoba", "Mendoza", "Tucumán", "Salta",
+                "Potosí", "La Paz"};
+
         // Primero: Tomamos el primer congreso y sus propiedades
         for (int i = 0; i < 10; i++) {
             int idCongreso = i+1;
@@ -261,8 +283,8 @@ public class ControlDaoImp implements ControlDao{
 
                             // Sexto: tomamos todas las ciudades y nos quedamos con las que participen de ese congreso.
                             for(int j = 0; j<10; j++){
-                                int id= j+1;
-                                RecursosModel ciudad = entityManager.find(RecursosModel.class, id);
+
+                                RecursosModel ciudad = entityManager.find(RecursosModel.class, ciudadesArray[j]);
 
                                 if(ciudad.getCongreso() == congreso.getId()){
 
@@ -313,7 +335,7 @@ public class ControlDaoImp implements ControlDao{
                             // Décimo segundo: tomamos todas las ciudades y nos quedamos con las que participen de ese congreso.
                             for(int j = 0; j<10; j++){
                                 int id= j+1;
-                                RecursosModel ciudad = entityManager.find(RecursosModel.class, id);
+                                RecursosModel ciudad = entityManager.find(RecursosModel.class, ciudadesArray[j]);
 
                                 if(ciudad.getCongreso() == congreso.getId()){
 
@@ -377,8 +399,7 @@ public class ControlDaoImp implements ControlDao{
 
                             // Vigésimo: tomamos todas las ciudades y nos quedamos con las que participen de ese congreso.
                             for(int j = 0; j<10; j++){
-                                int id= j+1;
-                                RecursosModel ciudad = entityManager.find(RecursosModel.class, id);
+                                RecursosModel ciudad = entityManager.find(RecursosModel.class, ciudadesArray[j]);
 
                                 if(ciudad.getCongreso() == congreso.getId()){
 
@@ -435,8 +456,7 @@ public class ControlDaoImp implements ControlDao{
 
                             // Vigésimo séptimo: tomamos todas las ciudades y nos quedamos con las que participen de ese congreso.
                             for(int j = 0; j<10; j++){
-                                int id= j+1;
-                                RecursosModel ciudad = entityManager.find(RecursosModel.class, id);
+                                RecursosModel ciudad = entityManager.find(RecursosModel.class, ciudadesArray[j]);
 
                                 if(ciudad.getCongreso() == congreso.getId()){
 
@@ -500,9 +520,12 @@ public class ControlDaoImp implements ControlDao{
     @Override
     public void actualizarOficiales() {
 
+        String[] ciudadesArray = {"Buenos Aires", "Montevideo", "Asunción", "Santa Fe", "Córdoba", "Mendoza", "Tucumán", "Salta",
+                "Potosí", "La Paz"};
+
         for(int i = 0; i<10; i++) {
-            int id = i + 1;
-            EjercitosModel ciudad = entityManager.find(EjercitosModel.class, id);
+
+            EjercitosModel ciudad = entityManager.find(EjercitosModel.class, ciudadesArray[i]);
             switch (ciudad.getOficial_a()){
                 case 1:
                     switch (ciudad.getNuevo_oficial_a()){

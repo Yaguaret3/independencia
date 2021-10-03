@@ -10,6 +10,8 @@ public interface ControlDao {
     List<EjercitosModel> listarEjercitos();
     List<ActoresPoliticosModel> listarActoresPoliticos();
     List<CongresoModel> listarCongresos();
+    List<OtrosModel> cargarTimer();
+
     void pausar();
     void despausar();
     void editarCiudad(String ciudad, RecursosModel actualizacion);
@@ -23,6 +25,8 @@ public interface ControlDao {
     void repartirRecursos();
     void actualizarOficiales();
     void permitirActualizarListaCapitanes(OtrosModel nuevo);
+
+
 
 
     //List<DeterminandoConflictosModel> moverAntesDeConflictos();

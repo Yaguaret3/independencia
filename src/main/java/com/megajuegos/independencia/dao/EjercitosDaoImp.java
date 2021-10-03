@@ -31,7 +31,7 @@ public class EjercitosDaoImp implements EjercitosDao{
     }
 
     @Override
-    public void movimientos(String ciudad, EjercitosModel traido, int fase) {
+    public void movimientos(String ciudad, EjercitosModel traido, long fase) {
 
         // Primero seleccionar ciudad
         EjercitosModel ejercito = entityManager.find(EjercitosModel.class, ciudad);
@@ -74,7 +74,7 @@ public class EjercitosDaoImp implements EjercitosDao{
     }
 
     @Override
-    public int fase() {
+    public long fase() {
 
         //Tomamos la fase en la que estamos
         OtrosModel fase = entityManager.find(OtrosModel.class, "fase_militar");

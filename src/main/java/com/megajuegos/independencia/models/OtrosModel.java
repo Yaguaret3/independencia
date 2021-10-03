@@ -17,6 +17,6 @@ public class OtrosModel {
     private String accion;
 
     @Getter @Setter @Column(name = "valor")
-    private int valor;
+    private long valor;
 
 }

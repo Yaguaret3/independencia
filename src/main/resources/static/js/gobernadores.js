@@ -2,7 +2,76 @@
 $(document).ready(function() {
   cargarRecursos();
   cargarActoresPoliticos();
+  conectarWS();
+  cargarTimer();
 });
+
+let intervalo = setInterval(function(){
+
+    // Tomamos la fecha actual
+    let ahora = new Date().getTime();
+
+    // Restamos para calcular la distancia
+    let distancia = localStorage.proximoFinTurno - ahora;
+    // Calculamos minutos y segundos
+    let minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+    let segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+    let minDec = "";
+    let minUni = "";
+    let secDec = "";
+    let secUni = "";
+
+    // Mostramos el resultado
+    if(minutos<10){
+        minDec = "0";
+        minUni = minutos.toString().charAt(0);
+    } else{
+        minDec = minutos.toString().charAt(0);
+        minUni = minutos.toString().charAt(1);
+    }
+    if(segundos<10){
+        secDec = "0";
+        secUni = segundos.toString().charAt(0);
+    } else{
+        secDec = segundos.toString().charAt(0);
+        secUni = segundos.toString().charAt(1);
+    }
+    $("#minDec").html(minDec);
+    $("#minUni").html(minUni);
+    $("#secDec").html(secDec);
+    $("#secUni").html(secUni);
+
+    // Si la cuenta terminó, dejá en cero todo
+    if (distancia < 0) {
+        $("#minDec").html(0);
+        $("#minUni").html(0);
+        $("#secDec").html(0);
+        $("#secUni").html(0);
+    }
+    },1000);
+
+function conectarWS() {
+    var socket = new SockJS('/independencia-websocket');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+        stompClient.subscribe('/actualizar_gobernadores', function (valorFinal) {
+          cargarRecursos();
+          cargarActoresPoliticos();
+          cargarTimer();
+        });
+    });
+}
+
+function disparoControl(){
+    stompClient.send('/actualizar_control', {}, JSON.stringify({'mensaje': ""}));
+}
+function disparoGobernadores(){
+    stompClient.send('/actualizar_gobernadores', {}, JSON.stringify({'mensaje': ""}));
+}
+function disparoCapitanes(){
+    stompClient.send('/actualizar_capitanes', {}, JSON.stringify({'mensaje': ""}));
+}
 
 async function cargarActoresPoliticos(){
 
@@ -25,7 +94,6 @@ async function cargarActoresPoliticos(){
     }
     document.querySelector('#tablaActoresPoliticos tbody').outerHTML = listadoHtml;
 }
-
 
 async function cargarRecursos(){
     const request = await fetch('api/gobernadores/cargarRecursos', {
@@ -78,6 +146,67 @@ async function cargarNivelMisionComercial(){
     $("#nivel_mision_comercial").html(respuesta.nivel_mision_comercial);
 }
 
+async function cargarTimer(){
+
+    const request = await fetch('api/gobernadores/cargarTimer', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem("token")
+        },
+      });
+    const cosas = await request.json();
+
+    for (let cosa of cosas){
+
+        // Cargo TURNO
+        if(cosa.accion == "turno"){
+            if(cosa.valor<10){
+                $("#turnoDec").html(0);
+                $("#turnoUni").html(cosa.valor.toString().charAt(0));
+            } else{
+                $("#turnoDec").html(cosa.valor.toString().charAt(0));
+                $("#turnoUni").html(cosa.valor.toString().charAt(1));
+            }
+        }
+        // Cargo FASE
+        if(cosa.accion == "fase_militar"){
+            switch(cosa.valor){
+                case 1:
+                    $("#fase_base").html("Inicial");
+                    break;
+                case 2:
+                    $("#fase_base").html("Militar 1");
+                    break;
+                case 3:
+                    $("#fase_base").html("Comercial");
+                    break;
+                case 4:
+                    $("#fase_base").html("Militar 2");
+                    break;
+                case 5:
+                    $("#fase_base").html("Final");
+                    break;
+            }
+        }
+        // Cargo PAUSA
+        if(cosa.accion == "pausa"){
+            if(cosa.valor == 1){
+                $("#pausado").html('<span class="fase mb-4">PAUSADO</span>');
+            }
+            if(cosa.valor == 0){
+                $("#pausado").html('');
+            }
+        }
+
+        // Cargo TIMER
+        if(cosa.accion == "timer"){
+            localStorage.proximoFinTurno = new Date(cosa.valor).getTime();
+        }
+    }
+}
+
 async function aumentarEstatus(){
 
     $("#aumentarEstatusModal").modal("hide");
@@ -116,6 +245,9 @@ async function aumentarEstatus(){
         },
         body: JSON.stringify(datos)
     });
+
+    disparoControl();
+    disparoGobernadores();
 }
 
 async function aumentarIndustria(){
@@ -154,6 +286,9 @@ async function aumentarIndustria(){
         },
         body: JSON.stringify(datos)
     });
+
+    disparoControl();
+    disparoGobernadores();
 }
 
 async function aumentarMisionComercial(){
@@ -192,6 +327,10 @@ async function aumentarMisionComercial(){
         },
         body: JSON.stringify(datos)
       });
+
+      disparoControl();
+      disparoGobernadores();
+      disparoCapitanes();
 }
 
 async function reclutarUnidades(){
@@ -230,6 +369,9 @@ async function reclutarUnidades(){
         },
         body: JSON.stringify(datos)
       });
+
+      disparoControl();
+      disparoGobernadores();
 }
 
 async function contratarOficial(){
@@ -270,13 +412,16 @@ async function contratarOficial(){
         },
     body: JSON.stringify(datos)
     });
+
+    disparoControl();
+    disparoGobernadores();
 }
 
 async function enviarUnidades(){
 
     $("#enviarUnidadesModal").modal("hide");
 
-    const request = await fetch('api/enviarUnidades/', {
+    const request = await fetch('api/gobernadores/enviarUnidades/', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -284,6 +429,10 @@ async function enviarUnidades(){
           'Authorization': localStorage.getItem("token")
         },
     });
+
+    disparoControl();
+    disparoGobernadores();
+    disparoCapitanes();
 }
 
 async function comerciar(){
@@ -301,19 +450,19 @@ async function comerciar(){
 
     switch ($("input[name='recursos']:checked").val()) {
         case 'caballos':
-            datos.caballos = ($("#cantidadAEnviarComercio").val())
+            datos.caballos = ($("#cantidadAEnviarComercio").val());
             break;
         case 'vacas':
-            datos.vacas = ($("#cantidadAEnviarComercio").val())
+            datos.vacas = ($("#cantidadAEnviarComercio").val());
             break;
         case 'hierro':
-            datos.hierro = ($("#cantidadAEnviarComercio").val())
+            datos.hierro = ($("#cantidadAEnviarComercio").val());
             break;
         case 'vino':
-            datos.vino = ($("#cantidadAEnviarComercio").val())
+            datos.vino = ($("#cantidadAEnviarComercio").val());
             break;
         case 'yerba':
-            datos.yerba = ($("#cantidadAEnviarComercio").val())
+            datos.yerba = ($("#cantidadAEnviarComercio").val());
             break;
     }
 
@@ -327,4 +476,6 @@ async function comerciar(){
     body: JSON.stringify(datos)
     });
 
+    disparoControl();
+    disparoGobernadores();
 }
