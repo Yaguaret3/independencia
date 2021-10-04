@@ -122,7 +122,7 @@ async function cargarEjercitosCiudades(){
 
         let ejercitoHtml = '<tr><td><a href="#" onclick="mostrarModalEjercito(`'+ejercito.ciudad+'`)" data-toggle="modal" data-target="#editarEjercitoModal">'+ejercito.ciudad+
                         '</a></td><td>'+ejercito.unidades_agrupadas+'</td><td>'+ejercito.oficial_a+'</td><td>'+ejercito.oficial_b+'</td><td>'+ejercito.oficial_c+
-                        '</td><td>'+ejercito.oficial_d+'</td><td>'+ejercito.oficial_e+'</td><td>'+ejercito.nivel_mision_comercial+'</td></tr>';
+                        '</td><td>'+ejercito.oficial_d+'</td><td>'+ejercito.oficial_e+'</td><td>'+ejercito.nivel_mision_comercial+'</td><td>'+ejercito.ubicacion_comercial+'</td></tr>';
         listadoHtmlEjercito += ejercitoHtml;
 
         let movimientoHtml = '<tr><td><a href="#" onclick="mostrarModalEjercito(`'+ejercito.ciudad+'`)" data-toggle="modal" data-target="#editarEjercitoModal">'+ejercito.ciudad+
