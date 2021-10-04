@@ -242,8 +242,13 @@ async function pausar(){
         'Authorization': localStorage.getItem("token")
       },
     });
-    disparoControl();
-    disparoGobernadores();
+  const respuesta = await request.text();
+    if(respuesta == null){
+        disparoControl();
+        disparoGobernadores();
+    } else {
+        alert(respuesta);
+    }
 }
 
 async function despausar(){
@@ -256,8 +261,13 @@ async function despausar(){
         'Authorization': localStorage.getItem("token")
       },
     });
+  const respuesta = await request.text();
+  if(respuesta == null){
     disparoControl();
     disparoGobernadores();
+  } else {
+    alert(respuesta);
+  }
 }
 
 function mostrarModalCiudad(ciudad){
@@ -344,14 +354,17 @@ async function actualizarCiudad(){
         },
     body: JSON.stringify(datos)
     });
-
-    //Despausar y cargar recursos de nuevo
-    despausar();
-    disparoControl();
-    disparoGobernadores();
-
-    // Cerrar el modal
-    $("#editarCiudadModal").modal("hide");
+    const respuesta = await request.text();
+    if(respuesta == null){
+        //Despausar y cargar recursos de nuevo
+        despausar();
+        disparoControl();
+        disparoGobernadores();
+        // Cerrar el modal
+        $("#editarCiudadModal").modal("hide");
+    } else {
+        alert(respuesta);
+    }
 }
 
 async function actualizarEjercito(){
@@ -407,14 +420,17 @@ async function actualizarActor(){
        },
        body: JSON.stringify(datos)
     });
-
-    // Despausar y recargar actores
-    despausar();
-    disparoControl();
-    disparoGobernadores();
-
-    // Cerrar el Modal
-    $("#editarActorPoliticoModal").modal("hide");
+    const respuesta = await request.text();
+    if(respuesta == null){
+        // Despausar y recargar actores
+        despausar();
+        disparoControl();
+        disparoGobernadores();
+        // Cerrar el Modal
+        $("#editarActorPoliticoModal").modal("hide");
+    } else {
+        alert(respuesta);
+    }
 }
 
 async function improductividad(){
@@ -433,8 +449,12 @@ async function improductividad(){
        },
        body: JSON.stringify(datos)
     });
-
-    disparoControl();
+    const respuesta = await request.text();
+    if(respuesta == null){
+        disparoControl();
+    } else {
+        alert(respuesta);
+    }
 }
 
 function mostrarModalCongreso(id){
@@ -472,8 +492,14 @@ async function actualizarCongreso(){
        },
        body: JSON.stringify(datos)
     });
-
-    disparoControl();
+    const respuesta = await request.text();
+    if(respuesta == null){
+        disparoControl();
+        // Cerrar el modal
+        $("#editarCongreso").modal("hide");
+    } else {
+        alert(respuesta);
+    }
 }
 
 async function siguienteTurno(){
@@ -486,10 +512,14 @@ async function siguienteTurno(){
        'Authorization': localStorage.getItem("token")
        },
     });
-
-    disparoControl();
-    disparoGobernadores();
-    disparoCapitanes();
+    const respuesta = await request.text();
+    if(respuesta == null){
+        disparoControl();
+        disparoGobernadores();
+        disparoCapitanes();
+    } else {
+        alert(respuesta);
+    }
 }
 
 async function nuevaFase(){
@@ -509,9 +539,14 @@ async function nuevaFase(){
        },
        body: JSON.stringify(datos)
     });
-    disparoControl();
-    disparoGobernadores();
-    disparoCapitanes();
+    const respuesta = await request.text();
+    if(respuesta == null){
+        disparoControl();
+        disparoGobernadores();
+        disparoCapitanes();
+    } else {
+        alert(respuesta);
+    }
 }
 
 async function permitirActualizar(){
@@ -531,6 +566,16 @@ async function permitirActualizar(){
        },
        body: JSON.stringify(datos)
     });
-    disparoControl();
-    disparoCapitanes();
+    const respuesta = await request.text();
+    if(respuesta == null){
+        disparoControl();
+        disparoCapitanes();
+    } else {
+        alert(respuesta);
+    }
+}
+
+function cerrarSesion(){
+    localStorage.removeItem("token");
+    window.location.href = "login.html";
 }

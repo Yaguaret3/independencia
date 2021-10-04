@@ -245,9 +245,13 @@ async function aumentarEstatus(){
         },
         body: JSON.stringify(datos)
     });
-
-    disparoControl();
-    disparoGobernadores();
+    const respuesta = await request.text();
+    if(respuesta == null){
+        disparoControl();
+        disparoGobernadores();
+    } else {
+        alert(respuesta);
+    }
 }
 
 async function aumentarIndustria(){
@@ -286,9 +290,13 @@ async function aumentarIndustria(){
         },
         body: JSON.stringify(datos)
     });
-
-    disparoControl();
-    disparoGobernadores();
+    const respuesta = await request.text();
+    if(respuesta == null){
+        disparoControl();
+        disparoGobernadores();
+    } else {
+        alert(respuesta);
+    }
 }
 
 async function aumentarMisionComercial(){
@@ -327,10 +335,14 @@ async function aumentarMisionComercial(){
         },
         body: JSON.stringify(datos)
       });
-
-      disparoControl();
-      disparoGobernadores();
-      disparoCapitanes();
+    const respuesta = await request.text();
+    if(respuesta == null){
+        disparoControl();
+        disparoGobernadores();
+        disparoCapitanes();
+    } else {
+        alert(respuesta);
+    }
 }
 
 async function reclutarUnidades(){
@@ -369,9 +381,13 @@ async function reclutarUnidades(){
         },
         body: JSON.stringify(datos)
       });
-
-      disparoControl();
-      disparoGobernadores();
+      const respuesta = await request.text();
+      if(respuesta == null){
+          disparoControl();
+          disparoGobernadores();
+      } else {
+          alert(respuesta);
+      }
 }
 
 async function contratarOficial(){
@@ -412,9 +428,13 @@ async function contratarOficial(){
         },
     body: JSON.stringify(datos)
     });
-
-    disparoControl();
-    disparoGobernadores();
+    const respuesta = await request.text();
+    if(respuesta == null){
+        disparoControl();
+        disparoGobernadores();
+    } else{
+        alert(respuesta);
+    }
 }
 
 async function enviarUnidades(){
@@ -429,10 +449,14 @@ async function enviarUnidades(){
           'Authorization': localStorage.getItem("token")
         },
     });
-
-    disparoControl();
-    disparoGobernadores();
-    disparoCapitanes();
+    const respuesta = await request.text();
+    if(respuesta == null){
+        disparoControl();
+        disparoGobernadores();
+        disparoCapitanes();
+    } else {
+        alert(respuesta);
+    }
 }
 
 async function comerciar(){
@@ -475,7 +499,16 @@ async function comerciar(){
         },
     body: JSON.stringify(datos)
     });
+    const respuesta = await request.text();
+    if(respuesta == null){
+        disparoControl();
+        disparoGobernadores();
+    } else {
+        alert(respuesta);
+    }
+}
 
-    disparoControl();
-    disparoGobernadores();
+function cerrarSesion(){
+    localStorage.removeItem("token");
+    window.location.href = "login.html";
 }

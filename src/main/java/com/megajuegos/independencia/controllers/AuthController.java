@@ -1,6 +1,7 @@
 package com.megajuegos.independencia.controllers;
 
 import com.megajuegos.independencia.dao.UsuariosDao;
+import com.megajuegos.independencia.models.LoginModel;
 import com.megajuegos.independencia.models.UsuarioModel;
 import com.megajuegos.independencia.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +20,24 @@ public class AuthController {
     private JWTUtil jwtUtil;
 
     @RequestMapping(value = "api/login", method = RequestMethod.POST)
-    public String login(@RequestBody UsuarioModel usuario){
+    public LoginModel login(@RequestBody UsuarioModel usuario){
 
+        LoginModel respuesta = new LoginModel();
         UsuarioModel usuarioALoguear = usuarioDao.obtenerUsuarioPorCredenciales(usuario);
 
         if(usuarioALoguear != null){
             String token = jwtUtil.create(String.valueOf(usuarioALoguear.getRol()), usuarioALoguear.getCiudad());
-            return token;
+            respuesta.setToken(token);
+            if(usuarioALoguear.getRol().equals("control")){
+                respuesta.setUrl("/control.html");
+            } else if(usuarioALoguear.getRol().equals("gobernador")){
+                respuesta.setUrl("/gobernadores.html");
+            } else if(usuarioALoguear.getRol().equals("capitan")){
+                respuesta.setUrl("/capitanes.html");
+            }
+            return respuesta;
         }
-
-        return "FAIL";
+        return null;
 
         /*String targetUrl = "";
         if(role.contains("client")) {

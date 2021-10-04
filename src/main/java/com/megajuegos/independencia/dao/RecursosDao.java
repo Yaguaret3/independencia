@@ -13,6 +13,8 @@ public interface RecursosDao {
 
     void aumentarIndustria(String ciudad);
 
+    String condicionesValidas(String ciudad);
+
     void aumentarMisionComercial(String ciudad);
 
     void reclutarUnidades(String ciudad);

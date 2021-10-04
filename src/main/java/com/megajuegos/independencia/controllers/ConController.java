@@ -92,40 +92,42 @@ public class ConController {
     }
 
     @RequestMapping(value = "api/control/pausar")
-    public void pausar(@RequestHeader(value = "Authorization") String token){
+    public String pausar(@RequestHeader(value = "Authorization") String token){
 
         // Primero: Corroborar que el pedido lo hace Control
 
         if(!jwtUtil.getKey(token).equals("control")){
-            return;
+            return "Permiso denegado";
         }
 
         // Segundo: Pausar
 
         controlDao.pausar();
+        return null;
     }
 
     @RequestMapping(value = "api/control/despausar")
-    public void despausar(@RequestHeader(value = "Authorization") String token){
+    public String despausar(@RequestHeader(value = "Authorization") String token){
 
         // Primero: Corroborar que el pedido lo hace Control
 
         if(!jwtUtil.getKey(token).equals("control")){
-            return;
+            return "Permiso denegado";
         }
 
         // Segundo: Despausar
 
         controlDao.despausar();
+        return null;
     }
 
     @RequestMapping(value = "api/control/editarCiudad")
-    public void editarCiudad(@RequestHeader(value = "Authorization") String token, @RequestBody RecursosModel actualizacion){
+    public String editarCiudad(@RequestHeader(value = "Authorization") String token, @RequestBody RecursosModel actualizacion){
 
         // Primero: Corroborar que el pedido lo hace Control
 
         if(!jwtUtil.getKey(token).equals("control")){
-            return;
+            return "Permiso denegado";
         }
 
         // Segundo: Seleccionar ciudad a editar
@@ -134,15 +136,16 @@ public class ConController {
         // Tercero: Editar ciudad
 
         controlDao.editarCiudad(ciudad, actualizacion);
+        return null;
     }
 
     @RequestMapping(value = "api/control/editarEjercito")
-    public void editarEjercito(@RequestHeader(value = "Authorization") String token, @RequestBody EjercitosModel actualizacion){
+    public String editarEjercito(@RequestHeader(value = "Authorization") String token, @RequestBody EjercitosModel actualizacion){
 
         // Primero: Corroborar que el pedido lo hace Control
 
         if(!jwtUtil.getKey(token).equals("control")){
-            return;
+            return "Permiso denegado";
         }
 
         // Segundo: Seleccionar ciudad a editar
@@ -151,15 +154,16 @@ public class ConController {
         // Tercero: Editar ciudad
 
         controlDao.editarEjercito(ciudad, actualizacion);
+        return null;
     }
 
     @RequestMapping(value = "api/control/editarActorPolitico")
-    public void editarActoresPoliticos(@RequestHeader(value = "Authorization") String token, @RequestBody ActoresPoliticosModel actualizacion){
+    public String editarActoresPoliticos(@RequestHeader(value = "Authorization") String token, @RequestBody ActoresPoliticosModel actualizacion){
 
         // Primero: Corroborar que el pedido lo hace Control
 
         if(!jwtUtil.getKey(token).equals("control")){
-            return;
+            return "Permiso denegado";
         }
 
         // Segundo: Seleccionar actor a editar
@@ -168,29 +172,31 @@ public class ConController {
         // Tercero: Editar actor
 
         controlDao.editarActorPolitico(actor, actualizacion);
+        return null;
     }
 
     @RequestMapping(value = "api/control/seleccionarFase")
-    public void seleccionarFase(@RequestHeader(value = "Authorization") String token, @RequestBody OtrosModel fase){
+    public String seleccionarFase(@RequestHeader(value = "Authorization") String token, @RequestBody OtrosModel fase){
 
         // Primero: Corroborar que el pedido lo hace Control
 
         if(!jwtUtil.getKey(token).equals("control")){
-            return;
+            return "Permiso denegado";
         }
 
         // Segundo: Avanzar fase. CONTROL ELIGE LA FASE, NO LA AVANZA.
 
         controlDao.seleccionarFase(fase);
+        return null;
     }
 
     @RequestMapping(value = "api/control/avanzarTurno")
-    public void avanzarTurno(@RequestHeader(value = "Authorization") String token){
+    public String avanzarTurno(@RequestHeader(value = "Authorization") String token){
 
         // Primero: Corroborar que el pedido lo hace Control
 
         if(!jwtUtil.getKey(token).equals("control")){
-            return;
+            return "Permiso denegado";
         }
 
         // Segundo: Corroborar improductividad y ganar recursos en mapa.
@@ -204,46 +210,49 @@ public class ConController {
 
         // Quinto: actualizar oficiales en capitanes
         controlDao.actualizarOficiales();
+        return null;
     }
 
     @RequestMapping(value = "api/control/improductividad")
-    public void improductividad(@RequestHeader(value = "Authorization") String token, @RequestBody ActoresPoliticosModel actorPolitico) {
+    public String improductividad(@RequestHeader(value = "Authorization") String token, @RequestBody ActoresPoliticosModel actorPolitico) {
 
         // Primero: Corroborar que el pedido lo hace Control
 
         if(!jwtUtil.getKey(token).equals("control")){
-            return;
+            return "Permiso denegado";
         }
 
         // Segundo: Generar improductividad
 
         controlDao.improductividad(actorPolitico);
+        return null;
     }
 
     @RequestMapping(value = "api/control/editarCongreso")
-    public void editarCongreso(@RequestHeader(value = "Authorization") String token, @RequestBody CongresoModel nuevoCongreso) {
+    public String editarCongreso(@RequestHeader(value = "Authorization") String token, @RequestBody CongresoModel nuevoCongreso) {
 
         // Primero: Corroborar que el pedido lo hace Control
 
         if(!jwtUtil.getKey(token).equals("control")){
-            return;
+            return "Permiso denegado";
         }
 
         //Segundo: Editar sistema de gobierno
         controlDao.editarCongreso(nuevoCongreso);
+        return null;
     }
 
     @RequestMapping(value = "api/control/permitirActualizarListaCapitanes")
-    public void permitirActualizarListaCapitanes(@RequestHeader(value = "Authorization") String token, @RequestBody OtrosModel nuevo) {
+    public String permitirActualizarListaCapitanes(@RequestHeader(value = "Authorization") String token, @RequestBody OtrosModel nuevo) {
 
         // Primero: Corroborar que el pedido lo hace Control
 
         if(!jwtUtil.getKey(token).equals("control")){
-            return;
+            return "Permiso denegado";
         }
 
         controlDao.permitirActualizarListaCapitanes(nuevo);
-
+        return null;
     }
 
 

@@ -75,11 +75,11 @@ public class GobController {
     }
 
     @RequestMapping(value = "api/gobernadores/aumentarIndustria", method = RequestMethod.POST)
-    public void aumentarIndustria(@RequestHeader(value = "Authorization") String token, @RequestBody RecursosModel traido){
+    public String aumentarIndustria(@RequestHeader(value = "Authorization") String token, @RequestBody RecursosModel traido){
 
         // Primero: Corroborar que el pedido lo hace un gobernador
         if(!jwtUtil.getKey(token).equals("gobernador")){
-            return;
+            return "Permiso denegado";
         }
 
         // Segundo: Corroborar ciudad
@@ -87,33 +87,32 @@ public class GobController {
 
         // Tercero: corroborar pausa
         if(recursoDao.pausa()){
-            return;
+            return "Juego pausado";
         }
 
         // Cuarto: corroborar condiciones
-        boolean condicionesValidas = true;
-
-        if(condicionesValidas){
-
+        if(!recursoDao.condicionesValidas(ciudad).equals(null)){
+            return recursoDao.condicionesValidas(ciudad);
+        } else{
             // Quinto: pagar y cobrar.
             int recursosAPagar = 2;
             boolean pagado = recursoDao.pagar(traido, ciudad, recursosAPagar);
-
-            if(pagado){
-
-            /* Sexto: aumentar el nivel de industria en la base
-             * Esto anda, nomás hay que devolverle al usuario qué onda si hubo un inconveniente por recursos o ley o nivel ya subido*/
+            if(!pagado) {
+                return "Recursos insuficientes";
+            } else {
+                // Sexto: aumentar el nivel de industria en la base
                 recursoDao.aumentarIndustria(ciudad);
+                return null;
             }
         }
     }
 
     @RequestMapping(value = "api/gobernadores/aumentarMisionComercial", method = RequestMethod.POST)
-    public void aumentarMisionComercial(@RequestHeader(value = "Authorization") String token, @RequestBody RecursosModel traido){
+    public String aumentarMisionComercial(@RequestHeader(value = "Authorization") String token, @RequestBody RecursosModel traido){
 
         // Primero: Corroborar que el pedido lo hace un gobernador
         if(!jwtUtil.getKey(token).equals("gobernador")){
-            return;
+            return "Permiso denegado";
         }
 
         // Segundo: Corroborar ciudad
@@ -121,32 +120,35 @@ public class GobController {
 
         // Tercero: corroborar pausa
         if(recursoDao.pausa()){
-            return;
+            return "Juego pausado";
         }
 
         // Cuarto: corroborar condiciones
         boolean condicionesValidas = recursoDao.misionMenosAEstatus(ciudad);
 
-        if(condicionesValidas){
+        if(!condicionesValidas) {
+            return "Estatus insuficiente";
+        }
 
-            // Quinto: pagar y cobrar. El Front-End tiene que mandar 1 de cada recurso elegido, si no le va a restar lo que manden. Hay que escribir la reacción si no alcanza.
-            int recursosAPagar = 1;
-            boolean pagado = recursoDao.pagar(traido, ciudad, recursosAPagar);
+        // Quinto: pagar y cobrar. El Front-End tiene que mandar 1 de cada recurso elegido, si no le va a restar lo que manden. Hay que escribir la reacción si no alcanza.
+        int recursosAPagar = 1;
+        boolean pagado = recursoDao.pagar(traido, ciudad, recursosAPagar);
 
-            if(pagado){
-
-                // Sexto: aumentar el nivel de misión comercial en la base. Fijarse antes ley al respecto.
-                recursoDao.aumentarMisionComercial(ciudad);
-            }
+        if(!pagado) {
+            return "Recursos insuficientes";
+        } else{
+            // Sexto: aumentar el nivel de misión comercial en la base. Fijarse antes ley al respecto.
+            recursoDao.aumentarMisionComercial(ciudad);
+            return null;
         }
     }
 
     @RequestMapping(value = "api/gobernadores/reclutarUnidades", method = RequestMethod.POST)
-    public void reclutarUnidades (@RequestHeader(value = "Authorization") String token, @RequestBody RecursosModel traido){
+    public String reclutarUnidades (@RequestHeader(value = "Authorization") String token, @RequestBody RecursosModel traido){
 
         // Primero: Corroborar que el pedido lo hace un gobernador
         if(!jwtUtil.getKey(token).equals("gobernador")){
-            return;
+            return "Permiso denegado";
         }
 
         // Segundo: Corroborar ciudad
@@ -154,7 +156,7 @@ public class GobController {
 
         // Tercero: corroborar pausa
         if(recursoDao.pausa()){
-            return;
+            return "Juego pausado";
         }
 
         // Cuarto: pagar y cobrar. El Front-End tiene que mandar 1 de cada recurso elegido, si no le va a restar lo que manden. Hay que escribir la reacción si no alcanza.
@@ -165,15 +167,17 @@ public class GobController {
 
             // Quinto: sumar unidades a la base
             recursoDao.reclutarUnidades(ciudad);
+            return null;
         }
+        return "Recursos insuficientes";
     }
 
     @RequestMapping(value = "api/gobernadores/contratarOficiales", method = RequestMethod.POST)
-    public void contratarOficiales (@RequestHeader(value = "Authorization") String token, @RequestBody RecursosModel traido){
+    public String contratarOficiales (@RequestHeader(value = "Authorization") String token, @RequestBody RecursosModel traido){
 
         // Primero: Corroborar que el pedido lo hace un gobernador
         if(!jwtUtil.getKey(token).equals("gobernador")){
-            return;
+            return "Permiso denegado";
         }
 
         // Segundo: Corroborar ciudad
@@ -181,7 +185,7 @@ public class GobController {
 
         // Tercero: corroborar pausa
         if(recursoDao.pausa()){
-            return;
+            return "Juego pausado";
         }
 
         // Cuarto: determinar si paga un nivel B o un nivel C.
@@ -190,21 +194,21 @@ public class GobController {
         // Quinto: pagar y cobrar. El Front-End tiene que mandar 1 de cada recurso elegido, si no le va a restar lo que manden. Hay que escribir la reacción si no alcanza.
         boolean pagado = recursoDao.pagar(traido, ciudad, recursosAPagar);
 
-        if(pagado){
-
-            /* Sexto: sumar oficiales a la base. Habría que mandar esos oficiales a la tabla de capitán, pero no presentes
-             * sino potenciales, para que al cambiar del turno se actualicen.
-             */
+        if(!pagado) {
+            return "Recursos insuficientes";
+        } else{
+            // Sexto: sumar oficiales a la base.
             recursoDao.contratarOficiales(ciudad, traido);
+            return null;
         }
     }
 
     @RequestMapping(value = "api/gobernadores/enviarUnidades", method = RequestMethod.POST)
-    public void enviarUnidades (@RequestHeader(value = "Authorization") String token){
+    public String enviarUnidades (@RequestHeader(value = "Authorization") String token){
 
         // Primero: Corroborar que el pedido lo hace un gobernador
         if(!jwtUtil.getKey(token).equals("gobernador")){
-            return;
+            return "Permiso denegado";
         }
 
         // Segundo: Corroborar ciudad
@@ -212,19 +216,20 @@ public class GobController {
 
         // Tercero: corroborar pausa
         if(recursoDao.pausa()){
-            return;
+            return "Juego pausado";
         }
 
         // Cuarto: enviar unidades al capitán y limpiarlas. Hecho. Falta la parte de la tabla del capitán.
         recursoDao.enviarUnidades(ciudad);
+        return null;
     }
 
     @RequestMapping(value = "api/gobernadores/comerciar", method = RequestMethod.POST)
-    public void comerciar (@RequestHeader(value = "Authorization") String token, @RequestBody RecursosModel traido){
+    public String comerciar (@RequestHeader(value = "Authorization") String token, @RequestBody RecursosModel traido){
 
         // Primero: Corroborar que el pedido lo hace un gobernador
         if(!jwtUtil.getKey(token).equals("gobernador")){
-            return;
+            return "Permiso denegado";
         }
 
         // Segundo: Corroborar ciudad
@@ -232,19 +237,20 @@ public class GobController {
 
         // Tercero: corroborar pausa
         if(recursoDao.pausa()){
-            return;
+            return "Juego pausado";
         }
 
         // Cuarto: comerciar (restarle a uno y sumarle al otro)
         recursoDao.comerciar(traido, ciudad);
+        return null;
     }
 
     @RequestMapping(value = "api/gobernadores/aumentarEstatus", method = RequestMethod.POST)
-    public void aumentarEstatus (@RequestHeader(value = "Authorization") String token, @RequestBody RecursosModel traido){
+    public String aumentarEstatus (@RequestHeader(value = "Authorization") String token, @RequestBody RecursosModel traido){
 
         // Primero: Corroborar que el pedido lo hace un gobernador
         if(!jwtUtil.getKey(token).equals("gobernador")){
-            return;
+            return "Permiso denegado";
         }
 
         // Segundo: Corroborar ciudad
@@ -252,7 +258,7 @@ public class GobController {
 
         // Tercero: corroborar pausa
         if(recursoDao.pausa()){
-            return;
+            return "Juego pausado";
         }
 
         /* Cuarto: determinar el actor político pedido. El Front End tiene que mandarme un int.
@@ -262,13 +268,15 @@ public class GobController {
         // Quinto: pagar. El Front-End tiene que mandar 1 de cada recurso elegido, si no le va a restar lo que manden. Hay que escribir la reacción si no alcanza.
         boolean pagado = recursoDao.pagar(traido, ciudad, recursosAPagar);
 
-        if(pagado){
-
+        if(!pagado) {
+            return "Recursos insuficientes";
+        } else{
             // Sexto: aumentar estatus en la base.
             recursoDao.aumentarEstatus(ciudad);
 
             // Séptimo: aumentar nivel de actor político.
             recursoDao.crecerActorPolitico(ciudad, recursosAPagar);
+            return null;
         }
     }
 }

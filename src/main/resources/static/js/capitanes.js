@@ -61,17 +61,6 @@ function conectarWS() {
     });
 }
 
-function conectarWS() {
-
-    var socket = new SockJS('/independencia-websocket');
-    stompClient = Stomp.over(socket);
-    stompClient.connect({}, function (frame) {
-        stompClient.subscribe('/actualizar_capitanes', function (valorFinal) {
-          cargarRecursos();
-        });
-    });
-}
-
 function disparoControl(){
     stompClient.send('/actualizar_control', {}, JSON.stringify({'mensaje': ""}));
 }
@@ -208,12 +197,15 @@ async function enviarMovimiento(){
         },
         body: JSON.stringify(datos)
     });
-    disparoControl();
+    const respuesta = await request.text();
+    if(respuesta == null){
+        disparoControl();
+    } else {
+        alert(respuesta);
+    }
 }
 
 async function asignarUnidades(){
-
-    $("#asignarUnidadesModal").modal("hide");
 
     let datos = {};
     datos.unidades_a_asignar = $("#asignandoUnidades").val();
@@ -228,6 +220,18 @@ async function asignarUnidades(){
         },
         body: JSON.stringify(datos)
     });
-    disparoControl();
-    disparoCapitanes();
+    const respuesta = await request.text();
+    if(respuesta == null){
+        disparoControl();
+        disparoCapitanes();
+
+        $("#asignarUnidadesModal").modal("hide");
+    } else {
+        alert(respuesta);
+    }
+}
+
+function cerrarSesion(){
+    localStorage.removeItem("token");
+    window.location.href = "login.html";
 }

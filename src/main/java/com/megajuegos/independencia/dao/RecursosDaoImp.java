@@ -60,18 +60,31 @@ public class RecursosDaoImp implements RecursosDao{
 
         RecursosModel industria = entityManager.find(RecursosModel.class, ciudad);
 
-        /* Primero: corroborar que está en nivel 1,
-         *      else no puede subir más que a nivel 2.*/
-        if(industria.getNivel_industria() != 1){
-                        return;
-        }
-        // Segundo: corroborar que la ley de proteccionismo o promoción industrial o la wea exista,
-
-        // Tercero: corroborar que el nivel de estatus sea el adecuado.
-
         // : sumar nivel de industria
         industria.setNivel_industria(2);
         entityManager.merge(industria);
+    }
+
+    @Override
+    public String condicionesValidas(String ciudad) {
+
+        // Primero: corroborar que está en nivel 1,
+        RecursosModel industria = entityManager.find(RecursosModel.class, ciudad);
+        if(industria.getNivel_industria() != 1){
+            return "Industria a nivel máximo";
+        }
+        // Segundo: corroborar que la ley de proteccionismo o promoción industrial o la wea exista,
+        CongresoModel congreso = entityManager.find(CongresoModel.class, industria.getCongreso());
+        if(!congreso.getSistema_economico().equals("proteccionismo")){
+            return "Sistema económico proteccionista necesario";
+        }
+
+        // Tercero: corroborar que el nivel de estatus sea el adecuado.
+        OtrosModel estatusRequerido = entityManager.find(OtrosModel.class, "estatus_industria");
+        if(industria.getEstatus() < estatusRequerido.getValor()){
+            return "Estatus insuficiente";
+        }
+        return null;
     }
 
     @Override

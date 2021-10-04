@@ -67,11 +67,11 @@ public class CapController {
     }
 
     @RequestMapping(value = "/api/capitanes/enviarMovimiento", method = RequestMethod.POST)
-    public void movimientos(@RequestHeader(value = "Authorization") String token, @RequestBody EjercitosModel traido){
+    public String movimientos(@RequestHeader(value = "Authorization") String token, @RequestBody EjercitosModel traido){
 
         // Primero: Corroborar que el pedido lo hace un capitán
         if(!jwtUtil.getKey(token).equals("capitan")){
-            return;
+            return "Permiso denegado";
         }
 
         // Segundo: Corroborar ciudad
@@ -82,24 +82,27 @@ public class CapController {
 
         // Cuarto: enviar movimientos a base
         ejercitosDao.movimientos(ciudad, traido, fase);
+        return null;
     }
 
     @RequestMapping(value = "/api/capitanes/asignarUnidades", method = RequestMethod.POST)
-    public void asignarUnidades(@RequestHeader(value = "Authorization") String token, @RequestBody EjercitosModel traido){
+    public String asignarUnidades(@RequestHeader(value = "Authorization") String token, @RequestBody EjercitosModel traido){
 
-        // Primero: Corroborar fase inicial
-        if(ejercitosDao.fase() == 1){
+        // Primero: Corroborar que el pedido lo hace un capitán
+        if(!jwtUtil.getKey(token).equals("capitan")){
+            return "Permiso denegado";
 
-            // Segundo: Corroborar que el pedido lo hace un capitán
-            if(!jwtUtil.getKey(token).equals("capitan")){
-                return;
-            }
+            // Segundo: Corroborar fase inicial
+        } else if(ejercitosDao.fase() != 1) {
+            return "Fase incorrecta";
+        } else {
 
             // Tercero: Corroborar ciudad
             String ciudad = jwtUtil.getValue(token);
 
             // Cuarto: Asignar unidades
             ejercitosDao.asignarUnidades(ciudad, traido);
+            return null;
         }
     }
 }

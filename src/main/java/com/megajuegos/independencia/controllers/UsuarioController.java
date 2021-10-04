@@ -33,7 +33,7 @@ public class UsuarioController {
     public List<UsuarioModel> listarUsuarios(@RequestHeader(value = "Authorization") String token){
 
         if(!validarToken(token)){
-            return new ArrayList<>();
+            return null;
         }
 
         return usuarioDao.recorrerUsuarios();

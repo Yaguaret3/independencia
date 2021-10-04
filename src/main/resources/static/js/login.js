@@ -19,11 +19,12 @@ async function iniciarSesion(){
         },
         body: JSON.stringify(datos)
       });
-      const respuesta = await request.text();
+    const respuesta = await request.json();
 
-      if(respuesta != "FAIL"){
-        localStorage.setItem("token", respuesta);
-        window.location.href = 'tbUsuarios.html'
-      }
-
+    if(respuesta == null){
+        alert("Credenciales incorrectas");
+    } else {
+        localStorage.setItem("token", respuesta.token);
+        window.location.href = respuesta.url;
+    }
 }
