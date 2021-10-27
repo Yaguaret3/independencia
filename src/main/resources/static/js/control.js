@@ -243,7 +243,7 @@ async function pausar(){
       },
     });
   const respuesta = await request.text();
-    if(respuesta == null){
+    if(respuesta == ""){
         disparoControl();
         disparoGobernadores();
     } else {
@@ -262,7 +262,7 @@ async function despausar(){
       },
     });
   const respuesta = await request.text();
-  if(respuesta == null){
+  if(respuesta == ""){
     disparoControl();
     disparoGobernadores();
   } else {
@@ -309,7 +309,7 @@ function mostrarModalEjercito(ciudad){
              $("#oficial_e_modal").val(encontrada.oficial_e);
              $("#nivel_mision_comercial_modal").val(encontrada.nivel_mision_comercial);
              $("#ubicacion_comercial_modal").val(encontrada.ubicacion_comercial);
-             $("#unidades_a_asignar_modal").val(encontrada.unidades_a_asignar);
+             $("#unidades_a_asignar_modal").val(encontrada.unidades_recien_llegadas);
              $("#unidades_agrupadas_modal").val(encontrada.unidades_agrupadas);
         }
     }
@@ -355,7 +355,7 @@ async function actualizarCiudad(){
     body: JSON.stringify(datos)
     });
     const respuesta = await request.text();
-    if(respuesta == null){
+    if(respuesta == ""){
         //Despausar y cargar recursos de nuevo
         despausar();
         disparoControl();
@@ -379,7 +379,7 @@ async function actualizarEjercito(){
     datos.oficial_e= $("#oficial_e_modal").val();
     datos.nivel_mision_comercial= $("#nivel_mision_comercial_modal").val();
     datos.ubicacion_comercial= $("#ubicacion_comercial_modal").val();
-    datos.unidades_a_asignar= $("#unidades_a_asignar_modal").val();
+    datos.unidades_recien_llegadas = $("#unidades_a_asignar_modal").val();
     datos.unidades_agrupadas= $("#unidades_agrupadas_modal").val();
 
     // Enviar
@@ -421,7 +421,7 @@ async function actualizarActor(){
        body: JSON.stringify(datos)
     });
     const respuesta = await request.text();
-    if(respuesta == null){
+    if(respuesta == ""){
         // Despausar y recargar actores
         despausar();
         disparoControl();
@@ -450,7 +450,7 @@ async function improductividad(){
        body: JSON.stringify(datos)
     });
     const respuesta = await request.text();
-    if(respuesta == null){
+    if(respuesta == ""){
         disparoControl();
     } else {
         alert(respuesta);
@@ -493,7 +493,7 @@ async function actualizarCongreso(){
        body: JSON.stringify(datos)
     });
     const respuesta = await request.text();
-    if(respuesta == null){
+    if(respuesta == ""){
         disparoControl();
         // Cerrar el modal
         $("#editarCongreso").modal("hide");
@@ -513,7 +513,7 @@ async function siguienteTurno(){
        },
     });
     const respuesta = await request.text();
-    if(respuesta == null){
+    if(respuesta == ""){
         disparoControl();
         disparoGobernadores();
         disparoCapitanes();
@@ -540,7 +540,7 @@ async function nuevaFase(){
        body: JSON.stringify(datos)
     });
     const respuesta = await request.text();
-    if(respuesta == null){
+    if(respuesta == ""){
         disparoControl();
         disparoGobernadores();
         disparoCapitanes();
@@ -567,7 +567,7 @@ async function permitirActualizar(){
        body: JSON.stringify(datos)
     });
     const respuesta = await request.text();
-    if(respuesta == null){
+    if(respuesta == ""){
         disparoControl();
         disparoCapitanes();
     } else {

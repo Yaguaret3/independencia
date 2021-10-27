@@ -92,6 +92,7 @@ public class ControlDaoImp implements ControlDao{
         editado.setOficial_c(actualizacion.getOficial_c());
         editado.setOficial_d(actualizacion.getOficial_d());
         editado.setOficial_e(actualizacion.getOficial_e());
+        editado.setNivel_mision_comercial(actualizacion.getNivel_mision_comercial());
         entityManager.merge(editado);
     }
 
@@ -257,6 +258,8 @@ public class ControlDaoImp implements ControlDao{
     @Override
     public void repartirRecursos() {
 
+        OtrosModel turno = entityManager.find(OtrosModel.class, "turno");
+
         String[] ciudadesArray = {"Buenos Aires", "Montevideo", "Asunción", "Santa Fe", "Córdoba", "Mendoza", "Tucumán", "Salta",
                 "Potosí", "La Paz"};
 
@@ -311,7 +314,7 @@ public class ControlDaoImp implements ControlDao{
                                         }
                                     }
 
-                                    // Noveno: sumar recursos de mapa
+                                    // Noveno: sumar recursos de mapa y pasar turno en comercio
                                     ciudad.setCaballos(ciudad.getCaballos() + ciudad.getCaballos_m());
                                     ciudad.setCaballos_m(0);
                                     ciudad.setVacas(ciudad.getVacas() + ciudad.getVacas_m());
@@ -322,6 +325,10 @@ public class ControlDaoImp implements ControlDao{
                                     ciudad.setVino_m(0);
                                     ciudad.setYerba(ciudad.getYerba() + ciudad.getYerba_m());
                                     ciudad.setYerba_m(0);
+
+                                    // Noveno BIS: Pasar turno en String de Comercio
+
+                                    ciudad.setHistorial_comercial(ciudad.getHistorial_comercial() + "Turno " + turno.getValor());
 
                                     //Décimo: actualizar tabla
                                     entityManager.merge(ciudad);

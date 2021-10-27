@@ -246,7 +246,7 @@ async function aumentarEstatus(){
         body: JSON.stringify(datos)
     });
     const respuesta = await request.text();
-    if(respuesta == null){
+    if(respuesta == ""){
         disparoControl();
         disparoGobernadores();
     } else {
@@ -291,7 +291,7 @@ async function aumentarIndustria(){
         body: JSON.stringify(datos)
     });
     const respuesta = await request.text();
-    if(respuesta == null){
+    if(respuesta == ""){
         disparoControl();
         disparoGobernadores();
     } else {
@@ -336,7 +336,7 @@ async function aumentarMisionComercial(){
         body: JSON.stringify(datos)
       });
     const respuesta = await request.text();
-    if(respuesta == null){
+    if(respuesta == ""){
         disparoControl();
         disparoGobernadores();
         disparoCapitanes();
@@ -382,7 +382,7 @@ async function reclutarUnidades(){
         body: JSON.stringify(datos)
       });
       const respuesta = await request.text();
-      if(respuesta == null){
+      if(respuesta == ""){
           disparoControl();
           disparoGobernadores();
       } else {
@@ -429,7 +429,7 @@ async function contratarOficial(){
     body: JSON.stringify(datos)
     });
     const respuesta = await request.text();
-    if(respuesta == null){
+    if(respuesta == ""){
         disparoControl();
         disparoGobernadores();
     } else{
@@ -450,7 +450,7 @@ async function enviarUnidades(){
         },
     });
     const respuesta = await request.text();
-    if(respuesta == null){
+    if(respuesta == ""){
         disparoControl();
         disparoGobernadores();
         disparoCapitanes();
@@ -500,7 +500,7 @@ async function comerciar(){
     body: JSON.stringify(datos)
     });
     const respuesta = await request.text();
-    if(respuesta == null){
+    if(respuesta == ""){
         disparoControl();
         disparoGobernadores();
     } else {

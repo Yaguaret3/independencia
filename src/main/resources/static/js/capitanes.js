@@ -198,7 +198,7 @@ async function enviarMovimiento(){
         body: JSON.stringify(datos)
     });
     const respuesta = await request.text();
-    if(respuesta == null){
+    if(respuesta == ""){
         disparoControl();
     } else {
         alert(respuesta);
@@ -221,7 +221,7 @@ async function asignarUnidades(){
         body: JSON.stringify(datos)
     });
     const respuesta = await request.text();
-    if(respuesta == null){
+    if(respuesta == ""){
         disparoControl();
         disparoCapitanes();
 
