@@ -28,16 +28,19 @@ public class AuthController {
         if(usuarioALoguear != null){
             String token = jwtUtil.create(String.valueOf(usuarioALoguear.getRol()), usuarioALoguear.getCiudad());
             respuesta.setToken(token);
-            if(usuarioALoguear.getRol().equals("control")){
-                respuesta.setUrl("/control.html");
-            } else if(usuarioALoguear.getRol().equals("gobernador")){
-                respuesta.setUrl("/gobernadores.html");
-            } else if(usuarioALoguear.getRol().equals("capitan")){
-                respuesta.setUrl("/capitanes.html");
+            if(usuarioALoguear.getRol().equals("")){
+                respuesta.setToken("Error");
+                respuesta.setUrl("El usuario es válido, pero todavía no se le ha asignado rol. Por favor, contactá con MegaJuegos Argentina");
+            } else {
+                String url = "/"+usuarioALoguear.getRol();
+                respuesta.setUrl(url);
             }
-            return respuesta;
+
+        } else {
+            respuesta.setToken("Error");
+            respuesta.setUrl("Usuario no encontrado. Por favor, revisá las credenciales");
         }
-        return null;
+        return respuesta;
 
         /*String targetUrl = "";
         if(role.contains("client")) {

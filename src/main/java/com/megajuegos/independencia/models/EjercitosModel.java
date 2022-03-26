@@ -54,6 +54,8 @@ public class EjercitosModel {
     private String ciudades_aliadas;
     @Getter @Setter @Column(name = "asediada")
     private String asediada;
+    @Getter @Setter @Column(name = "ruta_a_usar")
+    private String ruta_a_usar;
     @Getter @Setter @Column(name = "nuevo_oficial_a")
     private Integer nuevo_oficial_a;
     @Getter @Setter @Column(name = "nuevo_oficial_b")
@@ -64,6 +66,4 @@ public class EjercitosModel {
     private Integer nuevo_oficial_d;
     @Getter @Setter @Column(name = "nuevo_oficial_e")
     private Integer nuevo_oficial_e;
-    @Getter @Setter @Column(name = "ruta_a_usar")
-    private String ruta_a_usar;
 }
